@@ -149,19 +149,20 @@ public class AccesoDepartamentos {
 
 
 
-	public static int eliminar(int codigo) throws IOException, ClassNotFoundException, SQLException {
+	public static int[] eliminar(int codigo) throws IOException, ClassNotFoundException, SQLException {
 
 		int filasEliminadas = 0;
+		int[] nums = {2};
 		conexion = DriverManager.getConnection("jdbc:sqlite:db\\personal.db");
 		try {
 			conexion.setAutoCommit(false);
 
 			String sentenciaEliminar = "delete from empleado where codigo_departamento="+codigo;
 			Statement sentencia = conexion.createStatement();
-			filasEliminadas = sentencia.executeUpdate(sentenciaEliminar);
+			nums[1]=sentencia.executeUpdate(sentenciaEliminar);
 			String sentenciaEliminardep = "delete from departamento where codigo="+codigo;
 			Statement sentencia1 = conexion.createStatement();
-			sentencia1.executeUpdate(sentenciaEliminardep);
+			nums[2]=sentencia1.executeUpdate(sentenciaEliminardep);
 			
 			conexion.commit();
 		}catch(SQLException sqle) {
@@ -174,6 +175,6 @@ public class AccesoDepartamentos {
 				conexion.close();
 			}
 		}
-		return filasEliminadas;
+		return nums;
 	}
 }
