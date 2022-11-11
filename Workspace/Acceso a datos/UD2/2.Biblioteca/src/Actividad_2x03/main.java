@@ -79,7 +79,7 @@ public class main {
 		String domicilio=Teclado.leerCadena("Dime el domicilio");
 		String telefono=Teclado.leerCadena("Dime el telefono");
 		String correo=Teclado.leerCadena("Dime el correo");
-		Socio socio = new Socio(dni,nombre,domicilio,telefono,correo);
+		Prestamo socio = new Prestamo(dni,nombre,domicilio,telefono,correo);
 		AccesoSocio.insertar(socio);
 		System.out.println("Se ha insertado un socio en la base de datos.");
 	}
@@ -98,11 +98,11 @@ public class main {
 	}
 
 	public static void consultarTodos() throws ClassNotFoundException, SQLException {
-		ArrayList<Socio> socios = AccesoSocio.consultarTodos();
+		ArrayList<Prestamo> socios = AccesoSocio.consultarTodos();
 		if(socios.size()==0) {
 			System.out.println("No se ha encontrado ningún socio en la base de datos.");
 		}else {
-			for(Socio socio: socios) {
+			for(Prestamo socio: socios) {
 				System.out.println(socio);
 			}
 			System.out.println("Se han consultado "+socios.size()+" socios de la base de datos");
@@ -111,11 +111,11 @@ public class main {
 	}
 	public static void consultarLocalidad() throws ClassNotFoundException, SQLException {
 		String localidad = Teclado.leerCadena("Dime la direccion de los socios");
-		ArrayList<Socio> socios = AccesoSocio.consultarLocalidad(localidad);
+		ArrayList<Prestamo> socios = AccesoSocio.consultarLocalidad(localidad);
 		if(socios.size()==0) {
 			System.out.println("No existe ningún socio con esa localidad en la base de datos.");
 		}else {
-			for(Socio socio: socios) {
+			for(Prestamo socio: socios) {
 				System.out.println(socio);
 			}
 			System.out.println("Se han consultado "+socios.size()+" socios de la base de datos");
@@ -124,11 +124,11 @@ public class main {
 	}
 
 	public static void consultarNoPrestamos() throws ClassNotFoundException, SQLException {
-		ArrayList<Socio> socios = AccesoSocio.consultarNoPrestamos();
+		ArrayList<Prestamo> socios = AccesoSocio.consultarNoPrestamos();
 		if(socios.size()==0) {
 			System.out.println("No existe ningún socio sin préstamos en la base de datos.");
 		}else {
-			for(Socio socio: socios) {
+			for(Prestamo socio: socios) {
 				System.out.println(socio);
 			}
 			System.out.println("Se han consultado "+socios.size()+" socios de la base de datos");
@@ -138,11 +138,11 @@ public class main {
 	
 	public static void consultarConPrestamos() throws ClassNotFoundException, SQLException {
 		int fecha_inicio = Teclado.leerEntero("Dime la fecha de inicio de los prestamos");
-		ArrayList<Socio> socios = AccesoSocio.consultarConPrestamos(fecha_inicio);
+		ArrayList<Prestamo> socios = AccesoSocio.consultarConPrestamos(fecha_inicio);
 		if(socios.size()==0) {
 			System.out.println("No existe ningún socio con préstamos en esa fecha en la base de datos.");
 		}else {
-			for(Socio socio: socios) {
+			for(Prestamo socio: socios) {
 				System.out.println(socio);
 			}
 			System.out.println("Se han consultado "+socios.size()+" socios de la base de datos");

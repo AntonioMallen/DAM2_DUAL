@@ -15,7 +15,7 @@ public class AccesoSocio {
 	static Connection conexion = null;
 	private static String direccion="jdbc:sqlite:db\\biblioteca.db";
 
-	public static void insertar(Socio socio) throws SQLException, ClassNotFoundException {
+	public static void insertar(Prestamo socio) throws SQLException, ClassNotFoundException {
 		Class.forName("org.sqlite.JDBC");
 		SQLiteConfig config = new SQLiteConfig();  
         config.enforceForeignKeys(true);
@@ -56,9 +56,9 @@ public class AccesoSocio {
 	}
 	
 
-	public static ArrayList<Socio> consultarTodos() 
+	public static ArrayList<Prestamo> consultarTodos() 
 			throws ClassNotFoundException, SQLException {
-		ArrayList<Socio> listaSocios = new ArrayList<Socio>();
+		ArrayList<Prestamo> listaSocios = new ArrayList<Prestamo>();
 		try {
 			Class.forName("org.sqlite.JDBC");
 			conexion = DriverManager.getConnection(direccion);
@@ -66,8 +66,8 @@ public class AccesoSocio {
 			Statement sentencia = conexion.createStatement();
 			ResultSet resultados = sentencia.executeQuery(sentenciaConsultar);	
 			while (resultados.next()) {
-				Socio socio = 
-						new Socio(resultados.getInt("codigo"),
+				Prestamo socio = 
+						new Prestamo(resultados.getInt("codigo"),
 								resultados.getString("dni"),
 								resultados.getString("nombre"),
 								resultados.getString("domicilio"),
@@ -85,9 +85,9 @@ public class AccesoSocio {
 		return listaSocios;
 	}
 	
-	public static ArrayList<Socio> consultarLocalidad(String localidad ) 
+	public static ArrayList<Prestamo> consultarLocalidad(String localidad ) 
 			throws ClassNotFoundException, SQLException {
-		ArrayList<Socio> listaSocios = new ArrayList<Socio>();
+		ArrayList<Prestamo> listaSocios = new ArrayList<Prestamo>();
 		try {
 			Class.forName("org.sqlite.JDBC");
 			conexion = DriverManager.getConnection(direccion);
@@ -95,8 +95,8 @@ public class AccesoSocio {
 			Statement sentencia = conexion.createStatement();
 			ResultSet resultados = sentencia.executeQuery(sentenciaConsultar);	
 			while (resultados.next()) {
-				Socio socio = 
-						new Socio(resultados.getInt("codigo"),
+				Prestamo socio = 
+						new Prestamo(resultados.getInt("codigo"),
 								resultados.getString("dni"),
 								resultados.getString("nombre"),
 								resultados.getString("domicilio"),
@@ -115,9 +115,9 @@ public class AccesoSocio {
 	}
 	
 	
-	public static ArrayList<Socio> consultarNoPrestamos() 
+	public static ArrayList<Prestamo> consultarNoPrestamos() 
 			throws ClassNotFoundException, SQLException {
-		ArrayList<Socio> listaSocios = new ArrayList<Socio>();
+		ArrayList<Prestamo> listaSocios = new ArrayList<Prestamo>();
 		try {
 			Class.forName("org.sqlite.JDBC");
 			conexion = DriverManager.getConnection(direccion);
@@ -125,8 +125,8 @@ public class AccesoSocio {
 			Statement sentencia = conexion.createStatement();
 			ResultSet resultados = sentencia.executeQuery(sentenciaConsultar);	
 			while (resultados.next()) {
-				Socio socio = 
-						new Socio(resultados.getInt("codigo"),
+				Prestamo socio = 
+						new Prestamo(resultados.getInt("codigo"),
 								resultados.getString("dni"),
 								resultados.getString("nombre"),
 								resultados.getString("domicilio"),
@@ -143,9 +143,9 @@ public class AccesoSocio {
 		}
 		return listaSocios;
 	}
-	public static ArrayList<Socio> consultarConPrestamos(int fecha) 
+	public static ArrayList<Prestamo> consultarConPrestamos(int fecha) 
 			throws ClassNotFoundException, SQLException {
-		ArrayList<Socio> listaSocios = new ArrayList<Socio>();
+		ArrayList<Prestamo> listaSocios = new ArrayList<Prestamo>();
 		try {
 			Class.forName("org.sqlite.JDBC");
 			conexion = DriverManager.getConnection(direccion);
@@ -156,8 +156,8 @@ public class AccesoSocio {
 			Statement sentencia = conexion.createStatement();
 			ResultSet resultados = sentencia.executeQuery(sentenciaConsultar);	
 			while (resultados.next()) {
-				Socio socio = 
-						new Socio(resultados.getInt("codigo"),
+				Prestamo socio = 
+						new Prestamo(resultados.getInt("codigo"),
 								resultados.getString("dni"),
 								resultados.getString("nombre"),
 								resultados.getString("domicilio"),
