@@ -1,0 +1,211 @@
+package Actividad3x01;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+import java.io.IOException;
+import java.io.ObjectOutputStream;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.swing.text.html.HTMLDocument.Iterator;
+
+import org.sqlite.SQLiteConfig;
+
+public class AccesoDepartamentos {
+
+	static Connection conexion = null;
+
+	public static int insertarDepartamentos() throws SQLException, ClassNotFoundException, IOException {
+		Class.forName("org.sqlite.JDBC");
+		int contador=0;
+		try {
+			
+			BufferedReader entrada = null;
+			ArrayList<Departamento> deps = new ArrayList<Departamento>();
+			File archivo = new File("data\\departamento.txt");
+			archivo.createNewFile(); // si ya existe no hace nada
+			entrada = new BufferedReader(new FileReader(archivo));
+			String linea = entrada.readLine();
+			
+			while (linea != null) { 
+				String aux[];
+				aux=linea.split(";");
+				Departamento d = new Departamento(aux[0],aux[1]);
+				deps.add(d);
+				linea = entrada.readLine();
+			}
+			entrada.close();
+
+			conexion = DriverManager.getConnection("jdbc:sqlite:db\\personal.db"); 
+			
+			try {
+				conexion.setAutoCommit(false);
+				String sentenciaInsertar = "INSERT INTO departamento(nombre, ubicacion) VALUES (?, ?)";
+				PreparedStatement sentencia =conexion.prepareStatement(sentenciaInsertar);
+				for(Departamento d: deps) {
+					sentencia.setString(1, d.getNombre());
+					sentencia.setString(2, d.getUbicacion());
+					contador+=sentencia.executeUpdate();
+				}
+				conexion.commit();
+			}catch(SQLException sqle) {
+				if(conexion!=null) {
+					conexion.rollback();
+				}
+				throw sqle;
+			}
+		}finally {
+			if(conexion!=null) {
+				conexion.close();
+			}
+		}
+		return contador;
+	}
+
+	public static int insertarEmpleados(String fecha_alta) throws SQLException, ClassNotFoundException, IOException {
+		Class.forName("org.sqlite.JDBC");
+		int contador=0;
+		try {
+
+			BufferedReader entrada = null;
+			ArrayList<Empleado> emps = new ArrayList<Empleado>();
+			File archivo = new File("data\\empleado.txt");
+			archivo.createNewFile(); // si ya existe no hace nada
+			entrada = new BufferedReader(new FileReader(archivo));
+
+			String linea = entrada.readLine();
+
+			while (linea != null) { 
+				String aux[];
+				aux=linea.split(";");
+
+				Empleado e = new Empleado(aux[1],fecha_alta,Double.parseDouble(aux[2]),Integer.parseInt(aux[0]));
+				emps.add(e);
+				System.out.println(e);
+				linea = entrada.readLine();
+				
+			}
+			entrada.close();
+
+			conexion = DriverManager.getConnection("jdbc:sqlite:db\\personal.db"); 
+			
+			try {
+				conexion.setAutoCommit(false);
+				String sentenciaInsertar = "INSERT INTO empleado(nombre, salario, codigo_departamento, fecha_alta) VALUES (?, ?, ?, ?)";
+				PreparedStatement sentencia =conexion.prepareStatement(sentenciaInsertar);
+				for(Empleado e: emps) {
+					sentencia.setString(1, e.getNombre());
+					sentencia.setDouble(2, e.getSalario());
+					sentencia.setInt(3, e.getCodigo_departamento());
+					sentencia.setString(4, fecha_alta);
+					contador+=sentencia.executeUpdate();
+				}
+				conexion.commit();
+			}catch(SQLException sqle) {
+				if(conexion!=null) {
+					conexion.rollback();
+				}
+				throw sqle;
+			}
+		}finally {
+			if(conexion!=null) {
+				conexion.close();
+			}
+		}
+		return contador;
+	}
+
+	public static ArrayList<Departamento> consultarTodos() 
+			throws ClassNotFoundException, SQLException {
+		ArrayList<Departamento> listaDepartamentos = new ArrayList<Departamento>();
+		try {
+			Class.forName("org.sqlite.JDBC");
+			conexion = DriverManager.getConnection("jdbc:sqlite:db\\personal.db");
+			String sentenciaConsultar = "SELECT * FROM departamento";
+			Statement sentencia = conexion.createStatement();
+			ResultSet resultados = sentencia.executeQuery(sentenciaConsultar);	
+			while (resultados.next()) {
+				Departamento departamento = 
+						new Departamento(resultados.getInt("codigo"),
+								resultados.getString("nombre"),
+								resultados.getString("ubicacion"));
+				listaDepartamentos.add(departamento);
+			}
+			resultados.close();
+			sentencia.close();
+		}finally {
+			if (conexion != null) {
+				conexion.close();
+			}
+		}
+		return listaDepartamentos;
+	}
+
+
+	public static Departamento comprobar(int codigo) throws IOException, ClassNotFoundException, SQLException {
+		ArrayList<Departamento> deps = consultarTodos();
+		for(Departamento d: deps) {
+			if(d.getCodigo()==codigo) {
+				return d;
+			}
+		}
+		return null;
+	}
+
+	public static void actualizar(Departamento dep) throws IOException, ClassNotFoundException, SQLException {
+		ArrayList<Departamento> deps = consultarTodos();
+		conexion = DriverManager.getConnection("jdbc:sqlite:db\\personal.db");
+		Statement sentencia = conexion.createStatement();
+		try {
+			for(Departamento dep1: deps) {
+				if(dep1.getCodigo()==dep.getCodigo()) {
+					Class.forName("org.sqlite.JDBC");
+
+					String sentenciaActualizar = "UPDATE departamento " +
+							"SET nombre = '" + dep.getNombre() + 
+							"', ubicacion = '" + dep.getUbicacion() + "' " +
+							"WHERE codigo = " + dep.getCodigo();
+
+					sentencia.executeUpdate(sentenciaActualizar);
+
+				}
+			}
+		}finally {
+			sentencia.close();
+			conexion.close();
+		}
+	}
+
+
+
+
+	public static void eliminar(int codigo) throws IOException, ClassNotFoundException, SQLException {
+
+		try {
+			Class.forName("org.sqlite.JDBC");
+			SQLiteConfig config = new SQLiteConfig();  
+			config.enforceForeignKeys(true); // Con esto no te deja eliminar un dep aunque tenga dentro empleados
+			conexion = DriverManager.getConnection("jdbc:sqlite:db\\personal.db",config.toProperties());
+
+			String sentenciaEliminar = "DELETE FROM departamento " +
+					"WHERE codigo = " + codigo;
+			Statement sentencia = conexion.createStatement();
+			sentencia.executeUpdate(sentenciaEliminar);
+
+
+		}finally {
+
+			if (conexion != null) {
+				conexion.close();
+			}
+
+		}
+
+	}
+}

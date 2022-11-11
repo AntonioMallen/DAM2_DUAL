@@ -1,0 +1,6 @@
+2;Pablo García;1503.25
+2;María Martínez;1857.72
+4;Jorge Marín;1613.07
+4;Isabel Serrano;1950.50
+6;Francisco Ruiz;1742.66
+6;Pilar Navarro;2079.84

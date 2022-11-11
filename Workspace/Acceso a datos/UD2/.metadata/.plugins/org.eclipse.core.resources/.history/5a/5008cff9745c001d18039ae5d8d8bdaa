@@ -1,0 +1,12 @@
+package Actividad_2x01;
+
+public class libro {
+	private String codigo;
+	private String isbn;
+	private String titulo;
+	private String escritor;
+	private int ano_publicacion;
+	private double puntuacion;
+	
+	
+}
