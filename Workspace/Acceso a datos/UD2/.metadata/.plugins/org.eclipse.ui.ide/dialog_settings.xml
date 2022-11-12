@@ -6,6 +6,7 @@
 		<item key="SmartImportRootWizardPage.STORE_NESTED_PROJECTS" value="true"/>
 		<item key="SmartImportRootWizardPage.STORE_CONFIGURE_NATURES" value="true"/>
 		<list key="org.eclipse.ui.internal.wizards.datatransfer.SmartImportRootWizardPage.knownSources">
+			<item value="B:\DAM2_DUAL\Workspace\Acceso a datos\UD2"/>
 			<item value="D:\Documentos\DAM2_DUAL\Workspace\Acceso a datos\UD2"/>
 			<item value="D:\Documentos\Workspace\Acceso a datos\UD2\UD11 - Ejemplos Base Datos Relacional"/>
 		</list>

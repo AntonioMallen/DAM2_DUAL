@@ -135,7 +135,7 @@ public class main {
 		}
 	}
 	public static void consultarFecha() throws ClassNotFoundException, SQLException {
-		int fecha=Teclado.leerEntero("Dime la fecha de los libros a consultar");
+		String fecha=Teclado.leerCadena("Dime la fecha de los libros a consultar");
 		ArrayList<Libro> libros = AccesoLibro.consultarFecha(fecha);
 		if(libros.size()==0) {
 			System.out.println("No existe ningún libro devuelto en esa fecha en la base de datos.");

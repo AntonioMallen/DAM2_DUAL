@@ -143,7 +143,7 @@ public class AccesoLibro {
 		return listaLibros;
 	}
 	
-	public static ArrayList<Libro> consultarFecha(int fecha) 
+	public static ArrayList<Libro> consultarFecha(String fecha) 
 			throws ClassNotFoundException, SQLException {
 		ArrayList<Libro> listaLibros = new ArrayList<Libro>();
 		try {

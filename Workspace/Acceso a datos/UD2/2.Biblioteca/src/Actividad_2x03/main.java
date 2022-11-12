@@ -16,12 +16,13 @@ public class main {
 	 */
 	public static String texto() {
 		return 	  "0. Salir del programa. \n"
-				+ "1. Insertar un socio en la base de datos.\n"
-				+ "2. Eliminar un socio, por código, de la base de datos\n"
-				+ "3. Consultar todos los socios de la base de datos.\n"
-				+ "4. Consultar varios socios, por localidad, de la base de datos, ordenados por nombre ascendente\n"
-				+ "5. Consultar los socios sin préstamos de la base de datos\n"
-				+ "6. Consultar los socios con préstamos en una fecha de la base de datos.";
+				+ "1. Insertar un préstamo en la base de datos\n"
+				+ "2. Actualizar un préstamo, por datos identificativos, de la base de datos\n"
+				+ "3. Eliminar un préstamo, por datos identificativos, de la base de datos.\n"
+				+ "4. Consultar todos los préstamos de la base de datos.\n"
+				+ "5. Consultar los préstamos no devueltos de la base de datos.\n"
+				+ "6. Consultar DNI y nombre de socio, ISBN y título de libro y fecha de devolución de los"
+				+ "préstamos realizados en una fecha de la base de datos.";
 	}
 
 	/**
@@ -42,20 +43,20 @@ public class main {
 					break;
 
 				case 2:
-					eliminar();
+					actualizar();
 					break;
 
 				case 3:
-					consultarTodos();
+
 					break;
 				case 4:
-					consultarLocalidad();
+
 					break;
 				case 5:
-					consultarNoPrestamos();
+
 					break;
 				case 6:
-					consultarConPrestamos();
+
 					break;
 				default:
 					System.out.println("La opcion de menu debe estar comprendida entre 0 y 5.");
@@ -65,25 +66,43 @@ public class main {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (SQLException e) {
+			System.err.println("Uno o varios de los codigos no existen dentro de la base de datos");
+		}/*catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		}*/
 	}
 
 	public static void insertar() throws ClassNotFoundException, SQLException {
-		String dni=Teclado.leerCadena("Dime el DNI");
-		String nombre=Teclado.leerCadena("Dime el nombre");
-		String domicilio=Teclado.leerCadena("Dime el domicilio");
-		String telefono=Teclado.leerCadena("Dime el telefono");
-		String correo=Teclado.leerCadena("Dime el correo");
-		Prestamo socio = new Prestamo(dni,nombre,domicilio,telefono,correo);
-		AccesoSocio.insertar(socio);
-		System.out.println("Se ha insertado un socio en la base de datos.");
-	}
+		int codigo_libro=Teclado.leerEntero("Dime el codigo del libro");
+		// comprobar que el libro no esta prestado
+		// select * from prestamo where codigo_libro=prestamo.getCodigo && prestamo.getCodigo_dev!=null
+		int codigo_socio=Teclado.leerEntero("Dime el codigo del socio");
+		// comprobar que el socio no ha prestado ningun libro antes
+		// select * from prestamo where codigo_socio=prestamo.getCodigo && fecha_devolucion not between fecha inicio and fecha final
+		String fecha_inicio=Teclado.leerCadena("Dime la fecha de inicio");
+		String fecha_fin=Teclado.leerCadena("Dime la fecha de fin");
+		String fecha_devolucion=Teclado.leerCadena("Dime la fecha de devolucion");
+		Prestamo prestamo = new Prestamo(codigo_libro,codigo_socio,fecha_inicio,fecha_fin,fecha_devolucion);
+		if(!AccesoPrestamo.comprobarLibro(prestamo)) {	// se pone negado ya que devuelve true si existe alguno
+			if(!AccesoPrestamo.comprobarSocio(prestamo)) {
+				AccesoPrestamo.insertar(prestamo);
+				System.out.println("Se ha insertado un socio en la base de datos.");
+			}else {
+				System.out.println("Se ha prestado un libro a ese socio y éste aún no lo ha devuelto.");
+			}
+		}else {
+			System.out.println("Se ha prestado ese libro a un socio y éste aún no lo ha devuelto.");
+		}
 
+	}
+	
+	public static void actualizar() {
+		
+	}
+	
+	
+	/*
 	public static void eliminar() throws ClassNotFoundException, IOException, SQLException{
 		try{
 			int codigo = Teclado.leerEntero("Dime el codigo del socio");
@@ -109,45 +128,6 @@ public class main {
 		}
 
 	}
-	public static void consultarLocalidad() throws ClassNotFoundException, SQLException {
-		String localidad = Teclado.leerCadena("Dime la direccion de los socios");
-		ArrayList<Prestamo> socios = AccesoSocio.consultarLocalidad(localidad);
-		if(socios.size()==0) {
-			System.out.println("No existe ningún socio con esa localidad en la base de datos.");
-		}else {
-			for(Prestamo socio: socios) {
-				System.out.println(socio);
-			}
-			System.out.println("Se han consultado "+socios.size()+" socios de la base de datos");
-		}
-
-	}
-
-	public static void consultarNoPrestamos() throws ClassNotFoundException, SQLException {
-		ArrayList<Prestamo> socios = AccesoSocio.consultarNoPrestamos();
-		if(socios.size()==0) {
-			System.out.println("No existe ningún socio sin préstamos en la base de datos.");
-		}else {
-			for(Prestamo socio: socios) {
-				System.out.println(socio);
-			}
-			System.out.println("Se han consultado "+socios.size()+" socios de la base de datos");
-		}
-
-	}
 	
-	public static void consultarConPrestamos() throws ClassNotFoundException, SQLException {
-		int fecha_inicio = Teclado.leerEntero("Dime la fecha de inicio de los prestamos");
-		ArrayList<Prestamo> socios = AccesoSocio.consultarConPrestamos(fecha_inicio);
-		if(socios.size()==0) {
-			System.out.println("No existe ningún socio con préstamos en esa fecha en la base de datos.");
-		}else {
-			for(Prestamo socio: socios) {
-				System.out.println(socio);
-			}
-			System.out.println("Se han consultado "+socios.size()+" socios de la base de datos");
-		}
-
-	}
-	
+	 */	
 }
