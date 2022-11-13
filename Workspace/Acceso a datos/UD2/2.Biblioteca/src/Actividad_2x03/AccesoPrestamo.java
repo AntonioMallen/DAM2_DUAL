@@ -22,7 +22,8 @@ public class AccesoPrestamo {
 		try {
 			Class.forName("org.sqlite.JDBC");
 			conexion = DriverManager.getConnection(direccion);
-			String sentenciaConsultar = "select * from prestamo where codigo_libro="+prestamo.getCodigo_libro();
+			String sentenciaConsultar = "select * from prestamo where codigo_libro="+prestamo.getCodigo_libro() 
+				+" and fecha_devolucion = 'null'";
 			System.out.println(sentenciaConsultar);
 			Statement sentencia = conexion.createStatement();
 			ResultSet resultados = sentencia.executeQuery(sentenciaConsultar);	
@@ -31,7 +32,8 @@ public class AccesoPrestamo {
 						new Prestamo(resultados.getInt("codigo_libro"),
 								resultados.getInt("codigo_socio"),
 								resultados.getString("fecha_inicio"),
-								resultados.getString("fecha_fin"));
+								resultados.getString("fecha_fin"),
+								resultados.getString("fecha_devolucion"));
 				System.out.println(prestamo1);
 				listaPrestamos.add(prestamo1);
 			}
@@ -55,7 +57,8 @@ public class AccesoPrestamo {
 		try {
 			Class.forName("org.sqlite.JDBC");
 			conexion = DriverManager.getConnection(direccion);
-			String sentenciaConsultar = "select * from prestamo where codigo_socio="+prestamo.getCodigo_socio();
+			String sentenciaConsultar = "select * from prestamo where codigo_socio="+prestamo.getCodigo_socio()
+				+" and fecha_devolucion = 'null'";
 			Statement sentencia = conexion.createStatement();
 			ResultSet resultados = sentencia.executeQuery(sentenciaConsultar);	
 
@@ -64,7 +67,8 @@ public class AccesoPrestamo {
 						new Prestamo(resultados.getInt("codigo_libro"),
 								resultados.getInt("codigo_socio"),
 								resultados.getString("fecha_inicio"),
-								resultados.getString("fecha_fin"));
+								resultados.getString("fecha_fin"),
+								resultados.getString("fecha_devolucion"));
 				listaPrestamos.add(prestamo1);
 			}
 			resultados.close();
