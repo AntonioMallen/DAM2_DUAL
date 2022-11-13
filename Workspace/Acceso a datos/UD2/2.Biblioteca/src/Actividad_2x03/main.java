@@ -47,16 +47,16 @@ public class main {
 					break;
 
 				case 3:
-
+					eliminar();
 					break;
 				case 4:
-
+					consultarTodos();
 					break;
 				case 5:
-
+					consultarNoDevueltos();
 					break;
 				case 6:
-
+					consultarFecha();
 					break;
 				default:
 					System.out.println("La opcion de menu debe estar comprendida entre 0 y 5.");
@@ -67,10 +67,10 @@ public class main {
 			e.printStackTrace();
 		} catch (SQLException e) {
 			System.err.println("Uno o varios de los codigos no existen dentro de la base de datos");
-		}/*catch (IOException e) {
+		}catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}*/
+		}
 	}
 
 	public static void insertar() throws ClassNotFoundException, SQLException {
@@ -82,8 +82,7 @@ public class main {
 		// select * from prestamo where codigo_socio=prestamo.getCodigo && fecha_devolucion not between fecha inicio and fecha final
 		String fecha_inicio=Teclado.leerCadena("Dime la fecha de inicio");
 		String fecha_fin=Teclado.leerCadena("Dime la fecha de fin");
-		String fecha_devolucion=Teclado.leerCadena("Dime la fecha de devolucion");
-		Prestamo prestamo = new Prestamo(codigo_libro,codigo_socio,fecha_inicio,fecha_fin,fecha_devolucion);
+		Prestamo prestamo = new Prestamo(codigo_libro,codigo_socio,fecha_inicio,fecha_fin);
 		if(!AccesoPrestamo.comprobarLibro(prestamo)) {	// se pone negado ya que devuelve true si existe alguno
 			if(!AccesoPrestamo.comprobarSocio(prestamo)) {
 				AccesoPrestamo.insertar(prestamo);
@@ -97,37 +96,68 @@ public class main {
 
 	}
 	
-	public static void actualizar() {
-		
+	public static void actualizar() throws ClassNotFoundException, IOException, SQLException {
+		int codigo_libro=Teclado.leerEntero("Dime el codigo del libro");
+		int codigo_socio=Teclado.leerEntero("Dime el codigo del socio");
+		String fecha_inicio=Teclado.leerCadena("Dime la fecha de inicio");
+		String fecha_devolucion=Teclado.leerCadena("Dime la nueva fecha de devolucion");
+		Prestamo prestamo = new Prestamo(codigo_libro,fecha_devolucion,codigo_socio,fecha_inicio);
+		AccesoPrestamo.actualizar(prestamo);
 	}
 	
 	
-	/*
+	
 	public static void eliminar() throws ClassNotFoundException, IOException, SQLException{
-		try{
-			int codigo = Teclado.leerEntero("Dime el codigo del socio");
-			if(AccesoSocio.eliminar(codigo)!=0) {
-				System.out.println("Se ha eliminado un socio de la base de datos.");
+			int codigo_libro=Teclado.leerEntero("Dime el codigo del libro");
+			int codigo_socio=Teclado.leerEntero("Dime el codigo del socio");
+			String fecha_inicio=Teclado.leerCadena("Dime la fecha de inicio");
+			int cantidad = AccesoPrestamo.eliminar(codigo_libro,codigo_socio,fecha_inicio);
+			if(cantidad>0) {
+				System.out.println("Se ha eliminado un préstamo de la base de datos.");
 			}else {
-				System.out.println("No existe ningún socio con ese código en la base de datos.");
+				System.out.println("No existe ningún préstamo con esos datos identificativos en la base de"
+						+ "datos.");
 			}
-		}catch (SQLiteException SQLE){
-			System.err.println("El socio está referenciado en un préstamo de la base de datos.");
-		}
 	}
 
 	public static void consultarTodos() throws ClassNotFoundException, SQLException {
-		ArrayList<Prestamo> socios = AccesoSocio.consultarTodos();
-		if(socios.size()==0) {
-			System.out.println("No se ha encontrado ningún socio en la base de datos.");
+		ArrayList<Prestamo> prestamos = AccesoPrestamo.consultarTodos();
+		if(prestamos.size()==0) {
+			System.out.println("No se ha encontrado ningún préstamo en la base de datos.");
 		}else {
-			for(Prestamo socio: socios) {
+			for(Prestamo socio: prestamos) {
 				System.out.println(socio);
 			}
-			System.out.println("Se han consultado "+socios.size()+" socios de la base de datos");
+			System.out.println("Se han consultado "+prestamos.size()+" préstamos de la base de datos");
+		}
+
+	}
+	public static void consultarNoDevueltos() throws ClassNotFoundException, SQLException {
+		ArrayList<Prestamo> prestamos = AccesoPrestamo.consultarNoDevueltos();
+		if(prestamos.size()==0) {
+			System.out.println("No existe ningún préstamo no devuelto en la base de datos.");
+		}else {
+			for(Prestamo socio: prestamos) {
+				System.out.println(socio);
+			}
+			System.out.println("Se han consultado "+prestamos.size()+" préstamos de la base de datos");
 		}
 
 	}
 	
-	 */	
+	public static void consultarFecha() throws ClassNotFoundException, SQLException {
+		String fecha_inicio=Teclado.leerCadena("Dime la fecha de inicio");
+		ArrayList<String> prestamos = AccesoPrestamo.consultarFecha(fecha_inicio);
+		if(prestamos.size()==0) {
+			System.out.println("No existe ningún préstamo no devuelto en la base de datos.");
+		}else {
+			for(String socio: prestamos) {
+				System.out.println(socio);
+			}
+			System.out.println("Se han consultado "+prestamos.size()+" préstamos de la base de datos");
+		}
+
+	}
+	
+	 
 }

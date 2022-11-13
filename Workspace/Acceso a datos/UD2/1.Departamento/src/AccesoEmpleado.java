@@ -17,7 +17,7 @@ public class AccesoEmpleado {
 	public static void insertar(Empleado emp) throws SQLException, ClassNotFoundException {
 		Class.forName("org.sqlite.JDBC");
 		SQLiteConfig config = new SQLiteConfig();  
-        config.enforceForeignKeys(true);
+		config.enforceForeignKeys(true);
 		try {
 			conexion = DriverManager.getConnection("jdbc:sqlite:db\\personal.db",config.toProperties());
 			Statement sentencia = conexion.createStatement();
@@ -28,9 +28,9 @@ public class AccesoEmpleado {
 			String sentenciaInsertar = "INSERT INTO empleado (nombre, salario, fecha_alta, codigo_departamento)" +
 					"VALUES ('" + nombre + 
 					"', '" + salario + "'"
-				   +", '" + fecha_alta + "'"
-				   +", '" + codigo_departamento + "')";
-			
+					+", '" + fecha_alta + "'"
+					+", '" + codigo_departamento + "')";
+
 			sentencia.executeUpdate(sentenciaInsertar);
 		}finally {
 			conexion.close();
@@ -83,22 +83,21 @@ public class AccesoEmpleado {
 		conexion = DriverManager.getConnection("jdbc:sqlite:db\\personal.db",config.toProperties());
 		Statement sentencia = conexion.createStatement();
 		try {
-		
-				Class.forName("org.sqlite.JDBC");
-				String sentenciaActualizar = "UPDATE empleado " +
-				                             "SET nombre = '" + emp.getNombre() + 
-				                             "', codigo_departamento = '" + emp.getCodigo_departamento() + "' "+
-				                             ", fecha_alta = '" + emp.getFecha_alta() + "'  " +
-				                             ", salario = " + emp.getSalario() + "  " +
-				                             "WHERE codigo = " + emp.getCodigo();
-				System.out.println(sentenciaActualizar);
-				sentencia.executeUpdate(sentenciaActualizar);
-			
-			
-		
-	}finally {
-		conexion.close();
-	}
+
+			Class.forName("org.sqlite.JDBC");
+			String sentenciaActualizar = "UPDATE empleado " +
+					"SET nombre = '" + emp.getNombre() + 
+					"', codigo_departamento = '" + emp.getCodigo_departamento() + "' "+
+					", fecha_alta = '" + emp.getFecha_alta() + "'  " +
+					", salario = " + emp.getSalario() + "  " +
+					"WHERE codigo = " + emp.getCodigo();
+			sentencia.executeUpdate(sentenciaActualizar);
+
+
+
+		}finally {
+			conexion.close();
+		}
 	}
 
 
@@ -108,11 +107,11 @@ public class AccesoEmpleado {
 		try {
 			Class.forName("org.sqlite.JDBC");
 			SQLiteConfig config = new SQLiteConfig();  
-	        config.enforceForeignKeys(true); // Con esto no te deja eliminar un dep aunque tenga dentro empleados
+			config.enforceForeignKeys(true); // Con esto no te deja eliminar un dep aunque tenga dentro empleados
 			conexion = DriverManager.getConnection("jdbc:sqlite:db\\personal.db",config.toProperties());
-			
+
 			String sentenciaEliminar = "DELETE FROM empleado WHERE codigo = "+codigo;
-			
+
 			Statement sentencia = conexion.createStatement();
 			return sentencia.executeUpdate(sentenciaEliminar);
 
@@ -122,7 +121,7 @@ public class AccesoEmpleado {
 				conexion.close();
 			}
 		}
-		
+
 	}
-	
+
 }

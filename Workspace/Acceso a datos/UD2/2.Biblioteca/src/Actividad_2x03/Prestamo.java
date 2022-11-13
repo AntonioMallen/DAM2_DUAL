@@ -17,6 +17,13 @@ public class Prestamo {
 		this.fecha_fin = fecha_fin;
 		this.fecha_devolucion = fecha_devolucion;
 	}
+	public Prestamo(int codigo_libro,String fecha_devolucion, int codigo_socio, String fecha_inicio) {
+		super();
+		this.codigo_libro = codigo_libro;
+		this.codigo_socio = codigo_socio;
+		this.fecha_inicio = fecha_inicio;
+		this.fecha_devolucion = fecha_devolucion;
+	}
 	
 	public Prestamo(int codigo_libro, int codigo_socio, String fecha_inicio, String fecha_fin) {
 		super();
