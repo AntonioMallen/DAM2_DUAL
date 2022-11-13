@@ -16,15 +16,14 @@ public class AccesoPrestamo {
 	static Connection conexion = null;
 	private static String direccion="jdbc:sqlite:db\\biblioteca.db";
 
-	public static boolean comprobarLibro(Prestamo prestamo) throws SQLException, ClassNotFoundException {
+	public static boolean comprobarLibro(int codigo_libro) throws SQLException, ClassNotFoundException {
 		ArrayList<Prestamo> listaPrestamos = new ArrayList<Prestamo>();
 		boolean existen=false;
 		try {
 			Class.forName("org.sqlite.JDBC");
 			conexion = DriverManager.getConnection(direccion);
-			String sentenciaConsultar = "select * from prestamo where codigo_libro="+prestamo.getCodigo_libro() 
+			String sentenciaConsultar = "select * from prestamo where codigo_libro="+ codigo_libro
 				+" and fecha_devolucion = 'null'";
-			System.out.println(sentenciaConsultar);
 			Statement sentencia = conexion.createStatement();
 			ResultSet resultados = sentencia.executeQuery(sentenciaConsultar);	
 			while (resultados.next()) {
@@ -34,7 +33,6 @@ public class AccesoPrestamo {
 								resultados.getString("fecha_inicio"),
 								resultados.getString("fecha_fin"),
 								resultados.getString("fecha_devolucion"));
-				System.out.println(prestamo1);
 				listaPrestamos.add(prestamo1);
 			}
 			resultados.close();
@@ -50,14 +48,15 @@ public class AccesoPrestamo {
 
 		return existen;
 	}
-
-	public static boolean comprobarSocio(Prestamo prestamo) throws SQLException, ClassNotFoundException {
+	
+	
+	public static boolean comprobarSocio(int codigo_socio) throws SQLException, ClassNotFoundException {
 		ArrayList<Prestamo> listaPrestamos = new ArrayList<Prestamo>();
 		boolean existen=false;
 		try {
 			Class.forName("org.sqlite.JDBC");
 			conexion = DriverManager.getConnection(direccion);
-			String sentenciaConsultar = "select * from prestamo where codigo_socio="+prestamo.getCodigo_socio()
+			String sentenciaConsultar = "select * from prestamo where codigo_socio="+codigo_socio
 				+" and fecha_devolucion = 'null'";
 			Statement sentencia = conexion.createStatement();
 			ResultSet resultados = sentencia.executeQuery(sentenciaConsultar);	

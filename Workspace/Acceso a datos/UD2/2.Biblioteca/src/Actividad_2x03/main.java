@@ -75,16 +75,12 @@ public class main {
 
 	public static void insertar() throws ClassNotFoundException, SQLException {
 		int codigo_libro=Teclado.leerEntero("Dime el codigo del libro");
-		// comprobar que el libro no esta prestado
-		// select * from prestamo where codigo_libro=prestamo.getCodigo && prestamo.getCodigo_dev!=null
-		int codigo_socio=Teclado.leerEntero("Dime el codigo del socio");
-		// comprobar que el socio no ha prestado ningun libro antes
-		// select * from prestamo where codigo_socio=prestamo.getCodigo && fecha_devolucion not between fecha inicio and fecha final
-		String fecha_inicio=Teclado.leerCadena("Dime la fecha de inicio");
-		String fecha_fin=Teclado.leerCadena("Dime la fecha de fin");
-		Prestamo prestamo = new Prestamo(codigo_libro,codigo_socio,fecha_inicio,fecha_fin);
-		if(!AccesoPrestamo.comprobarLibro(prestamo)) {	// se pone negado ya que devuelve true si existe alguno
-			if(!AccesoPrestamo.comprobarSocio(prestamo)) {
+		if(!AccesoPrestamo.comprobarLibro(codigo_libro)) {	// se pone negado ya que devuelve true si existe alguno
+			int codigo_socio=Teclado.leerEntero("Dime el codigo del socio");
+			if(!AccesoPrestamo.comprobarSocio(codigo_socio)) {
+				String fecha_inicio=Teclado.leerCadena("Dime la fecha de inicio");
+				String fecha_fin=Teclado.leerCadena("Dime la fecha de fin");
+				Prestamo prestamo = new Prestamo(codigo_libro,codigo_socio,fecha_inicio,fecha_fin);
 				AccesoPrestamo.insertar(prestamo);
 				System.out.println("Se ha insertado un socio en la base de datos.");
 			}else {
@@ -95,7 +91,7 @@ public class main {
 		}
 
 	}
-	
+
 	public static void actualizar() throws ClassNotFoundException, IOException, SQLException {
 		int codigo_libro=Teclado.leerEntero("Dime el codigo del libro");
 		int codigo_socio=Teclado.leerEntero("Dime el codigo del socio");
@@ -104,20 +100,20 @@ public class main {
 		Prestamo prestamo = new Prestamo(codigo_libro,fecha_devolucion,codigo_socio,fecha_inicio);
 		AccesoPrestamo.actualizar(prestamo);
 	}
-	
-	
-	
+
+
+
 	public static void eliminar() throws ClassNotFoundException, IOException, SQLException{
-			int codigo_libro=Teclado.leerEntero("Dime el codigo del libro");
-			int codigo_socio=Teclado.leerEntero("Dime el codigo del socio");
-			String fecha_inicio=Teclado.leerCadena("Dime la fecha de inicio");
-			int cantidad = AccesoPrestamo.eliminar(codigo_libro,codigo_socio,fecha_inicio);
-			if(cantidad>0) {
-				System.out.println("Se ha eliminado un préstamo de la base de datos.");
-			}else {
-				System.out.println("No existe ningún préstamo con esos datos identificativos en la base de"
-						+ "datos.");
-			}
+		int codigo_libro=Teclado.leerEntero("Dime el codigo del libro");
+		int codigo_socio=Teclado.leerEntero("Dime el codigo del socio");
+		String fecha_inicio=Teclado.leerCadena("Dime la fecha de inicio");
+		int cantidad = AccesoPrestamo.eliminar(codigo_libro,codigo_socio,fecha_inicio);
+		if(cantidad>0) {
+			System.out.println("Se ha eliminado un préstamo de la base de datos.");
+		}else {
+			System.out.println("No existe ningún préstamo con esos datos identificativos en la base de"
+					+ "datos.");
+		}
 	}
 
 	public static void consultarTodos() throws ClassNotFoundException, SQLException {
@@ -144,7 +140,7 @@ public class main {
 		}
 
 	}
-	
+
 	public static void consultarFecha() throws ClassNotFoundException, SQLException {
 		String fecha_inicio=Teclado.leerCadena("Dime la fecha de inicio");
 		ArrayList<String> prestamos = AccesoPrestamo.consultarFecha(fecha_inicio);
@@ -158,6 +154,6 @@ public class main {
 		}
 
 	}
-	
-	 
+
+
 }
