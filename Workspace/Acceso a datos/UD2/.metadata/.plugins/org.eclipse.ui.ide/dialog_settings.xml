@@ -6,11 +6,20 @@
 		<item key="SmartImportRootWizardPage.STORE_NESTED_PROJECTS" value="true"/>
 		<item key="SmartImportRootWizardPage.STORE_CONFIGURE_NATURES" value="true"/>
 		<list key="org.eclipse.ui.internal.wizards.datatransfer.SmartImportRootWizardPage.knownSources">
+			<item value="D:\Documentos\DAM2_DUAL\Workspace\Acceso a datos\UD3"/>
 			<item value="B:\DAM2_DUAL\Workspace\Acceso a datos\UD2"/>
 			<item value="D:\Documentos\DAM2_DUAL\Workspace\Acceso a datos\UD2"/>
 			<item value="D:\Documentos\Workspace\Acceso a datos\UD2\UD11 - Ejemplos Base Datos Relacional"/>
 		</list>
 	</section>
 	<section name="NewWizardAction">
+	</section>
+	<section name="ChooseWorkspaceDialogSettings">
+		<item key="DIALOG_X_ORIGIN" value="332"/>
+		<item key="DIALOG_Y_ORIGIN" value="335"/>
+	</section>
+	<section name="WORKBENCH_SETTINGS">
+		<list key="ENABLED_TRANSFERS">
+		</list>
 	</section>
 </section>

@@ -1,0 +1,7 @@
+Dirección;Planta4
+Contabilidad;Planta1
+Recursos Humanos;Planta1
+Compras;Planta2
+Producción;Planta2
+Marketing;Planta3
+Ventas;Planta3
