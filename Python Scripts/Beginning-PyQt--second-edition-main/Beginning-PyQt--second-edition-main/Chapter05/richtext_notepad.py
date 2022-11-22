@@ -7,9 +7,9 @@ Featured in "Beginning PyQt - A Hands-on Approach to GUI Programming, 2nd Ed."
 import sys
 from PyQt6.QtWidgets import (QApplication, QMainWindow, 
     QMessageBox, QTextEdit, QFileDialog, QInputDialog, 
-    QFontDialog, QColorDialog)
+    QFontDialog, QColorDialog, QLabel)
 from PyQt6.QtCore import Qt
-from PyQt6.QtGui import QIcon, QTextCursor, QColor, QAction
+from PyQt6.QtGui import QIcon, QTextCursor, QColor, QAction,QPixmap
 
 class MainWindow(QMainWindow):
 
@@ -29,8 +29,14 @@ class MainWindow(QMainWindow):
 
     def setUpMainWindow(self):
         """Create and arrange widgets in the main window."""
+        self.image = QPixmap()
         self.text_edit = QTextEdit()
         self.text_edit.textChanged.connect(self.removeHighlights)
+        #layout.addChildWidget(self.text_edit)
+        self.image_label = QLabel()
+        self.image_label.setAlignment(Qt.AlignmentFlag.AlignCenter)
+        #layout.addChildWidget(self.image_label)
+    
         self.setCentralWidget(self.text_edit)
 
     def createActions(self):
@@ -43,6 +49,10 @@ class MainWindow(QMainWindow):
         self.open_act = QAction(QIcon("images/open_file.png"), "Open")
         self.open_act.setShortcut("Ctrl+O")
         self.open_act.triggered.connect(self.openFile)
+
+        self.openI_act = QAction(QIcon("images/open_file.png"),"Open Image")
+        self.openI_act.setShortcut("Ctrl+I")
+        self.openI_act.triggered.connect(self.openImage)
 
         self.save_act = QAction(QIcon("images/save_file.png"), "Save")
         self.save_act.setShortcut("Ctrl+S")
@@ -103,6 +113,7 @@ class MainWindow(QMainWindow):
         file_menu.addAction(self.new_act)
         file_menu.addSeparator()
         file_menu.addAction(self.open_act)
+        file_menu.addAction(self.openI_act)
         file_menu.addAction(self.save_act)
         file_menu.addSeparator()
         file_menu.addAction(self.quit_act)
@@ -149,6 +160,26 @@ class MainWindow(QMainWindow):
             with open(file_name, "r") as f:
                 notepad_text = f.read()
             self.text_edit.setText(notepad_text)
+
+    def openImage(self):
+        """Open an image file and display its contents on the 
+        QLabel widget."""
+        image_file, _ = QFileDialog.getOpenFileName(
+            self, "Open Image", "", 
+            "PNG Files (*.png);;JPG Files (*.jpeg *.jpg );;\
+                Bitmap Files (*.bmp);;GIF Files (*.gif)")
+
+        if image_file:
+            document=self.text_edit.document()
+            cursor=QTextCursor(document)
+            cursor.insertImage(image_file)
+
+            self.image_label.setPixmap(self.image.scaled(self.image_label.size(), 
+                Qt.AspectRatioMode.KeepAspectRatio, 
+                Qt.TransformationMode.SmoothTransformation))
+        else:
+            QMessageBox.information(self, "No Image", 
+                "No Image Selected.", QMessageBox.StandardButton.Ok)
 
     def saveToFile(self):
         """If the save button is clicked, display dialog asking 

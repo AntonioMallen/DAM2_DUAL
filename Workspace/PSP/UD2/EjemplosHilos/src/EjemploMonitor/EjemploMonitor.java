@@ -27,7 +27,7 @@ class ClaseSumar extends Thread{
 		this.dato = dato;
 	}
 	public void run() {
-		for(int i = 0; i<10; i++) {
+		for(int i = 0; i<5; i++) {
 			try {
 				synchronized (dato){
 					dato.setNumero(dato.getNumero() + 1);
@@ -49,7 +49,7 @@ class ClaseRestar extends Thread{
 		this.dato = dato;
 	}
 	public void run() {
-		for(int i = 0; i<10; i++){
+		for(int i = 0; i<5; i++){
 			try {
 				synchronized (dato){
 					dato.setNumero(dato.getNumero() - 1);

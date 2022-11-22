@@ -1,8 +1,8 @@
 # Import necessary modules
-import sys, json
-from PyQt6.QtWidgets import (QApplication, QWidget, QLabel, 
-	QLineEdit, QCheckBox, QTextEdit, QGridLayout,QPushButton,QGraphicsColorizeEffect, QSizePolicy) 
-from PyQt6.QtCore import Qt, QDate
+import sys
+from PyQt6.QtWidgets import (QApplication, QWidget, QLabel
+, QGridLayout,QPushButton,QComboBox,QSizePolicy) 
+from PyQt6.QtCore import Qt
 from PyQt6.QtGui import QFont
 
 class MainWindow(QWidget):
@@ -10,17 +10,18 @@ class MainWindow(QWidget):
 	def __init__(self):
 		super().__init__() 
 		self.initializeUI()
-
-		
 		
 
 	def initializeUI(self):
 		"""Set up the application's GUI."""
 		
-		self.setWindowTitle("Calculadora")
+		self.setWindowTitle("La Calculadora de Antonio")
 
 
-		self.setGeometry(0, 0, 380, 440)
+		self.setFixedSize(380,440)
+		self.setMaximumSize(800,800)
+		self.setMinimumSize(180,180)
+
 		self.UiComponents()
 		self.show()
 
@@ -28,22 +29,25 @@ class MainWindow(QWidget):
 		
 		layoutPrincipal = QGridLayout()
 		layoutNumeros=QGridLayout()
-		layoutNum1=QGridLayout()
-		layoutNum2=QGridLayout()
 		layoutOp=QGridLayout()
-		layoutRes=QGridLayout()
-		layoutIgual=QGridLayout()
+
+		combo = QComboBox(self)
 
 
-		layoutPrincipal.addLayout(layoutNumeros,0,0)
-		layoutPrincipal.addLayout(layoutOp,0,1)
-		layoutPrincipal.addLayout(layoutRes,1,0)
-		layoutPrincipal.addLayout(layoutIgual,1,1)
+		layoutPrincipal.addWidget(combo,0,1)
+		layoutPrincipal.addLayout(layoutNumeros,1,0)
+		layoutPrincipal.addLayout(layoutOp,1,1)
+
  
-		layoutNumeros.addLayout(layoutNum1,0,0)
-		layoutNumeros.addLayout(layoutNum2,1,0)
+		layoutNumeros.addLayout(layoutNumeros,0,0)
 
-
+	
+		combo.addItem("100%")
+		combo.addItem("50%")
+		combo.addItem("200%")
+		
+		combo.currentTextChanged.connect(self.accion)
+		
 		# creating a label
 		Resultado=self.label = QLabel(self)
  
@@ -63,76 +67,128 @@ class MainWindow(QWidget):
  
 		# setting font
 		self.label.setFont(QFont('Arial', 15))
-		Resultado.setMinimumSize(240,50)
+		Resultado.setSizePolicy(
+			QSizePolicy.Policy.Expanding,
+			QSizePolicy.Policy.Expanding
+		)
  
 		# adding number button to the screen
 		# creating a push button
 		push1 = QPushButton("1", self)
-		#push1.setFixedSize(58,58)
-		push1.setMinimumSize(58, 58)
+		push1.setSizePolicy(
+			QSizePolicy.Policy.Expanding,
+			QSizePolicy.Policy.Expanding
+		)
 
+		
+		
 		# creating a push button
 		push2 = QPushButton("2", self)
-		push2.setMinimumSize(58,58)
+		push2.setSizePolicy(
+			QSizePolicy.Policy.Expanding,
+			QSizePolicy.Policy.Expanding
+		)
 
 		
 		# creating a push button
 		push3 = QPushButton("3", self)
-		push3.setMinimumSize(58,58)
+		push3.setSizePolicy(
+			QSizePolicy.Policy.Expanding,
+			QSizePolicy.Policy.Expanding
+		)
 
  
 		# creating a push button
 		push4 = QPushButton("4", self)
-		push4.setMinimumSize(58,58)
+		push4.setSizePolicy(
+			QSizePolicy.Policy.Expanding,
+			QSizePolicy.Policy.Expanding
+		)
 		# creating a push button
 		push5 = QPushButton("5", self)
-		push5.setMinimumSize(58,58)
+		push5.setSizePolicy(
+			QSizePolicy.Policy.Expanding,
+			QSizePolicy.Policy.Expanding
+		)
 		# creating a push button
 		push6 = QPushButton("6", self)
-		push6.setMinimumSize(58,58)
+		push6.setSizePolicy(
+			QSizePolicy.Policy.Expanding,
+			QSizePolicy.Policy.Expanding
+		)
  
 		# creating a push button
 		push7 = QPushButton("7", self)
-		push7.setMinimumSize(58,58)
+		push7.setSizePolicy(
+			QSizePolicy.Policy.Expanding,
+			QSizePolicy.Policy.Expanding
+		)
  
 		# creating a push button
 		push8 = QPushButton("8", self)
-		push8.setMinimumSize(58,58)
+		push8.setSizePolicy(
+			QSizePolicy.Policy.Expanding,
+			QSizePolicy.Policy.Expanding
+		)
 
 		# creating a push button
 		push9 = QPushButton("9", self)
-		push9.setMinimumSize(58,58)
+		push9.setSizePolicy(
+			QSizePolicy.Policy.Expanding,
+			QSizePolicy.Policy.Expanding
+		)
  
 		# creating a push button
 		push0 = QPushButton("0", self)
-		push0.setMinimumSize(125,58)
+		push0.setSizePolicy(
+			QSizePolicy.Policy.Expanding,
+			QSizePolicy.Policy.Expanding
+		)
 
  
 		# adding operator push button
 		# creating push button
 		push_equal = QPushButton("=", self)
-		push_equal.setMinimumSize(87,50)
+		push_equal.setSizePolicy(
+			QSizePolicy.Policy.Expanding,
+			QSizePolicy.Policy.Expanding
+		)
  
 	
 		# creating push button
 		push_plus = QPushButton("+", self)
-		push_plus.setMinimumSize(58,58)
+		push_plus.setSizePolicy(
+			QSizePolicy.Policy.Expanding,
+			QSizePolicy.Policy.Expanding
+		)
  
 		# creating push button
 		push_minus = QPushButton("-", self)
-		push_minus.setMinimumSize(58,58)
+		push_minus.setSizePolicy(
+			QSizePolicy.Policy.Expanding,
+			QSizePolicy.Policy.Expanding
+		)
  
 		# creating push button
 		push_mul = QPushButton("*", self)
-		push_mul.setMinimumSize(58,58)
+		push_mul.setSizePolicy(
+			QSizePolicy.Policy.Expanding,
+			QSizePolicy.Policy.Expanding
+		)
  
 		# creating push button
 		push_div = QPushButton("/", self)
-		push_div.setMinimumSize(58,58)
+		push_div.setSizePolicy(
+			QSizePolicy.Policy.Expanding,
+			QSizePolicy.Policy.Expanding
+		)
 
 		# del one character button
-		push_del = QPushButton("Supr", self)
-		push_del.setMinimumSize(58,58)
+		push_del = QPushButton("Sup", self)
+		push_del.setSizePolicy(
+			QSizePolicy.Policy.Expanding,
+			QSizePolicy.Policy.Expanding
+		)
 
 		# adding action to each of the button
 		push_minus.clicked.connect(self.action_minus)
@@ -156,35 +212,28 @@ class MainWindow(QWidget):
 
 
 		#asigno al layout de numeros los botones de numeros
-		layoutNum1.addWidget(push7,0,0)
-		layoutNum1.addWidget(push8,0,1)
-		layoutNum1.addWidget(push9,0,2)
-		layoutNum1.addWidget(push4,1,0)
-		layoutNum1.addWidget(push5,1,1)
-		layoutNum1.addWidget(push6,1,2)
-		layoutNum1.addWidget(push1,2,0)
-		layoutNum1.addWidget(push2,2,1)
-		layoutNum1.addWidget(push3,2,2)
+		layoutNumeros.addWidget(push7,0,0)
+		layoutNumeros.addWidget(push8,0,1)
+		layoutNumeros.addWidget(push9,0,2)
+		layoutNumeros.addWidget(push4,1,0)
+		layoutNumeros.addWidget(push5,1,1)
+		layoutNumeros.addWidget(push6,1,2)
+		layoutNumeros.addWidget(push1,2,0)
+		layoutNumeros.addWidget(push2,2,1)
+		layoutNumeros.addWidget(push3,2,2)
 
-		layoutNum2.addWidget(push0,0,0)
-		layoutNum2.addWidget(push_del,0,1)
+		layoutNumeros.addWidget(push0,3,0,1,2)
+		layoutNumeros.addWidget(push_del,3,2)
+
 
 		layoutOp.addWidget(push_plus,0,0)
 		layoutOp.addWidget(push_minus,1,0)
 		layoutOp.addWidget(push_div,2,0)
 		layoutOp.addWidget(push_mul,3,0)
 
-		layoutIgual.addWidget(push_equal,0,0)
+		layoutOp.addWidget(push_equal,4,0)
 
-		layoutRes.addWidget(Resultado,0,0)
-
-
-		layoutNum1.setHorizontalSpacing(8)
-		layoutNum2.setHorizontalSpacing(7)
-		layoutNum1.setVerticalSpacing(17)
-		layoutNum2.setContentsMargins(0,10,0,0)
-		layoutOp.setVerticalSpacing(17)
-
+		layoutNumeros.addWidget(Resultado,4,0,1,3)
 
 		self.setLayout(layoutPrincipal)
 	
@@ -202,8 +251,19 @@ class MainWindow(QWidget):
  
 		except:
 			# setting text to the label
-			self.label.setText("Wrong Input")
+			self.label.setText("Error")
  
+
+	def accion(self, text):
+		if(text=="50%"):
+			self.setGeometry(150,150,int(380/2), int(440/2))
+		if(text=="100%"):
+			self.setGeometry(150,150,380,440)
+		if(text=="200%"):
+			self.setGeometry(150,150,380*2, 440*2)
+		
+			
+
 	def action_plus(self):
 		# appending label text
 		text = self.label.text()

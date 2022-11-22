@@ -51,6 +51,7 @@ public class Actividad_1x01 {
 				case 4:
 					int codigo=Teclado.leerEntero("Dime el codigo de departamento a eliminar");
 					int[] lista =AccesoDepartamentos.eliminar(codigo);
+					System.out.println(lista.length);
 					System.out.println("Se han eliminado "+lista[0]+" empleados en la base de datos.");
 					System.out.println("Se ha eliminado "+lista[1]+" departamentos de la base de datos.");
 					

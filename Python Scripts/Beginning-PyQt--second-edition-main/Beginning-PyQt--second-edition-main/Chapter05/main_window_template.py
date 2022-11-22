@@ -6,7 +6,7 @@ Featured in "Beginning PyQt - A Hands-on Approach to GUI Programming, 2nd Ed."
 # Import necessary modules
 import sys
 from PyQt6.QtWidgets import (QApplication, QMainWindow)
-from PyQt6.QtGui import QAction
+from PyQt6.QtGui import QAction,QIcon
 
 class MainWindow(QMainWindow):
 
@@ -31,7 +31,7 @@ class MainWindow(QMainWindow):
     def createActions(self):
         """Create the application's menu actions."""
         # Create actions for File menu
-        self.quit_act = QAction("&Quit")
+        self.quit_act = QAction(QIcon("images/1_apple.png"),"&Quit")
         self.quit_act.setShortcut("Ctrl+Q")
         self.quit_act.triggered.connect(self.close)
 
