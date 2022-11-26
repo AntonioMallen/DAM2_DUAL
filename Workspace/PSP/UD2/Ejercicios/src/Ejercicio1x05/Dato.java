@@ -1,10 +1,10 @@
-package Ejercicio1x04;
+package Ejercicio1x05;
 
 public class Dato {
 
 	private String cadena;
 	private boolean disponible = false;
-	private int turnAnt = 0;
+	private int turnSig = 1;
 
 
 
@@ -25,7 +25,7 @@ public class Dato {
 	}
 
 	public synchronized void set (String n,int turno){
-		while(disponible || turnAnt==turno){
+		while(disponible || turnSig!=turno){
 			try{
 				wait();
 			}
@@ -33,7 +33,11 @@ public class Dato {
 				System.err.println(e.toString());
 			}
 		}
-		turnAnt=turno;
+		if(turno==7) {
+			turnSig=1;
+		}else {
+			turnSig=turno+1;
+		}
 		cadena = n;
 		disponible = true;
 		System.out.println(1 + " => Productor: " + 1 + ", produce: " + cadena);

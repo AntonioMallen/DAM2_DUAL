@@ -1,4 +1,4 @@
-package Ejercicio1x04;
+package Ejercicio1x05;
 public class Productor extends Thread
 {
     private Dato dato;
