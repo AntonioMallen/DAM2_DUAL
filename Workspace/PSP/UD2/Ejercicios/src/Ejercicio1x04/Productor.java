@@ -17,8 +17,6 @@ public class Productor extends Thread
     {
     	for (int i=0; i<25;i++){
     			dato.set(cadena,turno);
-
-    	
     	}
         try{
         	sleep(100);

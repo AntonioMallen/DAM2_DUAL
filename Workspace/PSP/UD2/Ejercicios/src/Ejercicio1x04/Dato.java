@@ -8,7 +8,7 @@ public class Dato {
 
 
 
-	public synchronized String get(int num){
+	public synchronized void get(){
 		while(!disponible){
 			try{
 				wait();
@@ -18,10 +18,8 @@ public class Dato {
 			}
 		}
 		disponible = false;
-		System.out.println(2 + " => Consumidor: " + num + ", consume: " + cadena);
+		System.out.println(2 + " => Consumidor: 1, consume: " + cadena);
 		notifyAll();
-		return cadena;
-
 	}
 
 	public synchronized void set (String n,int turno){
