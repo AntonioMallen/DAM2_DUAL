@@ -3,10 +3,10 @@ package acceso;
 import java.util.List;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
-import org.hibernate.query.Query;
+import javax.persistence.TypedQuery;
 import modelo.Departamento;
 
-public class ConsultarDepartamentos1 {
+public class ConsultarDepartamentos2 {
 
 	public static void main(String[] args) {
 		Session sesion = null;
@@ -14,8 +14,8 @@ public class ConsultarDepartamentos1 {
 			SessionFactory fabricaSesiones = HibernateUtil.getSessionFactory();
 			sesion = fabricaSesiones.openSession();
 			String sentenciaHQL = "select d from Departamento d";
-			Query consulta = sesion.createQuery(sentenciaHQL);
-			List<Departamento> listaDepartamentos = consulta.list();
+			TypedQuery<Departamento> consulta = sesion.createQuery(sentenciaHQL);
+			List<Departamento> listaDepartamentos = consulta.getResultList();
 			if (listaDepartamentos.size() == 0) {
 				System.out.println("No hay departamentos en la base de datos.");
 			}
@@ -32,6 +32,7 @@ public class ConsultarDepartamentos1 {
 				sesion.close();
 			}
 		}
+		HibernateUtil.closeSessionFactory();
 	}
 
 }

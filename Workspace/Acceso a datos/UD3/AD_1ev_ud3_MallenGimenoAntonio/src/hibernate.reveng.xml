@@ -2,8 +2,8 @@
 <!DOCTYPE hibernate-reverse-engineering PUBLIC "-//Hibernate/Hibernate Reverse Engineering DTD 3.0//EN" "http://hibernate.org/dtd/hibernate-reverse-engineering-3.0.dtd" >
 
 <hibernate-reverse-engineering>
-  <table-filter match-schema="personal" match-name=".*"/>
-  <table-filter match-schema="sakila" match-name=".*"/>
-  <table-filter match-schema="sys" match-name=".*"/>
-  <table-filter match-schema="world" match-name=".*"/>
+  <table-filter match-catalog="trenes" match-name="billete"/>
+  <table-filter match-catalog="trenes" match-name="clase"/>
+  <table-filter match-catalog="trenes" match-name="estacion"/>
+  <table-filter match-catalog="trenes" match-name="viajero"/>
 </hibernate-reverse-engineering>

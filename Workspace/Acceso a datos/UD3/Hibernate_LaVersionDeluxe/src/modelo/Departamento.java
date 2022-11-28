@@ -1,5 +1,5 @@
 package modelo;
-// Generated 25 nov 2022 20:20:14 by Hibernate Tools 6.1.3.Final
+// Generated 28 nov 2022 19:49:31 by Hibernate Tools 6.1.3.Final
 
 import java.util.HashSet;
 import java.util.Set;
@@ -59,5 +59,12 @@ public class Departamento implements java.io.Serializable {
 	public void setEmpleados(Set empleados) {
 		this.empleados = empleados;
 	}
+
+	@Override
+	public String toString() {
+		return "Departamento [codigo=" + codigo + ", nombre=" + nombre + ", ubicacion=" + ubicacion + "]";
+	}
+	
+	
 
 }
