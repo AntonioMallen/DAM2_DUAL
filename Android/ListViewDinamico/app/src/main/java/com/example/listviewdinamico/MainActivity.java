@@ -20,7 +20,7 @@ import java.util.Set;
 
 public class MainActivity extends AppCompatActivity {
 
-    private ArrayList<String> telefonos=new ArrayList<String>();
+    private ArrayList<String> telefonos;
     private ArrayAdapter adaptador;
     private EditText nombre,telefono;
     private ListView lista;
@@ -35,7 +35,9 @@ public class MainActivity extends AppCompatActivity {
 
 
         SharedPreferences prefe=getSharedPreferences("agenda", Context.MODE_PRIVATE);
-
+        Set<String> set = prefe.getStringSet("key", null);
+        set.add("Test : 123");
+        telefonos=new ArrayList<String>(set);
 
 
         adaptador=new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1,telefonos);
@@ -56,6 +58,12 @@ public class MainActivity extends AppCompatActivity {
                     public void onClick(DialogInterface dialog, int which) {
                         telefonos.remove(i);
                         adaptador.notifyDataSetChanged();
+                        SharedPreferences preferencias=getSharedPreferences("agenda", Context.MODE_PRIVATE);
+                        SharedPreferences.Editor editor=preferencias.edit();
+                        Set<String> set = new HashSet<String>();
+                        set.addAll(telefonos);
+                        editor.putStringSet("key", set);
+                        editor.commit();
                         dialog.dismiss();
                     }
                 });
@@ -83,14 +91,18 @@ public class MainActivity extends AppCompatActivity {
         String tel=telefono.getText().toString();
 
         String resul = nom +" : "+ tel;
+        telefonos.add(resul);
+        adaptador.notifyDataSetChanged();
+
+
         SharedPreferences preferencias=getSharedPreferences("agenda", Context.MODE_PRIVATE);
         SharedPreferences.Editor editor=preferencias.edit();
-        editor.putString( resul ,resul);
+        Set<String> set = new HashSet<String>();
+        set.addAll(telefonos);
+        editor.putStringSet("key", set);
         editor.commit();
 
 
-        telefonos.add(resul);
-        adaptador.notifyDataSetChanged();
 
     }
 }
