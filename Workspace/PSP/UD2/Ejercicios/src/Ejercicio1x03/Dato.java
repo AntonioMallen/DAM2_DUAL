@@ -1,14 +1,14 @@
-package Ejercicio1x05;
+package Ejercicio1x03;
 
 public class Dato {
 
 	private String cadena;
 	private boolean disponible = false;
-	private int turnSig = 1;
+	private int turnAnt = 0;
 
 
 
-	public synchronized String get(int num){
+	public synchronized void get(){
 		while(!disponible){
 			try{
 				wait();
@@ -18,14 +18,12 @@ public class Dato {
 			}
 		}
 		disponible = false;
-		System.out.println(2 + " => Consumidor: " + num + ", consume: " + cadena);
+		System.out.println(2 + " => Consumidor: 1, consume: " + cadena);
 		notifyAll();
-		return cadena;
-
 	}
 
 	public synchronized void set (String n,int turno){
-		while(disponible || turnSig!=turno){
+		while(disponible || turnAnt==turno){
 			try{
 				wait();
 			}
@@ -33,11 +31,7 @@ public class Dato {
 				System.err.println(e.toString());
 			}
 		}
-		if(turno==7) {
-			turnSig=1;
-		}else {
-			turnSig=turno+1;
-		}
+		turnAnt=turno;
 		cadena = n;
 		disponible = true;
 		System.out.println(1 + " => Productor: " + 1 + ", produce: " + cadena);

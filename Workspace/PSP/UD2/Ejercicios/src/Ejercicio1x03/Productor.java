@@ -1,21 +1,22 @@
 package Ejercicio1x03;
 public class Productor extends Thread
 {
-    private Compartido dato;
-    private int num;
+    private Dato dato;
+    private String cadena;
+    private int turno;
  
    
-    public Productor(Compartido c, int n) 
+    public Productor(Dato c,int turno, String cadena) 
     {
+    	this.turno = turno;
         this.dato = c;
-        this.num = n;
+        this.cadena = cadena;
     }
  
     public void run() 
     {
     	for (int i=0; i<25;i++){
-    		dato.set("Ping");
-    		dato.set("Pong");
+    			dato.set(cadena,turno);
     	}
         try{
         	sleep(100);
