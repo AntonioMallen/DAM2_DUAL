@@ -13,10 +13,16 @@ public class Main {
 		Frutero f1=new Frutero(atender,salir,1);
 		f1.start();
 		
-		for (int i =0;i<10;i++) {
+		for (int i =0;i<2;i++) {
 			c= new Cliente(atender,salir,i);
 			clientes.add(c);
 			c.start();
+			try {
+				Thread.sleep(150);
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
 		
 		for(Cliente cliente: clientes) {
