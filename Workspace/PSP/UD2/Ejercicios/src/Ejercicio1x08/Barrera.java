@@ -33,17 +33,17 @@ public class Barrera {
 	}
 	
 	synchronized public void salida (int plaza) {
-		plazas[plaza]=0;
+		plazas[plaza] = 0; // vuelve el valor de la plaza que queda vacia a 0
 		libres++;
 		notify();
 	}
 	
 	synchronized public void mostrar() {
-		System.out.println("");
+		String salida = "Coche ";
 		for(int i=0;i<plazas.length;i++) {
-			System.out.print("["+plazas[i]+"]");
+			salida+=("["+plazas[i]+"]");
 		}
-		
+		System.out.println(salida);
 	}
 	
 	/*
