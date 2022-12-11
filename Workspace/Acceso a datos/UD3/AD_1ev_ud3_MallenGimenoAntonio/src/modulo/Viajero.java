@@ -106,4 +106,11 @@ public class Viajero implements java.io.Serializable {
 		this.billetes = billetes;
 	}
 
+	public String toString() {
+		return "Viajero [codigo=" + codigo + ", clase=" + clase + ", nombre=" + nombre + ", fechaNacimiento="
+				+ fechaNacimiento + ", lugarResidencia=" + lugarResidencia + ", correo=" + correo + ", puntos=" + puntos
+				+ "]";
+	}
+
+	
 }

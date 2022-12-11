@@ -94,6 +94,15 @@ public class Billete implements java.io.Serializable {
 	public void setImporte(BigDecimal importe) {
 		this.importe = importe;
 	}
+
+	@Override
+	public String toString() {
+		return "Billete [codigo=" + codigo + ", estacionByCodigoEstacionDestino=" + estacionByCodigoEstacionDestino
+				+ ", estacionByCodigoEstacionOrigen=" + estacionByCodigoEstacionOrigen + ", viajero=" + viajero
+				+ ", fecha=" + fecha + ", horaSalida=" + horaSalida + ", horaLlegada=" + horaLlegada + ", importe="
+				+ importe + "]";
+	}
+	
 	
 	
 }

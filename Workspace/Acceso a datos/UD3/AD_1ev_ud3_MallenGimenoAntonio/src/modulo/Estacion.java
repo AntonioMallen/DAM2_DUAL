@@ -93,4 +93,11 @@ public class Estacion implements java.io.Serializable {
 		this.billetesForCodigoEstacionOrigen = billetesForCodigoEstacionOrigen;
 	}
 
+
+	public String toString() {
+		return "Estacion [codigo=" + codigo + ", nombre=" + nombre + ", ubicacion=" + ubicacion + ", agnoInauguracion="
+				+ agnoInauguracion + ", vias=" + vias + "]";
+	}
+	
+
 }

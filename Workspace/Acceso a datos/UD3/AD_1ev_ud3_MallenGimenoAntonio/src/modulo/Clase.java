@@ -72,4 +72,12 @@ public class Clase implements java.io.Serializable {
 		this.viajeros = viajeros;
 	}
 
+
+	public String toString() {
+		return "Clase [codigo=" + codigo + ", nombre=" + nombre + ", consumoMinimoAnual=" + consumoMinimoAnual
+				+ ", porcentajeAdicional=" + porcentajeAdicional + "]";
+	}
+
+	
+	
 }
