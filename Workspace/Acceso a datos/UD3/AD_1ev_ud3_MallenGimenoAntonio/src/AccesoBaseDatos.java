@@ -6,7 +6,6 @@ import javax.persistence.TypedQuery;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
-import org.hibernate.query.Query;
 
 import modulo.Billete;
 import modulo.Estacion;
@@ -47,7 +46,7 @@ public class AccesoBaseDatos {
 			SessionFactory fabricaSesiones = HibernateUtil.getSessionFactory();
 			sesion = fabricaSesiones.openSession();
 			estacion = sesion.get(Estacion.class, (short) codigo);
-			
+
 		}
 		finally {
 			if (sesion != null) {
@@ -58,7 +57,7 @@ public class AccesoBaseDatos {
 	}
 
 
-	
+
 
 	public static ArrayList<Estacion> imprimirEstacion() {
 		ArrayList<Estacion> estaciones=new ArrayList<Estacion>();
@@ -82,7 +81,7 @@ public class AccesoBaseDatos {
 		}
 		return estaciones;
 	}
-	
+
 	public static Viajero elegirViajero(int codigo) {
 		Viajero viajero = null;
 		Session sesion = null;
@@ -90,7 +89,7 @@ public class AccesoBaseDatos {
 			SessionFactory fabricaSesiones = HibernateUtil.getSessionFactory();
 			sesion = fabricaSesiones.openSession();
 			viajero = sesion.get(Viajero.class, (short) codigo);
-			
+
 		}
 		finally {
 			if (sesion != null) {
@@ -99,7 +98,7 @@ public class AccesoBaseDatos {
 		}
 		return viajero;
 	}
-	
+
 	public static ArrayList<Viajero> imprimirViajero() {
 		ArrayList<Viajero> viajeros=new ArrayList<Viajero>();
 		Session sesion = null;
@@ -118,7 +117,7 @@ public class AccesoBaseDatos {
 		}
 		return viajeros;
 	}
-	
+
 	public static ArrayList<Billete> consultar(){
 		ArrayList<Billete> billetes=new ArrayList<Billete>();
 		Session sesion = null;
@@ -140,7 +139,23 @@ public class AccesoBaseDatos {
 		return billetes;
 	}
 
-	
+	public static Billete consultarCodigo(int codigo) {
+		Billete clase = null;
+		Session sesion = null;
+		try {
+			SessionFactory fabricaSesiones = HibernateUtil.getSessionFactory();
+			sesion = fabricaSesiones.openSession();
+			clase = sesion.get(Billete.class, (short) codigo);
+		}
+		finally {
+			if (sesion != null) {
+				sesion.close();
+			}
+		}
+		return clase;
+	}
+
+
 	public static ArrayList<Viajero> consultarViajerodeClase(int codigo){
 		ArrayList<Viajero> viajeros=new ArrayList<Viajero>();
 		Session sesion = null;
@@ -150,7 +165,7 @@ public class AccesoBaseDatos {
 			String sentenciaHQL = "select v from Viajero v INNER JOIN v.clase c where c.codigo="+codigo;
 			TypedQuery<Viajero> consulta = sesion.createQuery(sentenciaHQL, Viajero.class);
 			viajeros = (ArrayList<Viajero>) consulta.getResultList();
-			
+
 			for(Viajero v: viajeros) {
 				System.out.println(v);
 			}
@@ -194,6 +209,31 @@ public class AccesoBaseDatos {
 		return true;
 	}
 
+	public static boolean actualizar(Billete billete){
+		Session sesion = null;
+		Transaction transaccion = null;
+		try {
+			SessionFactory fabricaSesiones = HibernateUtil.getSessionFactory();
+			sesion = fabricaSesiones.openSession();
+			transaccion = sesion.beginTransaction();	
+
+			sesion.update(billete);
+			transaccion.commit();
+			
+			return true;
+		}
+		catch (Exception e) {
+			if (transaccion != null) {
+				transaccion.rollback();
+			}
+			throw e;
+		}
+		finally {
+			if (sesion != null) {
+				sesion.close();
+			}
+		}
+	}
 
 	public static Clase consultarClase(int codigo) {
 		Clase clase = null;
