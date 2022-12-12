@@ -47,20 +47,8 @@ public class AccesoBaseDatos {
 		try {
 			SessionFactory fabricaSesiones = HibernateUtil.getSessionFactory();
 			sesion = fabricaSesiones.openSession();
-			String sentenciaHQL = "select e from Estacion e";
-			TypedQuery<Estacion> consulta = sesion.createQuery(sentenciaHQL);
-			List<Estacion> listaEstaciones = consulta.getResultList();
-			if (listaEstaciones.size() == 0) {
-				System.out.println("No hay Estaciones con ese codigo en la base de datos.");
-			}
-			else {
-				for (Estacion recorrerEstacion : listaEstaciones) {
-					if(recorrerEstacion.getCodigo()==codigo) {
-						estacion=recorrerEstacion;
-					}
-				}
-
-			}
+			estacion = sesion.get(Estacion.class, (short) codigo);
+			
 		}
 		finally {
 			if (sesion != null) {
@@ -71,32 +59,7 @@ public class AccesoBaseDatos {
 	}
 
 
-	public static ArrayList<Viajero> imprimirViajero() {
-		ArrayList<Viajero> viajeros=new ArrayList<Viajero>();
-		Session sesion = null;
-		try {
-			SessionFactory fabricaSesiones = HibernateUtil.getSessionFactory();
-			sesion = fabricaSesiones.openSession();
-			String sentenciaHQL = "select e from Viajero e";
-			TypedQuery<Viajero> consulta = sesion.createQuery(sentenciaHQL);
-			List<Viajero> listaViajeros = consulta.getResultList();
-			if (viajeros.size() == 0) {
-				System.out.println("No hay estaciones en la base de datos.");
-			}
-			else {
-				for (Viajero viajero : viajeros) {
-					viajeros.add(viajero);
-				}
-
-			}
-		}
-		finally {
-			if (sesion != null) {
-				sesion.close();
-			}
-		}
-		return viajeros;
-	}
+	
 
 	public static ArrayList<Estacion> imprimirEstacion() {
 		ArrayList<Estacion> estaciones=new ArrayList<Estacion>();
@@ -119,6 +82,42 @@ public class AccesoBaseDatos {
 			}
 		}
 		return estaciones;
+	}
+	
+	public static Viajero elegirViajero(int codigo) {
+		Viajero viajero = null;
+		Session sesion = null;
+		try {
+			SessionFactory fabricaSesiones = HibernateUtil.getSessionFactory();
+			sesion = fabricaSesiones.openSession();
+			viajero = sesion.get(Viajero.class, (short) codigo);
+			
+		}
+		finally {
+			if (sesion != null) {
+				sesion.close();
+			}
+		}
+		return viajero;
+	}
+	
+	public static ArrayList<Viajero> imprimirViajero() {
+		ArrayList<Viajero> viajeros=new ArrayList<Viajero>();
+		Session sesion = null;
+		try {
+			SessionFactory fabricaSesiones = HibernateUtil.getSessionFactory();
+			sesion = fabricaSesiones.openSession();
+			String sentenciaHQL = "select v from Viajero v";
+			TypedQuery<Viajero> consulta = sesion.createQuery(sentenciaHQL);
+			viajeros = (ArrayList<Viajero>) consulta.getResultList();
+
+		}
+		finally {
+			if (sesion != null) {
+				sesion.close();
+			}
+		}
+		return viajeros;
 	}
 	/*public static List<Billete> consultar() {
 		TypedQuery<Billete> consulta=null;
@@ -159,7 +158,7 @@ public class AccesoBaseDatos {
 		return billetes;
 	}
 
-	public static void borrar(int codigo) {
+	public static boolean borrar(int codigo) {
 		Session sesion = null;
 		Transaction transaccion = null;
 		try {
@@ -168,19 +167,68 @@ public class AccesoBaseDatos {
 			transaccion = sesion.beginTransaction();	
 			Billete billete = sesion.get(Billete.class, (short) codigo);
 			if (billete == null) {
-				System.out.println("No se ha encontrado ningún billete con código " + codigo);
+				return false;
 			}
 			else {
 				sesion.delete(billete);
 				transaccion.commit();
-				System.out.println("Se ha eliminado un billete de la base de datos.");
 			}
 		}
 		catch (Exception e) {
 			if (transaccion != null) {
 				transaccion.rollback();
 			}
-			System.out.println("Error de MySQL o Hibernate: " + e.getMessage());
+			throw e;
+		}
+		finally {
+			if (sesion != null) {
+				sesion.close();
+			}
+		}
+		return true;
+	}
+
+
+	public static Clase consultarClase(int codigo) {
+		Clase clase = null;
+		Session sesion = null;
+		try {
+			SessionFactory fabricaSesiones = HibernateUtil.getSessionFactory();
+			sesion = fabricaSesiones.openSession();
+			clase = sesion.get(Clase.class, (short) codigo);
+		}
+		finally {
+			if (sesion != null) {
+				sesion.close();
+			}
+		}
+		return clase;
+	}
+
+	public static boolean borrarClase(Clase clase) {
+		Session sesion = null;
+		Transaction transaccion = null;
+		try {
+			SessionFactory fabricaSesiones = HibernateUtil.getSessionFactory();
+			sesion = fabricaSesiones.openSession();
+			transaccion = sesion.beginTransaction();
+			for (Object viajero : clase.getViajeros()) {
+				for(Object billete :((Viajero)viajero).getBilletes()) {
+					sesion.delete((Billete)billete);
+				}
+				sesion.delete((Viajero)viajero);
+			}
+
+			sesion.delete(clase);
+			transaccion.commit();
+			return true;
+
+		}
+		catch (Exception e) {
+			if (transaccion != null) {
+				transaccion.rollback();
+			}
+			throw e;
 		}
 		finally {
 			if (sesion != null) {
@@ -188,54 +236,5 @@ public class AccesoBaseDatos {
 			}
 		}
 	}
-
-
-	public static Clase consultarClase(int codigo) {
-        Clase clase = null;
-        Session sesion = null;
-        try {
-            SessionFactory fabricaSesiones = HibernateUtil.getSessionFactory();
-            sesion = fabricaSesiones.openSession();
-            clase = sesion.get(Clase.class, (short) codigo);
-
-        }
-        finally {
-            if (sesion != null) {
-                sesion.close();
-            }
-        }
-        return clase;
-    }
-
-    public static void borrarClase(Clase clase) {
-        Session sesion = null;
-        Transaction transaccion = null;
-        try {
-            SessionFactory fabricaSesiones = HibernateUtil.getSessionFactory();
-            sesion = fabricaSesiones.openSession();
-            transaccion = sesion.beginTransaction();
-            for (Object viajero : clase.getViajeros()) {
-                for(Object billete :((Viajero)viajero).getBilletes()) {
-                    sesion.delete((Billete)billete);
-                }
-                sesion.delete((Viajero)viajero);
-            }
-
-            sesion.delete(clase);
-            transaccion.commit();
-            System.out.println("Se ha eliminado un clase de la base de datos.");
-        }
-        catch (Exception e) {
-            if (transaccion != null) {
-                transaccion.rollback();
-            }
-            System.out.println("Error de MySQL o Hibernate: " + e.getMessage());
-        }
-        finally {
-            if (sesion != null) {
-                sesion.close();
-            }
-        }
-    }
 
 }
