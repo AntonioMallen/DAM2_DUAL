@@ -26,13 +26,12 @@ public class AccesoBaseDatos {
 			transaccion = sesion.beginTransaction();
 			sesion.save(billete);
 			transaccion.commit();
-			System.out.println("Se ha insertado un billete en la base de datos.");
 		}
 		catch (Exception e) {
 			if (transaccion != null) {
 				transaccion.rollback();
 			}
-			System.out.println("Error de MySQL o Hibernate: " + e.getMessage());
+			throw e;
 		}
 		finally {
 			if (sesion != null) {
@@ -119,24 +118,7 @@ public class AccesoBaseDatos {
 		}
 		return viajeros;
 	}
-	/*public static List<Billete> consultar() {
-		TypedQuery<Billete> consulta=null;
-		Session sesion = null;
-		try {
-			SessionFactory fabricaSesiones = HibernateUtil.getSessionFactory();
-			sesion = fabricaSesiones.openSession();
-			String sentenciaHQL = "select e from Billete e";
-			consulta = sesion.createQuery(sentenciaHQL);
-
-			return consulta.getResultList();
-		}
-		finally {
-			if (sesion != null) {
-				sesion.close();
-			}
-		}
-
-	}*/
+	
 	public static ArrayList<Billete> consultar(){
 		ArrayList<Billete> billetes=new ArrayList<Billete>();
 		Session sesion = null;
@@ -158,6 +140,30 @@ public class AccesoBaseDatos {
 		return billetes;
 	}
 
+	
+	public static ArrayList<Viajero> consultarViajerodeClase(int codigo){
+		ArrayList<Viajero> viajeros=new ArrayList<Viajero>();
+		Session sesion = null;
+		try {
+			SessionFactory fabricaSesiones = HibernateUtil.getSessionFactory();
+			sesion = fabricaSesiones.openSession();
+			String sentenciaHQL = "select v from Viajero v INNER JOIN v.clase c where c.codigo="+codigo;
+			TypedQuery<Viajero> consulta = sesion.createQuery(sentenciaHQL, Viajero.class);
+			viajeros = (ArrayList<Viajero>) consulta.getResultList();
+			
+			for(Viajero v: viajeros) {
+				System.out.println(v);
+			}
+		}
+		finally {
+			if (sesion != null) {
+				sesion.close();
+			}
+
+		}
+
+		return viajeros;
+	}
 	public static boolean borrar(int codigo) {
 		Session sesion = null;
 		Transaction transaccion = null;

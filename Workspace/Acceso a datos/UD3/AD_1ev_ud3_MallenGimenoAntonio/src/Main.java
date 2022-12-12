@@ -131,17 +131,18 @@ public class Main {
 			Billete billete = new Billete(estDestino,estOrigen,viajero,
 					fecha,hora_llegada,hora_salida,new BigDecimal(importe));
 			AccesoBaseDatos.insertar(billete);
-			System.out.println(billete);
+			System.out.println("Se ha insertado un billete en la base de datos.");
 		}
 
 	}
 
 	public static void consultar() throws IOException, ClassNotFoundException, SQLException{
-		List<Billete> billetes=AccesoBaseDatos.consultar();
+		//List<Billete> billetes=AccesoBaseDatos.consultar();
+		List<Viajero> billetes=AccesoBaseDatos.consultarViajerodeClase(4);
 		if (billetes.size() == 0) {
 			System.out.println("No hay billete en la base de datos.");
 		}else {
-			for (Billete billete : billetes) {
+			for (Viajero billete : billetes) {
 				System.out.println(billete);
 
 			}
