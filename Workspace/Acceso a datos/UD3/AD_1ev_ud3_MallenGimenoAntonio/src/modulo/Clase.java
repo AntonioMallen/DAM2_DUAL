@@ -78,6 +78,6 @@ public class Clase implements java.io.Serializable {
 				+ ", porcentajeAdicional=" + porcentajeAdicional + "]";
 	}
 
-	
-	
+
+
 }

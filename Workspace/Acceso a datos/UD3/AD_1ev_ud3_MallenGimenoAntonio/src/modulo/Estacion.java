@@ -98,6 +98,6 @@ public class Estacion implements java.io.Serializable {
 		return "Estacion [codigo=" + codigo + ", nombre=" + nombre + ", ubicacion=" + ubicacion + ", agnoInauguracion="
 				+ agnoInauguracion + ", vias=" + vias + "]";
 	}
-	
+
 
 }

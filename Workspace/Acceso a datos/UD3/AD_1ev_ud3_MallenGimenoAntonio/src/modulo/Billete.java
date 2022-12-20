@@ -102,7 +102,7 @@ public class Billete implements java.io.Serializable {
 				+ ", fecha=" + fecha + ", horaSalida=" + horaSalida + ", horaLlegada=" + horaLlegada + ", importe="
 				+ importe + "]";
 	}
-	
-	
-	
+
+
+
 }

@@ -36,8 +36,9 @@ public class Turno {
 	 */
 	synchronized public void salida () {
 		System.out.println("Liberando puesto");
+
 		libres++;
-		notify();
+		notifyAll();
 	}
 	
 }

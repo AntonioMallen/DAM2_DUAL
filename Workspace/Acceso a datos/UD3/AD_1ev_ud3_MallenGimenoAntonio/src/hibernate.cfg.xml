@@ -11,6 +11,7 @@
         <property name="hibernate.hbm2ddl.auto">none</property>
         <property name="hibernate.search.autoregister_listeners">true</property>
         <property name="hibernate.validator.apply_to_ddl">false</property>
+        <property name="hibernate.enable_lazy_load_no_trans" >true</property>
         <mapping resource="modulo/Estacion.hbm.xml"/>
         <mapping resource="modulo/Billete.hbm.xml"/>
         <mapping resource="modulo/Clase.hbm.xml"/>

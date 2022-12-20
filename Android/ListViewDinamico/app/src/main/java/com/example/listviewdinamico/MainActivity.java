@@ -33,9 +33,9 @@ public class MainActivity extends AppCompatActivity {
         telefono= (EditText) findViewById(R.id.phone);
         lista= (ListView) findViewById(R.id.lista);
 
-
+        Set<String> SET=new HashSet<String>();
         SharedPreferences prefe=getSharedPreferences("agenda", Context.MODE_PRIVATE);
-        Set<String> set = prefe.getStringSet("key", null);
+        Set<String> set = prefe.getStringSet("key", SET);
         set.add("Test : 123");
         telefonos=new ArrayList<String>(set);
 

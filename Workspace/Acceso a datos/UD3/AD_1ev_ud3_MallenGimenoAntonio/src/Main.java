@@ -5,6 +5,7 @@ import java.math.BigDecimal;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -26,217 +27,110 @@ public class Main {
 	 */
 	public static String texto() {
 		return 	  "0. Salir del programa. \n"
-				+ "1. Insertar un billete en la base de datos.\n"
-				+ "2. Consultar todos los billetes de la base de datos\n"
-				+ "3. Consultar un billete, por código, de la base de datos.\n"
-				+ "4. Actualizar un billete, por código, de la base de datos.\n"
-				+ "5. Eliminar un billete, por código, de la base de datos";
+				+ "1. Consultar todas las ESTACIONES,ordenadas por año de inaguración de la base de datos\n"
+				+ "2. Insertar un VIAJERO en la base de datos\n"
+				+ "3. Eliminar una CLASE, por código, de la base de datos";
 	}
+
 
 	/**
 	 * Desde este main se ejecutara el switch con las distintas opciones que contempla el menu
 	 */
 	public static void main(String[] args) {
-		try {
-			int opcion;
-			do {
-				System.out.println(texto());
-				opcion=Teclado.leerEntero("Dime una opcion \n");
+
+		int opcion;
+		do {
+			System.out.println(texto());
+			opcion=Teclado.leerEntero("Dime una opcion \n");
+			try {
 				switch (opcion) {
 				case 0:
 					System.out.println("Fin del programa");
-					HibernateUtil.closeSessionFactory();
 					break;
 				case 1: 
-					insertar();
-					break;
-
-				case 2:
 					consultar();
 					break;
 
-				case 3:
-					consultarCodigo();
+				case 2:
+					insertar();
 					break;
 
-				case 4:
-					actualizar();
-					break;
-				case 5:
-					eliminar();
+				case 3:
+					eliminarClase();
 					break;
 				default:
-					System.out.println("La opcion de menu debe estar comprendida entre 0 y 5.");
+					System.out.println("La opcion de menu debe estar comprendida entre 0 y 3.");
 				}
-			}while(opcion!=0);
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (RuntimeException e1) {
-			System.out.println(e1.getMessage());
-		} catch (ClassNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (SQLException e) {
-			System.err.println("El departamento está referenciado en un empleado de la base de datos.");
-		}
+			} catch (IOException e) {
+				e.printStackTrace();
+			} catch (RuntimeException e1) {
+				System.out.println(e1.getMessage());
+			} catch (ClassNotFoundException e) {
+				e.printStackTrace();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		} while(opcion!=0);
 
+		HibernateUtil.closeSessionFactory();
 	}
 
-	private static void insertar() throws NumberFormatException, ClassNotFoundException, IOException, SQLException {
+	private static void consultar() throws NumberFormatException, ClassNotFoundException, IOException, SQLException {
+		ArrayList<Estacion> estaciones=AccesoBaseDatos.consultarEstacion();
+		if(estaciones==null) {
+			System.out.println("La base de datos no tiene ninguna estacion");
+		}else {
+			for(Estacion estacion: estaciones) {
+				System.out.println(estacion);
+			}
+			System.out.println("Se han consultado "+estaciones.size()+" estaciones de la base de datos");
+		}
+	}
 
-		ArrayList<Estacion> estacionesDestino=AccesoBaseDatos.imprimirEstacion();
-		if (estacionesDestino.size() == 0) {
-			System.out.println("No hay estaciones en la base de datos.");
+	public static void insertar() throws IOException, ClassNotFoundException, SQLException{
+		ArrayList<Clase> clases=AccesoBaseDatos.imprimirClase();
+		if (clases.size() == 0) {
+			System.out.println("No existe ninguna clase con ese codigo en la base de datos.");
 		}
 		else {
-			for(Estacion estacion: estacionesDestino) {
-				System.out.println(estacion);
+			for(Clase clase: clases) {
+				System.out.println(clase);
 			}
-			int codigoDes = Teclado.leerEntero("¿Codigo de la estacion de destino? ");
-			Estacion estDestino=AccesoBaseDatos.elegirEstacion(codigoDes);
-
-
-			System.out.println();
-
-			ArrayList<Estacion> estacionesOrigen=AccesoBaseDatos.imprimirEstacion();
-
-			for(Estacion estacion: estacionesOrigen) {
-				System.out.println(estacion);
-			}
-
-			int codigoOri = Teclado.leerEntero("¿Codigo de la estacion de Origen? ");
-			Estacion estOrigen=AccesoBaseDatos.elegirEstacion(codigoOri);
-
-
-			System.out.println();
-			ArrayList<Viajero> viajeros =AccesoBaseDatos.imprimirViajero();
-			if (viajeros.size() == 0) {
-				System.out.println("No hay viajeros en la base de datos.");
-			}
-			else {
-				for(Viajero viajero: viajeros) {
-					System.out.println(viajero);
-				}
-			}
-			int codigoViajero = Teclado.leerEntero("¿Codigo del viajero? ");
-			Viajero viajero = AccesoBaseDatos.elegirViajero(codigoViajero); 
-
-
-			String fecha=Teclado.leerCadena("¿Fecha? ");
-			String hora_llegada=Teclado.leerCadena("¿Hora llegada? ");
-			String hora_salida=Teclado.leerCadena("¿Hora salida? ");
-			double importe = Teclado.leerReal("¿Importe? ");
-
-			Billete billete = new Billete(estDestino,estOrigen,viajero,
-					fecha,hora_llegada,hora_salida,new BigDecimal(importe));
-			AccesoBaseDatos.insertar(billete);
-			System.out.println("Se ha insertado un billete en la base de datos.");
-		}
-
-	}
-
-	public static void consultar() throws IOException, ClassNotFoundException, SQLException{
-		List<Billete> billetes=AccesoBaseDatos.consultar();
-		if (billetes.size() == 0) {
-			System.out.println("No hay billete en la base de datos.");
-		}else {
-			for (Billete billete : billetes) {
-				System.out.println(billete);
-
-			}
-		}
-	}
-
-	private static void consultarCodigo() throws SQLException, ClassNotFoundException, IOException {
-		int codigo = Teclado.leerEntero("¿Codigo del billete? ");
-		Billete billete=AccesoBaseDatos.consultarCodigo(codigo);
-		if(billete==null) {
-			System.out.println("No se ha encontrado ningun billete con ese codigo");
-		}else {
-			System.out.println(billete);
-		}
-	}
-
-	private static void actualizar() throws IOException, ClassNotFoundException, SQLException {
-		
-		int codigo = Teclado.leerEntero("¿Codigo del billete? ");
-		System.out.println(AccesoBaseDatos.consultarCodigo(codigo));
-		
-		ArrayList<Estacion> estacionesDestino=AccesoBaseDatos.imprimirEstacion();
-		if (estacionesDestino.size() == 0) {
-			System.out.println("No hay estaciones en la base de datos.");
-		}
-		else {
-			for(Estacion estacion: estacionesDestino) {
-				System.out.println(estacion);
-			}
-			int codigoDes = Teclado.leerEntero("¿Codigo de la estacion de destino? ");
-			Estacion estDestino=AccesoBaseDatos.elegirEstacion(codigoDes);
-
-
-			System.out.println();
-
-			ArrayList<Estacion> estacionesOrigen=AccesoBaseDatos.imprimirEstacion();
-
-			for(Estacion estacion: estacionesOrigen) {
-				System.out.println(estacion);
-			}
-
-			int codigoOri = Teclado.leerEntero("¿Codigo de la estacion de Origen? ");
-			Estacion estOrigen=AccesoBaseDatos.elegirEstacion(codigoOri);
-
-
-			System.out.println();
-			ArrayList<Viajero> viajeros =AccesoBaseDatos.imprimirViajero();
-			if (viajeros.size() == 0) {
-				System.out.println("No hay viajeros en la base de datos.");
-			}
-			else {
-				for(Viajero viajero: viajeros) {
-					System.out.println(viajero);
-				}
-			}
-			int codigoViajero = Teclado.leerEntero("¿Codigo del viajero? ");
-			Viajero viajero = AccesoBaseDatos.elegirViajero(codigoViajero); 
-
-
-			String fecha=Teclado.leerCadena("¿Fecha? ");
-			String hora_llegada=Teclado.leerCadena("¿Hora llegada? ");
-			String hora_salida=Teclado.leerCadena("¿Hora salida? ");
-			double importe = Teclado.leerReal("¿Importe? ");
-
-			Billete billete = new Billete(estDestino,estOrigen,viajero,
-					fecha,hora_llegada,hora_salida,new BigDecimal(importe));
-			billete.setCodigo((short)codigo);
-			if(AccesoBaseDatos.actualizar(billete)) {
-				System.out.println("Se ha actualizado el billete");
+			int codigoClase = Teclado.leerEntero("¿Codigo de la clase? ");
+			Clase clase = AccesoBaseDatos.elegirClase(codigoClase);
+			if(clase==null) {
+				System.out.println("No existe ninguna clase con ese codigo en la base de datos.");
 			}else {
-				System.out.println("No se ha actualizado billete en la base de datos");
+				String nombre=Teclado.leerCadena("¿Nombre del viajero? ");
+				String fecha_nacimiento=Teclado.leerCadena("¿Fecha de nacimiento? ");
+				String lugarResidencia=Teclado.leerCadena("¿Lugar de residencia del viajero? ");
+				String correo=Teclado.leerCadena("¿Correo del viajero? ");
+				Viajero viajero = new Viajero(clase,nombre,fecha_nacimiento,lugarResidencia,correo,(short)0);
+				AccesoBaseDatos.insertar(viajero);
+				System.out.println("Se ha insertado un viajero en la base de datos");
 			}
 		}
 	}
 
-	private static void eliminar() throws IOException, ClassNotFoundException, SQLException {
-		int codigo = Teclado.leerEntero("¿Codigo del boleto? ");
-		Boolean borrado=AccesoBaseDatos.borrar(codigo);
-		if(borrado) {
-			System.out.println("Se ha eliminado un billete de la base de datos.");
-		}else {
-			System.out.println("No se ha encontrado ningún billete con código " + codigo);
-		}
 
 
-	}
 
 	private static void eliminarClase() {
-		int codigo = Teclado.leerEntero("¿Codigo de la clase? ");
+		int codigo = Teclado.leerEntero("¿Codigo de la clase a eliminar? ");
 		Clase clase=AccesoBaseDatos.consultarClase(codigo);
-		Boolean borrado =AccesoBaseDatos.borrarClase(clase);
-		if(borrado) {
-			System.out.println("Se ha eliminado un clase de la base de datos.");
+		if(clase!=null) {
+			Set<Viajero> viajeros=AccesoBaseDatos.borrarClase(clase);
+			if(viajeros!=null) {
+				System.out.println("Se han encontrado "+viajeros.size()+" referenciados a esa clase en la base de datos: ");
+				for(Viajero viajero: viajeros) {
+					System.out.println(viajero);
+				}
+			}else {
+				System.out.println("Se ha eliminado un clase de la base de datos.");
+			}
+
 		}else {
-			System.out.println("No se ha podido eliminar la clase de la base de datos");
+			System.out.println("No existe ninguna clase con ese código en la base de datos");
 		}
 
 	}

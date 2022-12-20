@@ -112,5 +112,5 @@ public class Viajero implements java.io.Serializable {
 				+ "]";
 	}
 
-	
+
 }
