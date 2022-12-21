@@ -12,6 +12,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="292dp"
         android:layout_marginTop="44dp"
+        android:onClick="irPagina3"
         android:text="3"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -22,11 +23,12 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="40dp"
         android:layout_marginTop="44dp"
+        android:onClick="irPagina1"
         android:text="1"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <androidx.viewpager2.widget.ViewPager2
+    <androidx.viewpager.widget.ViewPager
         android:id="@+id/view"
         android:layout_width="412dp"
         android:layout_height="611dp"
@@ -41,6 +43,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="160dp"
         android:layout_marginTop="44dp"
+        android:onClick="irPagina2"
         android:text="2"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
