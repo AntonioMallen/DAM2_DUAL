@@ -16,7 +16,7 @@ class MainWindow(QWidget):
 
     def initializeUI(self):
         """Set up the application's GUI."""
-        self.setGeometry(50, 50, 270, 450)
+        self.setGeometry(1170, 870, 720, 70)#(50, 50, 270, 450)
         self.setWindowTitle("Tarjeta de Identificacion")
 
         self.setUpMainWindow()
