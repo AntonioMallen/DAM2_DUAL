@@ -6,6 +6,7 @@ import javax.persistence.EntityTransaction;
 import javax.persistence.Persistence;
 import javax.persistence.TypedQuery;
 
+import modelo.Fecha;
 import modelo.Jugador;
 
 public class AccesoJugador {
@@ -17,8 +18,10 @@ public class AccesoJugador {
 
 		try {
 			conexion = emf.createEntityManager();
-
+			conexion.getTransaction().begin();
 			conexion.persist(jugador);
+			conexion.getTransaction().commit();
+			
 		}catch (Exception e) {
 			throw e;
 		}
@@ -67,8 +70,68 @@ public class AccesoJugador {
 	
 	}
 	
-	public static void actualizar(Jugador jugador) {
+	public static void actualizar(int codigo, String nombre, Fecha fecha) {
+		EntityManagerFactory emf = Persistence.createEntityManagerFactory("data/campeonato.odb");
+		EntityManager conexion = null;
+		
+		try {
+			conexion = emf.createEntityManager();
+			Jugador jugador = conexion.find(Jugador.class, codigo);
+			conexion.getTransaction().begin();
+			jugador.setNombre(nombre);
+			jugador.setFechaNacimiento(fecha);
+			conexion.getTransaction().commit();
+			System.out.println(jugador);
+		}
+		finally {
+			if (conexion != null) {
+				conexion.close();
+			}
+			emf.close();
+		}
 		
 	}
+	
+	public static List<Jugador> consultarEquipo(int codigo) {
+		EntityManagerFactory emf = Persistence.createEntityManagerFactory("data/campeonato.odb");
+		EntityManager conexion = null;
+		try {
+			conexion = emf.createEntityManager();
+			TypedQuery<Jugador> consulta = conexion.createQuery("select e from Equipo e where e.jugadores.codigo ="+codigo, 
+			                                                    Jugador.class);
+			List<Jugador> jugadores = consulta.getResultList();
+			return jugadores;
+		}
+		finally {
+			if (conexion != null) {
+				conexion.close();
+			}
+			emf.close();
+		}
+	
+	}
+	
+	public static void eliminar (int codigo) {
+	
+
+		EntityManagerFactory emf = Persistence.createEntityManagerFactory("data/campeonato.odb");
+		EntityManager conexion = null;
+		
+		try {
+			conexion = emf.createEntityManager();
+			Jugador jugador = conexion.find(Jugador.class, codigo);
+			conexion.getTransaction().begin();
+			conexion.remove(jugador);
+			conexion.getTransaction().commit();
+		}
+		finally {
+			if (conexion != null) {
+				conexion.close();
+			}
+			emf.close();
+		}
+		
+	}
+	
 	
 }

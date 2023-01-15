@@ -118,7 +118,8 @@ public class Main {
 		
 		if(dia.length==3 && Fecha.esValida(Integer.parseInt(dia[0]),Integer.parseInt(dia[1]),Integer.parseInt(dia[2]))) {
 			Fecha fechaBien=new Fecha(Integer.parseInt(dia[0]),Integer.parseInt(dia[1]),Integer.parseInt(dia[2]));
-			
+			AccesoJugador.actualizar(codigo,nombre,fechaBien);
+			System.out.println("Se ha insertado un jugador en la base de datos.");
 		}else {
 			System.out.println("Fecha no correcta");
 		}
@@ -127,7 +128,21 @@ public class Main {
 	}
 	
 	private static void eliminarClase() {
-		String nombre=Teclado.leerCadena("Dime el nombre del Jugador");
+		int codigo = Teclado.leerEntero("Dime el codigo del Jugador");
+		Jugador jugador = AccesoJugador.consultarCodigo(codigo);
+		if(jugador!=null) {
+			List equipos =AccesoJugador.consultarEquipo(codigo);
+			if(equipos.size()!=0) {
+				System.out.println("Se ha encontrado un equipo relacionado con ese jugador en la base de datos.");
+				System.out.println(equipos);
+			}else {
+				AccesoJugador.eliminar(codigo);
+				System.out.println("Se ha eliminado un jugador de la base de datos.");
+			}
+		}else {
+			System.out.println("No existe ningún jugador con ese código en la base de datos.");
+		}
+		
 	}
 
 
