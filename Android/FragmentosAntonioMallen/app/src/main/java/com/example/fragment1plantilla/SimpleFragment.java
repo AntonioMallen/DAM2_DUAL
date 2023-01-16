@@ -47,13 +47,8 @@ public class SimpleFragment extends Fragment {
      * @return A new instance of fragment SimpleFragment.
      */
     // TODO: Rename and change types and number of parameters
-    public static SimpleFragment newInstance(String param1, String param2) {
-        SimpleFragment fragment = new SimpleFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
+    public static SimpleFragment newInstance(){
+        return new SimpleFragment();
     }
 
     @Override
@@ -90,16 +85,14 @@ public class SimpleFragment extends Fragment {
         });
 
         final RatingBar ratingBar=rootView.findViewById(R.id.ratingBar);
-        ratingBar.setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View v, MotionEvent event) {
-                float rating = ratingBar.getRating();
+        ratingBar.setOnRatingBarChangeListener(
+                new RatingBar.OnRatingBarChangeListener() {
+                    @Override
+                    public void onRatingChanged(RatingBar ratingBar, float rating, boolean fromUser) {
+                        Toast.makeText(getContext(), ""+rating, Toast.LENGTH_SHORT).show();
+                    }
+                });
 
-                Toast.makeText(getContext(), rating+"", Toast.LENGTH_SHORT).show();
-
-                return ratingBar.onTouchEvent(event);
-            }
-        });
 
         return rootView;
     }
