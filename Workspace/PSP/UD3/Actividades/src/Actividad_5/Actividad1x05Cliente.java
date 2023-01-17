@@ -18,14 +18,16 @@ public class Actividad1x05Cliente {
 		// ABRIR SOCKET 
 		try {
 			cliente = new Socket(host, puerto);
-			String cadena=Teclado.leerCadena("Preguntame algo");
-			
+			String cadena="";
+			do {
+			cadena=Teclado.leerCadena("Preguntame algo");
 			DataOutputStream flujoSalida = new DataOutputStream(cliente.getOutputStream()); 
 			flujoSalida.writeUTF(cadena);
 			
 			
 			DataInputStream flujoEntrada = new DataInputStream(cliente.getInputStream()); 
 			System.out.println(flujoEntrada.readUTF()); 
+			}while(!cadena.equals("?"));
 			
 		} catch (UnknownHostException e) {
 			// TODO Auto-generated catch block

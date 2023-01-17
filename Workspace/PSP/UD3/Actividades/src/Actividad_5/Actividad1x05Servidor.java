@@ -23,23 +23,26 @@ public class Actividad1x05Servidor {
 			InputStream entrada = null; 
 			entrada = clienteConectado.getInputStream(); 
 			DataInputStream flujoEntrada = new DataInputStream(entrada); 
-			String cadena=flujoEntrada.readUTF(); 
-
-			switch(cadena) {
-				case("¿como te llamas?"):
-				
-					break;
-				case(""):
-					
-					break;
-				default:
-					System.out.println("Pregunta no contemplada");
-			}
-		
+			String cadena="";
 			OutputStream salida = null; 
 			salida = clienteConectado.getOutputStream(); 
 			DataOutputStream flujoSalida = new DataOutputStream(salida); 
-			flujoSalida.writeUTF("");
+			do {
+				cadena=flujoEntrada.readUTF();
+				switch(cadena) {
+					case("¿como te llamas?"):
+						flujoSalida.writeUTF("me llamo ejercicio 5");
+						break;
+					case("¿cuántas líneas de código tienes?"):
+						flujoSalida.writeUTF("Este programa tiene 59 lineas");
+						break;
+					case("?"):
+						flujoSalida.writeUTF("Programa finalizado");
+						break;
+					default:
+						flujoSalida.writeUTF("No he entendido la pregunta");
+				}
+			}while(!cadena.equals("?"));
 			
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
