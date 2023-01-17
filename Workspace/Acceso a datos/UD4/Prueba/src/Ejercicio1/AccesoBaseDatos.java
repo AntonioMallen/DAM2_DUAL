@@ -1,3 +1,4 @@
+package Ejercicio1;
 import java.util.List;
 
 import javax.persistence.EntityManager;
@@ -9,7 +10,7 @@ import javax.persistence.TypedQuery;
 import modelo.Fecha;
 import modelo.Jugador;
 
-public class AccesoJugador {
+public class AccesoBaseDatos {
 
 	public static void insertar(Jugador jugador) {
 
