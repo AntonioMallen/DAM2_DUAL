@@ -17,7 +17,7 @@ public class ClienteUDP {
 		
 		//Se construye el datagrama a enviar
 		DatagramPacket envio = new DatagramPacket (mensaje, mensaje.length, destino, port); 
-		DatagramSocket socket = new DatagramSocket(55000);//Puerto local 
+		DatagramSocket socket = new DatagramSocket(5);//Puerto local 
 		System.out.println("Enviando Datagrama de longitud: "+ mensaje.length);
 		System.out.println("Host destino : "+ destino.getHostName()); 
 		System.out.println("IP Destino : " + destino.getHostAddress()); 
