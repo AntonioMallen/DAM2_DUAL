@@ -37,13 +37,8 @@ public class Horizontal extends Fragment {
      * @return A new instance of fragment Horizontal.
      */
     // TODO: Rename and change types and number of parameters
-    public static Horizontal newInstance(String param1, String param2) {
-        Horizontal fragment = new Horizontal();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
+    public static Horizontal newInstance(){
+        return new Horizontal();
     }
 
     @Override
