@@ -22,12 +22,10 @@ public class MainActivity extends AppCompatActivity{
              public void onOrientationChanged(int i) {
 
                  if(i==90 || i==270){
-
                      FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
                      fragmentTransaction.replace(android.R.id.content,horizontal,null).commit();
                  }
                  if(i==0 || i==180){
-
                      FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
                      fragmentTransaction.replace(android.R.id.content,vertical,null).commit();
                  }
