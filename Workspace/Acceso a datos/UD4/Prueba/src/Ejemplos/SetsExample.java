@@ -23,13 +23,15 @@ public class SetsExample {
 		hash_Set2.add("Example");
 		hash_Set2.add("Set");
 		Set<String> hash_Set1 = new TreeSet<String>(hash_Set2);
+		
 		Set<String> hash_Set = new HashSet<String>(hash_Set2);
 		List<String> lista = new ArrayList<String>(hash_Set2);
+		lista.addAll(hash_Set2);
 		// Printing elements of HashSet object
 		System.out.println(hash_Set2);
 		System.out.println(lista);
-		//System.out.println(hash_Set);
-		//System.out.println(hash_Set1);
+		System.out.println(hash_Set);
+		System.out.println(hash_Set1);
 
 	}
 
