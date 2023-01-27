@@ -29,12 +29,40 @@
         android:layout_height="wrap_content"
         android:ems="10"
         android:hint="Intruduce el precio"
-        android:inputType="textPersonName"
-        android:text="Name" />
+        android:inputType="number" />
 
     <Button
-        android:id="@+id/alta"
+        android:id="@+id/button"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:onClick="alta"
         android:text="Alta" />
+
+    <Button
+        android:id="@+id/button2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:onClick="consultaporcodigo"
+        android:text="Consulta por codigo" />
+
+    <Button
+        android:id="@+id/button5"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:onClick="consultapordescripcion"
+        android:text="Consulta por descripcion" />
+
+    <Button
+        android:id="@+id/button3"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:onClick="bajaporcodigo"
+        android:text="Baja por codigo" />
+
+    <Button
+        android:id="@+id/button4"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:onClick="modificacion"
+        android:text="Modificacion" />
 </LinearLayout>

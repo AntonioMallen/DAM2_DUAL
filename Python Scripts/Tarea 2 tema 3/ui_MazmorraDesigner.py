@@ -137,7 +137,6 @@ class Ui_MainWindow(object):
         MainWindow.setStatusBar(self.statusbar)
 
         self.menubar.addAction(self.menuMenu.menuAction())
-        self.menuMenu.addAction(self.actionJugar)
         self.menuMenu.addAction(self.actionAyuda_2)
         self.menuMenu.addAction(self.actionSalir_2)
 

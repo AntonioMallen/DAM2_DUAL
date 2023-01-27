@@ -301,7 +301,6 @@ background-color: rgb(229, 229, 229)
     <property name="title">
      <string>Menu</string>
     </property>
-    <addaction name="actionJugar"/>
     <addaction name="actionAyuda_2"/>
     <addaction name="actionSalir_2"/>
    </widget>

@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<empleados>
+	<empleado>
+		<codigo>7369</codigo>
+		<nombre>Carlos Sánchez</nombre>
+		<salario>1040.50</salario>
+	</empleado>
+	<empleado>
+		<codigo>7499</codigo>
+		<nombre>Ana Arroyo</nombre>
+		<salario>1500.25</salario>
+	</empleado>
+	<empleado>
+		<codigo>7521</codigo>
+		<nombre>Jorge Sala</nombre>
+		<salario>1625.90</salario>
+	</empleado>
+	<empleado>
+		<codigo>7566</codigo>
+		<nombre>Pilar Jiménez</nombre>
+		<salario>2900.10</salario>
+	</empleado>
+	<empleado>
+		<codigo>7654</codigo>
+		<nombre>Alberto Martín</nombre>
+		<salario>1600.75</salario>
+	</empleado>
+	<empleado>
+		<codigo>7698</codigo>
+		<nombre>Elena Negro</nombre>
+		<salario>3005.15</salario>
+	</empleado>
+	<empleado>
+		<codigo>7782</codigo>
+		<nombre>Juan Cerezo</nombre>
+		<salario>2885.85</salario>
+	</empleado>
+	<empleado>
+		<codigo>7788</codigo>
+		<nombre>Luis Gil</nombre>
+		<salario>3000.00</salario>
+	</empleado>
+	<empleado>
+		<codigo>7839</codigo>
+		<nombre>Jesús Rey</nombre>
+		<salario>4100.50</salario>
+	</empleado>
+	<empleado>
+		<codigo>7844</codigo>
+		<nombre>Pedro Tovar</nombre>
+		<salario>1350.77</salario>
+	</empleado>
+	<empleado>
+		<codigo>7876</codigo>
+		<nombre>Ángel Alonso</nombre>
+		<salario>1830</salario>
+	</empleado>
+	<empleado>
+		<codigo>7900</codigo>
+		<nombre>Víctor Jimeno</nombre>
+		<salario>1335.33</salario>
+	</empleado>
+	<empleado>
+		<codigo>7902</codigo>
+		<nombre>Isabel Fernández</nombre>
+		<salario>3000.11</salario>
+	</empleado>
+	<empleado>
+		<codigo>7934</codigo>
+		<nombre>Pablo Muñoz</nombre>
+		<salario>1690.05</salario>
+	</empleado>
+</empleados>

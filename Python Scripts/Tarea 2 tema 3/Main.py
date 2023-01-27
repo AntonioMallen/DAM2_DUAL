@@ -33,6 +33,8 @@ class Window(QMainWindow):
         self.darEste=False
         self.darOeste=False
 
+        self.ControlNorte=1
+
     def initializeUI(self):
         self.ui.TextGrande.setText("Bienvenido al laberinto, para jugar tienes que escoger una \nhabitacion y darle a Jugar, si necesitas mas ayuda puedes \ndirigirte a el apartado de menu y 'Ayuda'")
         self.ui.pushButton.setEnabled(False)
@@ -65,6 +67,7 @@ class Window(QMainWindow):
         self.ui.pushButton_4.setEnabled(False)
         self.ui.pushButton_5.setEnabled(False)
         self.ui.pushButton_6.clicked.connect(self.salaNorte)
+        print("Seleccion")
 
 
     def seleccionSur(self):
@@ -104,26 +107,47 @@ class Window(QMainWindow):
         self.ui.pushButton_6.clicked.connect(self.salaOeste)
 
     def salaNorte(self):
-        self.ui.pushButton_6.setText("Si")
-        self.ui.pushButton_7.setText("No")
-        ene=randint(0,100)
-        
-        if(ene>=90):
-            self.ui.pushButton_6.clicked.connect(self.salaNorte)
-            self.ui.TextGrande.setText("Ha aparecido un enemigo en tu camino.\nEl enemigo te ha hecho "+str(ene)+ " de daño.\nHas muerto\n¿Quieres seguir?")
+        if(self.ControlNorte==1):
+            self.ControlNorte=0
+            self.ui.pushButton_6.setText("Si")
+            self.ui.pushButton_7.setText("No")
 
-        else:
-            self.ui.pushButton_6.clicked.connect(self.defenderse)
-            self.ui.TextGrande.setText("Ha aparecido un enemigo en tu camino.\nEl enemigo te ha hecho "+str(ene)+ " de daño.\nHas sobrevivido\n¿Quieres defenderte?")
+            ene=randint(0,100)
+            if(ene>=90):
+                self.ui.pushButton_6.clicked.connect(self.salaNorte)
+                self.ui.pushButton_7.clicked.connect(self.salirMedio)
+                self.ui.TextGrande.setText("Ha aparecido un enemigo en tu camino.\nEl enemigo te ha hecho "+str(ene)+ " de daño.\nHas muerto\n¿Quieres seguir?")
+
+            else:
+                print("entro")
+                self.ui.pushButton_6.clicked.connect(self.defenderse)
+                self.ui.pushButton_7.clicked.connect(self.salirMedio)
+                self.ui.TextGrande.setText("Ha aparecido un enemigo en tu camino.\nEl enemigo te ha hecho "+str(ene)+ " de daño.\nHas sobrevivido\n¿Quieres defenderte?")
                 
             
     def defenderse(self):
+        print("He entrado a Cosa chunga")
         per=randint(0,100)
         if(per>60):
+            self.ui.pushButton_7.setVisible(False)
             self.ui.TextGrande.setText("Le has hecho "+str(per)+" de daño\n¡Has vencido la sala norte!")
             self.darNorte=True
+            self.ui.pushButton_6.setText("Vale")
+            self.ui.pushButton_6.clicked.connect(self.ganarNorte)
         else:
-            self.salaNorte()
+            self.ui.pushButton_6.clicked.connect(self.salaNorte)
+            self.ui.pushButton_7.clicked.connect(self.salirMedio)
+            self.ui.TextGrande.setText("Le has hecho "+str(per)+" de daño, no es suficiente\n¿Quieres seguir?")
+            
+
+
+    def ganarNorte(self):
+            self.ui.pushButton.setEnabled(False)
+            self.ui.pushButton_6.setVisible(True)  
+            self.ui.pushButton_7.setVisible(True)  
+            self.salirMedio()
+            
+
 
     def salaSur(self):
         pass
@@ -134,6 +158,35 @@ class Window(QMainWindow):
     def salaOeste(self):
         pass
 
+    def salirMedio(self):
+        self.ControlNorte=1
+        self.ui.pushButton_6.setText("Jugar")
+        self.ui.pushButton_7.setText("Salir")
+        self.ui.pushButton_7.clicked.connect(self.botonSalir)
+
+
+        if(self.darNorte==True):
+            self.ui.pushButton.setEnabled(False)
+        else:
+            self.ui.pushButton.setEnabled(True)
+
+        if(self.darOeste==True):
+            self.ui.pushButton_2.setEnabled(False)
+        else:
+            self.ui.pushButton_2.setEnabled(True)
+
+        if(self.darEste==True):
+            self.ui.pushButton_4.setEnabled(False)
+        else:
+            self.ui.pushButton_4.setEnabled(True)
+
+        if(self.darSur==True):
+            self.ui.pushButton_5.setEnabled(False)
+        else:
+            self.ui.pushButton_5.setEnabled(True)
+        
+        self.ui.TextGrande.setText("Bienvenido al laberinto, para jugar tienes que escoger una \nhabitacion y darle a Jugar, si necesitas mas ayuda puedes \ndirigirte a el apartado de menu y 'Ayuda'")
+   
 
     def botonSalir(self):
         self.ui.pushButton.setEnabled(True)
