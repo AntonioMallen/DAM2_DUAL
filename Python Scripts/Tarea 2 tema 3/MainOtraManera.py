@@ -32,7 +32,7 @@ class Window(QMainWindow):
         self.darEste=False
         self.darOeste=False
 
-        self.salaSeleccionada=""
+        self.estado=""
         self.estado=""
 
     def initializeUI(self):
@@ -67,12 +67,12 @@ class Window(QMainWindow):
         self.ui.pushButton_3.setEnabled(False)
         self.ui.pushButton_4.setEnabled(False)
         self.ui.pushButton_5.setEnabled(False)
-        self.salaSeleccionada="N"
+        self.estado="N"
 
 
     def seleccionSur(self):
         self.ui.TextGrande.setText("Vas a entrar en la sala Sur")
-        self.salaSeleccionada="S"
+        self.estado="S"
         self.ui.pushButton_5.setStyleSheet("border-radius: 10px;\n"
 "border: 1px solid black;\n"
 "background-color: rgb(100,255,100)\n")
@@ -84,7 +84,7 @@ class Window(QMainWindow):
 
     def seleccionEste(self):
         self.ui.TextGrande.setText("Vas a entrar en la sala Este")
-        self.salaSeleccionada="E"
+        self.estado="E"
         self.ui.pushButton_4.setStyleSheet("border-radius: 10px;\n"
 "border: 1px solid black;\n"
 "background-color: rgb(100,255,100)\n")
@@ -96,7 +96,7 @@ class Window(QMainWindow):
 
     def seleccionOeste(self):
         self.ui.TextGrande.setText("Vas a entrar en la sala Oeste")
-        self.salaSeleccionada="O"
+        self.estado="O"
         self.ui.pushButton_2.setStyleSheet("border-radius: 10px;\n"
 "border: 1px solid black;\n"
 "background-color: rgb(100,255,100)\n")
@@ -109,14 +109,13 @@ class Window(QMainWindow):
     def salaNorte(self):
         self.ui.pushButton_6.setText("Si")
         self.ui.pushButton_7.setText("No")
-        print("asfasf")
         ene=randint(0,100)
         if(ene>=90):
-            self.estado="muerto"
             self.ui.TextGrande.setText("Ha aparecido un enemigo en tu camino.\nEl enemigo te ha hecho "+str(ene)+ " de daño.\nHas muerto\n¿Quieres seguir?")
+            self.estado="muerto"
         else:
+            self.ui.TextGrande.setText("Ha aparecido un enemigo en tu camino.\nEl enemigo te ha hecho "+str(ene)+ " de daño.\nHas sobrevivido\n¿Quieres defenderte?")   
             self.estado="vivo"
-            self.ui.TextGrande.setText("Ha aparecido un enemigo en tu camino.\nEl enemigo te ha hecho "+str(ene)+ " de daño.\nHas sobrevivido\n¿Quieres defenderte?")       
             
     def defenderse(self):
         per=randint(0,100)
@@ -194,25 +193,25 @@ class Window(QMainWindow):
             self.play()
             self.comenzar=True
         else:
-            if(self.salaSeleccionada=="N"):
+            if(self.estado=="N"):
                 self.salaNorte()
-                if(self.estado=="muerto"):
-                    self.botonJugar()
-                elif(self.estado=="vivo"):
-                    self.defenderse()
-                    print( self.estado)
-                    if(self.estado=="ganar"):
-                        self.darNorte=True
-                        self.ganarNorte()
-                    elif(self.estado=="perder"):
-                        print("He entrado a Cosa chunga")
-                        self.salaNorte()
-            elif(self.salaSeleccionada=="S"):
+            elif(self.estado=="S"):
                 self.salaSur()
-            elif(self.salaSeleccionada=="E"):
+            elif(self.estado=="E"):
                 self.salaEste()
-            elif(self.salaSeleccionada=="O"):
+            elif(self.estado=="O"):
                 self.salaOeste()
+            elif(self.estado=="vivo"):
+                print("sfa")
+                self.defenderse()
+            elif(self.estado=="muerto"):
+                self.botonJugar()
+            elif(self.estado=="ganar"):
+                    self.darNorte=True
+                    self.estado=""
+                    self.ganarNorte()
+            elif(self.estado=="perder"):
+                self.salaNorte()
 
 
 
