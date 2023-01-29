@@ -140,7 +140,6 @@ class Ui_MainWindow(object):
         self.pushButton_4.setText(_translate("MainWindow", "Este"))
         self.pushButton_5.setText(_translate("MainWindow", "Sur"))
         self.TextGrande.setText(_translate("MainWindow", "Estas en el inicio"))
-        self.label_3.setText(_translate("MainWindow", "TextLabel"))
         self.radioButton.setText(_translate("MainWindow", "resp1"))
         self.radioButton_2.setText(_translate("MainWindow", "resp2"))
         self.radioButton_3.setText(_translate("MainWindow", "resp3"))
