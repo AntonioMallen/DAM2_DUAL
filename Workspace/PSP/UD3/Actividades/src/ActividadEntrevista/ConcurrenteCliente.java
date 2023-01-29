@@ -23,18 +23,20 @@ public class ConcurrenteCliente {
 			cliente = new Socket(host, puerto);
 			PrintWriter flujoSalida= new PrintWriter(cliente.getOutputStream(),true);
 			BufferedReader flujoEntrada= new BufferedReader(new InputStreamReader(cliente.getInputStream()));
-			String pregunta="";
 			String respuesta="";
+			String pregunta="";
 
 			
-			for(int i =0;i<3;i++) {
-				pregunta=Teclado.leerCadena("Dime la cadena de texto: ");
-				System.out.print("Se envia: "+pregunta+"\n");
-				flujoSalida.println(pregunta);
+			for(int i =0;i<4;i++) {
+				
 			
-				respuesta=flujoEntrada.readLine();
-				System.out.println(respuesta); 
+				pregunta=flujoEntrada.readLine();
+				System.out.println(pregunta); 
+				
+				respuesta=Teclado.leerCadena("Dime la cadena de texto: ");
+				flujoSalida.println(respuesta);
 			}
+			System.out.println("Gracias por realizar nuestra encuesta");
 
 		} catch (UnknownHostException e) {
 			// TODO Auto-generated catch block
