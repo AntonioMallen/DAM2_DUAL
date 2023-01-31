@@ -11,7 +11,7 @@ public class TestInetAddress {
 		
 		try { 
 			//LOCALHOST 
-			dir = InetAddress.getByName("PC10"); 
+			dir = InetAddress.getByName("PC12"); 
 			pruebaMetodos(dir);
 			
 			//URL www.google.es 

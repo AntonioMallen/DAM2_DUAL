@@ -13,20 +13,20 @@ public class ConcurrenteServidorHilo extends Thread {
 
 	private Socket client;
 	private int numero;
-	ArrayList<ArrayList> respuestasTotales = new ArrayList<ArrayList>();
-	ArrayList<String> respuestas = new ArrayList<String>();
+	Respuestas respuestas;
 
-	public ConcurrenteServidorHilo(Socket client, int numero,ArrayList<ArrayList> respuestas) {
+
+	public ConcurrenteServidorHilo(Socket client, int numero,Respuestas respuestas) {
 		this.client = client;
 		this.numero=numero;
-		this.respuestasTotales=respuestas;
+		this.respuestas=respuestas;
 	}
 
 	public void run(){
 
 		PrintWriter fsalida=null;
 		BufferedReader fentrada=null;
-		String[] preguntas = {"¿Cual es tu color favorito?","¿Prefieres gatos o perros?","¿Que deporte te gusta?","¿Como te llamas?"};
+		String[] preguntas = {"¿Prefieres el azul o el rojo?","¿Prefieres Gatos o Perros?","¿Que deporte te gusta mas, Futbol o Baloncesto?","¿Eres mas de playa o de montaña?"};
 		String respuesta="";
 		try {
 			fsalida= new PrintWriter(client.getOutputStream(),true);
@@ -37,13 +37,11 @@ public class ConcurrenteServidorHilo extends Thread {
 				fsalida.println(preguntas[i-1]);
 
 				respuesta=fentrada.readLine();
-				respuestas.add(respuesta);
-
-				//System.out.println("Cliente numero "+numero+" pregunta "+i);
+				respuestas.setRespuesta(i, respuesta);
 
 			}
-			respuestasTotales.add(respuestas);
-			System.out.println(respuestasTotales);
+			fsalida.println(respuestas);
+			System.out.println(respuestas);
 			System.out.println("Cerrando conexion... ");
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
@@ -60,12 +58,5 @@ public class ConcurrenteServidorHilo extends Thread {
 	}
 	
 	
-	private void imprimir() {
-		for(ArrayList<String> resp: respuestasTotales) {
-			for(String cadena: resp) {
-				
-			}
-		}
-	}
 
 }

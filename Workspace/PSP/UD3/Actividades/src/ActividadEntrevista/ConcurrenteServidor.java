@@ -16,7 +16,7 @@ public class ConcurrenteServidor {
 		int puerto = 60000;// Puerto 
 		ServerSocket servidor=null;
 		int contador=0;
-		ArrayList<ArrayList> respuestas = new ArrayList<ArrayList>();
+		Respuestas respuestas = new Respuestas();
 		try {
 			servidor = new ServerSocket(puerto);
 		

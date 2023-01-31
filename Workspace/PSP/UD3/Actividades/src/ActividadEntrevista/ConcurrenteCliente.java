@@ -35,6 +35,11 @@ public class ConcurrenteCliente {
 				
 				respuesta=Teclado.leerCadena("Dime la cadena de texto: ");
 				flujoSalida.println(respuesta);
+				
+			}
+			String[] salida=flujoEntrada.readLine().split("☺"); 
+			for(String s: salida) {
+				System.out.println(s);
 			}
 			System.out.println("Gracias por realizar nuestra encuesta");
 
