@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">AntonioMallenEP1</string>
+    <string name="botonText">Mostrar formulario</string>
+    <string name="correo">Correo Electronico</string>
+    <string name="personal">Personal</string>
+    <string name="trabajo">Trabajo</string>
+    <string name="Guardar">GUARDAR Y CERRAR</string>
+</resources>
