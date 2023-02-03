@@ -20,6 +20,7 @@ public class LeerAlumnosDeXML {
 			
 			for (int i = 0; i < listaNodosAlumno.getLength(); i++) {
 				Node nodoAlumno = listaNodosAlumno.item(i);
+				System.out.println(nodoAlumno);
 				if (nodoAlumno.getNodeType() == Node.ELEMENT_NODE) {
 					Element element = (Element) nodoAlumno;
 					String codigo = element.getElementsByTagName("codigo").item(0).getTextContent();

@@ -48,8 +48,8 @@ public class EscribirAlumnosEnXML {
 	throws DOMException {
 		Element nodoElemento = documento.createElement(etiqueta);
 		Text nodoTexto = documento.createTextNode(texto);
+		nodoElemento.appendChild(nodoTexto);	
 		padre.appendChild(nodoElemento);
-		nodoElemento.appendChild(nodoTexto);		 	
 	}
 	
 	// Lee todos los alumnos del fichero binario 'alumnos_aleat_datos.dat',
