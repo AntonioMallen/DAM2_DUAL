@@ -1,0 +1,104 @@
+	Ejercicio 1:
+
+a) Títulos de los libros con la etiqueta "titulo".
+
+for $libro in //title
+return <titulo>{data($libro)}</titulo>
+
+
+b) Libros cuyo precio sea menor o igual a 30 incluyendo la condición en la cláusula "where".
+
+for $libro in //book
+let $c:= $libro//price
+where $c <= 30
+return $libro
+
+
+
+c) Libros cuyo precio sea menor o igual a 30 incluyendo la condición en la ruta del XPath.
+
+for $libro in //book
+where $libro/price[.<=30]
+return $libro
+
+
+d) Título de los libros cuyo precio sea menor o igual a 30.
+
+for $libro in //book
+where $libro//price[.<=30]
+return $libro//title
+
+
+e) Título sin atributos de los libros cuyo precio sea menor o igual a 30.
+
+for $libro in //book
+where $libro//price[.<=30]
+return <titulo>{data($libro//title)}</titulo>
+
+
+f) Título y autor de los libros del año 2005, y etiquetar cada uno de ellos con "lib2005".
+
+for $libro in //book
+where $libro//year="2005"
+return <lib2005>{data($libro//title, $libro//author=)}</lib2005> 
+
+
+g) Años de publicación con la etiqueta publicación. Dos versiones: una con for y otra con let.
+
+for $libro in //book
+return <publicacion>{data($libro//year)}</publicacion> 
+
+let $libro:= //book
+return <publicacion>{data($libro//year)}</publicacion> 
+
+h) Libros ordenados primero por "category" y luego por "title" en una sola consulta.
+
+for $libro in //book
+order by $libro/@category and $libro//title
+return $libro
+
+i) Título del libro, su precio y su precio con el IVA incluido, cada uno con su propia etiqueta y
+ordenados por precio con IVA.
+j) Títulos en una tabla de HTML.
+k) Cantidad de libros en una etiqueta "total".
+l) Títulos de los libros y al final una etiqueta con el número total de libros.
+m) Precio mínimo y máximo de los libros, cada uno en una etiqueta.
+n) Suma total de los precios de los libros con la etiqueta "total".
+o) Precios de los libros, y al final una etiqueta con la suma de los precios.
+p) Título y número de autores que tiene cada título en etiquetas diferentes.
+q) En la misma etiqueta, el título y entre paréntesis el número de autores que tiene ese título.
+r) Libros escritos en años que terminen en "3".
+s) Libros cuya categoría empiece por "C".
+t) Libros que tengan una "X" mayúscula o minúscula en el título.
+u) Título y número de caracteres que tiene cada título, cada uno con su propia etiqueta.
+v) Años en los que se ha publicado un libro eliminando los repetidos y con la etiqueta “agno”.
+w) Todos los autores eliminando los que se repiten y ordenados por el número de caracteres que
+tiene cada autor.
+
+	
+	Ejercicio 2:
+	
+a) Nombres de los bailes con la etiqueta "losbailes".
+b) Nombres de los bailes seguidos con el número de plazas entre paréntesis, ambos dentro de la
+misma etiqueta "losbailes".
+c) Nombres de los bailes cuyo precio sea mayor de 30.
+d) Nombres de los bailes cuyo precio sea mayor de 30 y la moneda "euro".
+e) Nombres y fecha de comienzo de los bailes que comiencen el mes de enero.
+f) Nombres de los profesores y la sala en la que dan clase, ordenados por sala.
+g) Nombres de los profesores eliminando los repetidos y acompañando cada nombre con
+todas las salas en la que da clase, ordenados por nombre.
+h) Media de los precios de todos los bailes.
+i) Suma de los precios de los bailes de la sala 1.
+j) Cantidad de plazas en total oferta el profesor "Jesus Lozano".
+k) Dinero que ganaría la profesora "Laura Mendiola" si se completaran todas las plazas de su
+baile, sabiendo que sólo tiene un baile.
+l) Dinero que ganaría el profesor "Jesus Lozano" si se completaran todas las plazas de su baile,
+mostrando el beneficio de cada baile por separado.
+m) Dinero que ganaría la profesora "Laura" (sin indicar su apellido) si se completaran todas las
+plazas de su baile.
+n) Nombre del baile, su precio y el precio con un descuento del 15% para familias numerosas,
+ordenados por el nombre del baile
+o) Todos los datos de cada baile excepto la fecha de comienzo y de fin.
+p) En una tabla de HTML, los nombres de los bailes y su profesor, cada uno en una fila
+	
+	
