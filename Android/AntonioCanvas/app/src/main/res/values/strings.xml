@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">AntonioCanvas</string>
+    <string name="keep_taping">Keep tapping</string>
+    <string name="done">Done!</string>
+</resources>
