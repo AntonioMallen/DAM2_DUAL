@@ -5,7 +5,7 @@ from PyQt6.QtWidgets import (
 )
 from PyQt6.QtGui import QAction
 from random import randint
-from Designer import Ui_MainWindow
+from Designer2 import Ui_MainWindow
 
 class Window(QMainWindow):
     def __init__(self, parent=None):
@@ -37,7 +37,7 @@ class Window(QMainWindow):
 
     def initializeUI(self):
         self.comenzar=False
-        self.ui.TextGrande.setText("Bienvenido a la Mazmorra de Antonio.\nPara jugar tienes que escoger una habitacion y darle a Jugar,\nsi necesitas mas ayuda puedes dirigirte a el apartado de menu\ny 'Ayuda'")
+        self.ui.TextGrande.setText("Bienvenido a la Mazmorra de Antonio.\nPara jugar tienes que escoger una habitacion y\ndarle a Jugar,si necesitas mas ayuda puedes dirigirte a\nel apartado de menu y 'Ayuda'")
         self.ui.pushButton.setEnabled(False)
         self.ui.pushButton_2.setEnabled(False)
         self.ui.pushButton_3.setEnabled(False)
@@ -62,7 +62,7 @@ class Window(QMainWindow):
         
         self.ui.pushButton.setStyleSheet("border-radius: 10px;\n"
 "border: 1px solid black;\n"
-"background-color: rgb(100,255,100)\n")
+"background-color: rgb(120,200,120)\n")
         self.ui.pushButton_2.setEnabled(False)
         self.ui.pushButton_3.setEnabled(False)
         self.ui.pushButton_4.setEnabled(False)
@@ -75,7 +75,7 @@ class Window(QMainWindow):
         self.estado="S"
         self.ui.pushButton_5.setStyleSheet("border-radius: 10px;\n"
 "border: 1px solid black;\n"
-"background-color: rgb(100,255,100)\n")
+"background-color: rgb(120,200,120)\n")
         
         self.ui.pushButton_2.setEnabled(False)
         self.ui.pushButton_3.setEnabled(False)
@@ -87,7 +87,7 @@ class Window(QMainWindow):
         self.estado="E"
         self.ui.pushButton_4.setStyleSheet("border-radius: 10px;\n"
 "border: 1px solid black;\n"
-"background-color: rgb(100,255,100)\n")
+"background-color: rgb(120,200,120)\n")
         
         self.ui.pushButton_2.setEnabled(False)
         self.ui.pushButton_3.setEnabled(False)
@@ -99,7 +99,7 @@ class Window(QMainWindow):
         self.estado="O"
         self.ui.pushButton_2.setStyleSheet("border-radius: 10px;\n"
 "border: 1px solid black;\n"
-"background-color: rgb(100,255,100)\n")
+"background-color: rgb(120,200,120)\n")
         
         self.ui.pushButton_4.setEnabled(False)
         self.ui.pushButton_3.setEnabled(False)
@@ -317,7 +317,8 @@ class Window(QMainWindow):
             self.ui.pushButton.setEnabled(True)
             self.ui.pushButton.setStyleSheet("border-radius: 10px;\n"
             "border: 1px solid black;\n"
-            "background-color: rgb(255,255,255)\n")
+            "background-color: rgb(255,255,255);\n"
+            "color: black\n")
 
         if(self.darOeste==True):
             self.ui.pushButton_2.setEnabled(False)
@@ -325,7 +326,8 @@ class Window(QMainWindow):
             self.ui.pushButton_2.setEnabled(True)
             self.ui.pushButton_2.setStyleSheet("border-radius: 10px;\n"
             "border: 1px solid black;\n"
-            "background-color: rgb(255,255,255)\n")
+            "background-color: rgb(255,255,255);\n"
+             "color: black\n")
 
         if(self.darEste==True):
             self.ui.pushButton_4.setEnabled(False)
@@ -333,7 +335,8 @@ class Window(QMainWindow):
             self.ui.pushButton_4.setEnabled(True)
             self.ui.pushButton_4.setStyleSheet("border-radius: 10px;\n"
             "border: 1px solid black;\n"
-            "background-color: rgb(255,255,255)\n")
+            "background-color: rgb(255,255,255);\n"
+             "color: black\n")
 
         if(self.darSur==True):
             self.ui.pushButton_5.setEnabled(False)
@@ -341,7 +344,8 @@ class Window(QMainWindow):
             self.ui.pushButton_5.setEnabled(True)
             self.ui.pushButton_5.setStyleSheet("border-radius: 10px;\n"
             "border: 1px solid black;\n"
-            "background-color: rgb(255,255,255)\n")
+            "background-color: rgb(255,255,255);\n"
+             "color: black\n")
         self.estado=""
         self.ui.TextGrande.setText("Bienvenido a la Mazmorra de Antonio, para jugar tienes que escoger una \nhabitacion y darle a Jugar, si necesitas mas ayuda puedes \ndirigirte a el apartado de menu y 'Ayuda'")
    
