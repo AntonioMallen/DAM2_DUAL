@@ -37,14 +37,22 @@ class Window(QMainWindow):
 
     def initializeUI(self):
         self.comenzar=False
-        self.ui.TextGrande.setText("Bienvenido a la Mazmorra de Antonio.\nPara jugar tienes que escoger una habitacion y\ndarle a Jugar,si necesitas mas ayuda puedes dirigirte a\nel apartado de menu y 'Ayuda'")
+        self.ui.TextGrande.setText("Bienvenido a la Mazmorra de Antonio.\nPara jugar tienes que escoger una\nhabitacion y darle a Jugar,si necesitas\nmas ayuda puedes dirigirte a\nel apartado de menu y 'Ayuda'")
         self.ui.pushButton.setEnabled(False)
         self.ui.pushButton_2.setEnabled(False)
         self.ui.pushButton_3.setEnabled(False)
         self.ui.pushButton_4.setEnabled(False)
         self.ui.pushButton_5.setEnabled(False)
         self.ui.textosAux.setVisible(False) 
-        self.ui.pushButton_7.setVisible(False)  
+        self.ui.pushButton_7.setVisible(False)
+        self.ui.pushButton_7.setStyleSheet("border-radius: 10px;\n"
+"border: 1px solid black;\n"
+"background-color: rgb(255,255,255)\n"
+"")
+        self.ui.pushButton_6.setStyleSheet("border-radius: 10px;\n"
+"border: 1px solid black;\n"
+"background-color: rgb(255,255,255)\n"
+"")
 
         self.ui.pushButton.clicked.connect(self.seleccionNorte)
         self.ui.pushButton_5.clicked.connect(self.seleccionSur)
@@ -62,7 +70,7 @@ class Window(QMainWindow):
         
         self.ui.pushButton.setStyleSheet("border-radius: 10px;\n"
 "border: 1px solid black;\n"
-"background-color: rgb(120,200,120)\n")
+"background-color: rgb(150,200,150)\n")
         self.ui.pushButton_2.setEnabled(False)
         self.ui.pushButton_3.setEnabled(False)
         self.ui.pushButton_4.setEnabled(False)
@@ -75,7 +83,7 @@ class Window(QMainWindow):
         self.estado="S"
         self.ui.pushButton_5.setStyleSheet("border-radius: 10px;\n"
 "border: 1px solid black;\n"
-"background-color: rgb(120,200,120)\n")
+"background-color: rgb(150,200,150)\n")
         
         self.ui.pushButton_2.setEnabled(False)
         self.ui.pushButton_3.setEnabled(False)
@@ -87,7 +95,7 @@ class Window(QMainWindow):
         self.estado="E"
         self.ui.pushButton_4.setStyleSheet("border-radius: 10px;\n"
 "border: 1px solid black;\n"
-"background-color: rgb(120,200,120)\n")
+"background-color: rgb(150,200,150)\n")
         
         self.ui.pushButton_2.setEnabled(False)
         self.ui.pushButton_3.setEnabled(False)
@@ -99,7 +107,7 @@ class Window(QMainWindow):
         self.estado="O"
         self.ui.pushButton_2.setStyleSheet("border-radius: 10px;\n"
 "border: 1px solid black;\n"
-"background-color: rgb(120,200,120)\n")
+"background-color: rgb(150,200,150)\n")
         
         self.ui.pushButton_4.setEnabled(False)
         self.ui.pushButton_3.setEnabled(False)
@@ -130,16 +138,16 @@ class Window(QMainWindow):
 
     
     def salaEste(self):
-        pregunta=["Hay algo que, aunque te pertenezca,\n la gente siempre lo utiliza más que tú. ¿Qué es?",
-                "Crezco a pesar de no estar vivo.\nNo tengo pulmones, pero para vivir necesito el aire.\nEl agua, aunque no tenga boca, me mata. ¿Qué soy?",
-                "Estando roto es más útil que sin romperse.\n¿Qué es?",
-                "Aparato que vibra y gira, te metes en la boca unas 3 veces al día\ny mide unos 15 cm. ¿Qué es?",
-                "Las personas siempre duermen menos en un mes del año.\n¿Cuál es este mes?",
+        pregunta=["Hay algo que, aunque te pertenezca,\n la gente siempre lo utiliza\nmás que tú. ¿Qué es?",
+                "Crezco a pesar de no estar vivo.\nNo tengo pulmones, pero para vivir\nnecesito el aire. El agua, aunque no\ntenga boca, me mata. ¿Qué soy?",
+                "Estando roto es más útil que\nsin romperse.¿Qué es?",
+                "Aparato que vibra y gira, te metes\nen la boca unas 3 veces al día\ny mide unos 15 cm. ¿Qué es?",
+                "Las personas siempre duermen menos\nen un mes del año.¿Cuál es este mes?",
                 "Estoy en todo pese a estar en nada.\n¿Qué soy?",
                 "Te paras cuando está verde\ny continúas cuando está rojo. ¿Qué es?",
                 "¿Qué monte era el más alto del mundo\nantes de descubrir el Everest?",
-                "La señora y el señor Sánchez tienen 6 hijos.\nCada hijo tiene una hermana.\n¿Cuántas personas hay en la familia Sánchez?",
-                "Soy alto siendo joven y corto cuando soy viejo.\nResplandezco con la vida y el viento es mi mayor enemigo.\n¿Qué soy?"]
+                "La señora y el señor Sánchez tienen\n6 hijos.Cada hijo tiene una hermana.\n¿Cuántas personas hay\nen la familia Sánchez?",
+                "Soy alto siendo joven y corto cuando\nsoy viejo. Resplandezco con la vida y el viento es mi mayor\n enemigo.¿Qué soy?"]
         respuesta=["nombre",
                 "Fuego",
                 "Huevo",
@@ -185,14 +193,14 @@ class Window(QMainWindow):
 
 
     def salaOeste(self):
-        pregunta=["¿Cuál es el río más largo de España?",
-                "¿Cuál es el río más largo de la península ibérica?",
-                "¿Cuál es el río más largo del mundo?",
-                "¿Cuál es la montaña más alta de España?",
-                "¿Cuál es la montaña más alta del mundo?",
-                "¿Cuál es el océano más grande?",
-                "¿Cuál es el país con más extensión?",
-                "¿Cuál es el país más poblado?"]
+        pregunta=["¿Cuál es el río\nmás largo de España?",
+                "¿Cuál es el río más\nlargo de la península ibérica?",
+                "¿Cuál es el río más\nlargo del mundo?",
+                "¿Cuál es la montaña\nmás alta de España?",
+                "¿Cuál es la montaña\nmás alta del mundo?",
+                "¿Cuál es el océano\nmás grande?",
+                "¿Cuál es el país con\nmás extensión?",
+                "¿Cuál es el país\nmás poblado?"]
         respuesta=["Ebro",
                 "Tajo",
                 "Amazonas",
@@ -347,8 +355,8 @@ class Window(QMainWindow):
             "background-color: rgb(255,255,255);\n"
              "color: black\n")
         self.estado=""
-        self.ui.TextGrande.setText("Bienvenido a la Mazmorra de Antonio, para jugar tienes que escoger una \nhabitacion y darle a Jugar, si necesitas mas ayuda puedes \ndirigirte a el apartado de menu y 'Ayuda'")
-   
+        self.ui.TextGrande.setText("Bienvenido a la Mazmorra de Antonio.\nPara jugar tienes que escoger una\nhabitacion y darle a Jugar,si necesitas\nmas ayuda puedes dirigirte a\nel apartado de menu y 'Ayuda'")
+        
 
     def ganarNorte(self):
         self.ui.pushButton.setEnabled(False)
@@ -356,7 +364,7 @@ class Window(QMainWindow):
         self.ui.pushButton_7.setVisible(True)
         self.ui.pushButton.setStyleSheet("border-radius: 10px;\n"
             "border: 1px solid black;\n"
-            "background-color: rgb(255,110,110)\n")
+            "background-color: rgb(255,170,170)\n")
         self.salirMedio()
     
     def botonJugar(self):
@@ -395,7 +403,7 @@ class Window(QMainWindow):
                     self.ui.pushButton_7.setVisible(True)
                     self.ui.pushButton_5.setStyleSheet("border-radius: 10px;\n"
                         "border: 1px solid black;\n"
-                        "background-color: rgb(255,110,110)\n")
+                        "background-color: rgb(255,170,170)\n")
                     self.salirMedio()
                 elif(self.estado=="comprobarE"):
                     self.comprobarEste()
@@ -407,7 +415,7 @@ class Window(QMainWindow):
                     self.ui.pushButton_7.setVisible(True)
                     self.ui.pushButton_4.setStyleSheet("border-radius: 10px;\n"
                         "border: 1px solid black;\n"
-                        "background-color: rgb(255,110,110)\n")
+                        "background-color: rgb(255,170,170)\n")
                     self.ui.textosAux.setVisible(False)
                     self.salirMedio()
                 elif(self.estado=="perderE"):
@@ -424,7 +432,7 @@ class Window(QMainWindow):
                     self.ui.pushButton_7.setVisible(True)
                     self.ui.pushButton_2.setStyleSheet("border-radius: 10px;\n"
                         "border: 1px solid black;\n"
-                        "background-color: rgb(255,110,110)\n")
+                        "background-color: rgb(255,170,170)\n")
                     self.ui.textosAux.setVisible(False)
                     self.salirMedio()
                 elif(self.estado=="perderO"):
