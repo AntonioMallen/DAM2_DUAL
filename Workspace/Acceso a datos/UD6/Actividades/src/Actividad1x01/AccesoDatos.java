@@ -30,14 +30,14 @@ public class AccesoDatos {
 		}
 	}
 
-	public static void insertar(Producto producto) throws ClassNotFoundException, InstantiationException, IllegalAccessException, XMLDBException {
+	public static boolean insertar(Producto producto) throws ClassNotFoundException, InstantiationException, IllegalAccessException, XMLDBException {
 		Collection coleccion = null;
 		coleccion = conectar("ColeccionPruebas");
 		ResourceIterator iterador =consultarCodigo(producto.getCodigo());
 		XPathQueryService servicio = 
 				(XPathQueryService) coleccion.getService("XPathQueryService", "1.0");
 		if (iterador.hasMoreResources()) {
-			System.out.println("Se ha encontrado un producto con ese código en la base de datos.");
+			return false;
 		}
 		else {
 			String sentenciaInsertarProducto = 
@@ -53,6 +53,7 @@ public class AccesoDatos {
 					"into /productos";
 			
 			ResourceSet resultados = servicio.query(sentenciaInsertarProducto);
+			return true;
 		}
 	}
 	
@@ -83,6 +84,17 @@ public class AccesoDatos {
 
 		ResourceIterator iterador = resultados.getIterator();
 		return iterador;
+	}
+	
+	public static void actualizar(int codigo) throws ClassNotFoundException, InstantiationException, IllegalAccessException, XMLDBException {
+		Collection coleccion = null;
+		coleccion = conectar("ColeccionPruebas");
+		ResourceIterator iterador = consultarCodigo(codigo);
+		if (iterador.hasMoreResources()) {// si existe
+			System.out.println("si existe");
+		}else {//no existe
+			System.out.println("no existe");
+		}
 	}
 
 }

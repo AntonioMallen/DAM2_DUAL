@@ -19,6 +19,8 @@ public class ActualizarProducto {
 
 			String url = "xmldb:exist://localhost:8080/exist/xmlrpc/db/ColeccionPruebas";
 			coleccion = DatabaseManager.getCollection(url, "admin", "admin");
+			
+			
 			if (coleccion == null) {
 				System.out.println("La colección no existe.");
 			}

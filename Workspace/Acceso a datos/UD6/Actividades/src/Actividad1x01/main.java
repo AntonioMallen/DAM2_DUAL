@@ -1,5 +1,7 @@
 package Actividad1x01;
 
+import java.util.Iterator;
+
 import org.xmldb.api.base.Resource;
 import org.xmldb.api.base.ResourceIterator;
 import org.xmldb.api.base.XMLDBException;
@@ -75,7 +77,7 @@ public class main {
 		} while(opcion!=0);
 	}
 
-	public static void insertar(){
+	public static void insertar() throws ClassNotFoundException, InstantiationException, IllegalAccessException, XMLDBException{
 		int codigo = Teclado.leerEntero("¿Código? ");
 		String denominacion = Teclado.leerCadena("¿Denominación? ");
 		double precio = Teclado.leerReal("¿Precio? ");
@@ -83,7 +85,12 @@ public class main {
 		int stockMinimo = Teclado.leerEntero("¿Stock Mínimo? ");
 		int codigoZona = Teclado.leerEntero("¿Código de Zona? ");
 		Producto producto = new Producto(codigo,denominacion,precio,stockActual,stockMinimo,codigoZona);
-		
+		Boolean insertar = AccesoDatos.insertar(producto);
+		if(insertar) {
+			System.out.println("Se ha insertado un producto en la base de datos.");
+		}else {
+			System.out.println("Se ha encontrado un producto con ese código en la base de datos.");
+		}
 	}
 
 
@@ -96,21 +103,30 @@ public class main {
 			System.out.println(producto);
 			contador=+1;
 		}
-		System.out.println("Se han consultado "+contador+" productos de la base de datos.");
+		if(contador==1) {
+			System.out.println("No se ha encontrado ningún producto en la base de datos.");
+		}else {
+			System.out.println("Se han consultado "+contador+" productos de la base de datos.");
+		}
 	}
 
 	private static void consultarCodigo() throws ClassNotFoundException, InstantiationException, IllegalAccessException, XMLDBException {
 		int codigo = Teclado.leerEntero("¿Código? ");
 		ResourceIterator iterador = AccesoDatos.consultarCodigo(codigo);
+		boolean contiene=false;
 		if (iterador.hasMoreResources()) {
 			Resource recurso = iterador.nextResource();
 			String producto = (String) recurso.getContent();
 			System.out.println(producto);
+			contiene =true;
+		}
+		if(contiene==false) {
+			System.out.println("No se ha encontrado ningún producto con ese código en la base de datos.");
 		}
 	}
 
 	private static void actualizar() {
-
+		
 	}
 
 	private static void eliminarClase() {

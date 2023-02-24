@@ -53,7 +53,7 @@ class Window(QMainWindow):
 "border: 1px solid black;\n"
 "background-color: rgb(255,255,255)\n"
 "")
-
+        self.ui.TextGrande.setMargin(12)
         self.ui.pushButton.clicked.connect(self.seleccionNorte)
         self.ui.pushButton_5.clicked.connect(self.seleccionSur)
         self.ui.pushButton_4.clicked.connect(self.seleccionEste)
@@ -128,7 +128,7 @@ class Window(QMainWindow):
     def salaSur(self):
         dado=randint(0,100)
         if(dado<63):
-            self.ui.TextGrande.setText("Vaya, has sacado un "+ str(dado) +",\nHas perdido, la proxima vez tendras mas suerte")
+            self.ui.TextGrande.setText("Vaya, has sacado un "+ str(dado) +",Has perdido.\nLa proxima vez tendras mas suerte")
         else:
             self.ui.TextGrande.setText("Vaya, has sacado un "+ str(dado) +", Has ganado!")
             self.ui.pushButton_7.setVisible(False)
@@ -138,7 +138,7 @@ class Window(QMainWindow):
 
     
     def salaEste(self):
-        pregunta=["Hay algo que, aunque te pertenezca,\n la gente siempre lo utiliza\nmás que tú. ¿Qué es?",
+        pregunta=["Hay algo que, aunque te pertenezca,\nla gente siempre lo utiliza\nmás que tú. ¿Qué es?",
                 "Crezco a pesar de no estar vivo.\nNo tengo pulmones, pero para vivir\nnecesito el aire. El agua, aunque no\ntenga boca, me mata. ¿Qué soy?",
                 "Estando roto es más útil que\nsin romperse.¿Qué es?",
                 "Aparato que vibra y gira, te metes\nen la boca unas 3 veces al día\ny mide unos 15 cm. ¿Qué es?",
@@ -147,7 +147,7 @@ class Window(QMainWindow):
                 "Te paras cuando está verde\ny continúas cuando está rojo. ¿Qué es?",
                 "¿Qué monte era el más alto del mundo\nantes de descubrir el Everest?",
                 "La señora y el señor Sánchez tienen\n6 hijos.Cada hijo tiene una hermana.\n¿Cuántas personas hay\nen la familia Sánchez?",
-                "Soy alto siendo joven y corto cuando\nsoy viejo. Resplandezco con la vida y el viento es mi mayor\n enemigo.¿Qué soy?"]
+                "Soy alto siendo joven y corto cuando\nsoy viejo. Resplandezco con la vida y el viento es mi mayor\nenemigo.¿Qué soy?"]
         respuesta=["nombre",
                 "Fuego",
                 "Huevo",
@@ -193,14 +193,14 @@ class Window(QMainWindow):
 
 
     def salaOeste(self):
-        pregunta=["¿Cuál es el río\nmás largo de España?",
-                "¿Cuál es el río más\nlargo de la península ibérica?",
-                "¿Cuál es el río más\nlargo del mundo?",
-                "¿Cuál es la montaña\nmás alta de España?",
-                "¿Cuál es la montaña\nmás alta del mundo?",
-                "¿Cuál es el océano\nmás grande?",
-                "¿Cuál es el país con\nmás extensión?",
-                "¿Cuál es el país\nmás poblado?"]
+        pregunta=["¿Cuál es el río más largo de España?",
+                "¿Cuál es el río más largo de la\npenínsula ibérica?",
+                "¿Cuál es el río más largo del mundo?",
+                "¿Cuál es la montaña más alta\nde España?",
+                "¿Cuál es la montaña más alta\ndel mundo?",
+                "¿Cuál es el océano más grande?",
+                "¿Cuál es el país con más extensión?",
+                "¿Cuál es el país más poblado?"]
         respuesta=["Ebro",
                 "Tajo",
                 "Amazonas",
