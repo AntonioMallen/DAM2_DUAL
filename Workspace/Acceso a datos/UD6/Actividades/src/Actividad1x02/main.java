@@ -1,4 +1,4 @@
-package Actividad1x01;
+package Actividad1x02;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -80,13 +80,10 @@ public class main {
 
 	public static void insertar() throws ClassNotFoundException, InstantiationException, IllegalAccessException, XMLDBException{
 		int codigo = Teclado.leerEntero("¿Código? ");
-		String denominacion = Teclado.leerCadena("¿Denominación? ");
-		double precio = Teclado.leerReal("¿Precio? ");
-		int stockActual = Teclado.leerEntero("¿Stock Actual? ");
-		int stockMinimo = Teclado.leerEntero("¿Stock Mínimo? ");
-		int codigoZona = Teclado.leerEntero("¿Código de Zona? ");
-		Producto producto = new Producto(codigo,denominacion,precio,stockActual,stockMinimo,codigoZona);
-		Boolean insertar = AccesoDatos.insertar(producto);
+		String nombre=Teclado.leerCadena("¿Nombre? ");
+		String director=Teclado.leerCadena("¿Director? ");
+		Zona zona = new Zona(codigo,nombre,director);
+		Boolean insertar = AccesoDatos.insertar(zona);
 		if(insertar) {
 			System.out.println("Se ha insertado un producto en la base de datos.");
 		}else {
@@ -96,22 +93,22 @@ public class main {
 
 
 	private static void consultar() throws ClassNotFoundException, InstantiationException, IllegalAccessException, XMLDBException {
-		ArrayList<Producto> productos = AccesoDatos.consultar();
+		ArrayList<Zona> zonas = AccesoDatos.consultar();
 		int contador=0;
-		for(Producto producto: productos) {
-			System.out.println(producto);
+		for(Zona zona: zonas) {
+			System.out.println(zona);
 			contador+=1;
 		}
-		if(productos.size()==0) {
-			System.out.println("No se ha encontrado ningún producto en la base de datos.");
+		if(zonas.size()==0) {
+			System.out.println("No se ha encontrado ningúna zona en la base de datos.");
 		}else {
-			System.out.println("Se han consultado "+contador+" productos de la base de datos.");
+			System.out.println("Se han consultado "+contador+" zonas de la base de datos.");
 		}
 	}
 
 	private static void consultarCodigo() throws ClassNotFoundException, InstantiationException, IllegalAccessException, XMLDBException {
 		int codigo = Teclado.leerEntero("¿Código? ");
-		Producto comProducto = AccesoDatos.consultarCodigo(codigo);
+		Zona comProducto = AccesoDatos.consultarCodigo(codigo);
 		if (comProducto!=null) {// si existe
 			System.out.println(comProducto);
 		}else {
@@ -121,14 +118,14 @@ public class main {
 
 	private static void actualizar() throws ClassNotFoundException, InstantiationException, IllegalAccessException, XMLDBException {
 		int codigo = Teclado.leerEntero("¿Código? ");
-		Producto comProducto = AccesoDatos.consultarCodigo(codigo);
+		Zona comProducto = AccesoDatos.consultarCodigo(codigo);
 		if (comProducto!=null) {// si existe
 			String denominacion = Teclado.leerCadena("¿Denominación? ");
 			double precio = Teclado.leerReal("¿Precio? ");
 			int stockActual = Teclado.leerEntero("¿Stock Actual? ");
 			int stockMinimo = Teclado.leerEntero("¿Stock Mínimo? ");
 			int codigoZona = Teclado.leerEntero("¿Código de Zona? ");
-			Producto producto = new Producto(codigo,denominacion,precio,stockActual,stockMinimo,codigoZona);
+			Zona producto = new Zona(codigo,denominacion,precio,stockActual,stockMinimo,codigoZona);
 			AccesoDatos.actualizar(producto);
 		}else {
 			System.out.println("No se ha encontrado ningún producto con ese código en la base de datos.");
@@ -137,7 +134,7 @@ public class main {
 
 	private static void eliminarClase() throws ClassNotFoundException, InstantiationException, IllegalAccessException, XMLDBException {
 		int codigo = Teclado.leerEntero("¿Código? ");
-		Producto comProducto = AccesoDatos.consultarCodigo(codigo);
+		Zona comProducto = AccesoDatos.consultarCodigo(codigo);
 		if (comProducto!=null) {
 			AccesoDatos.eliminar(codigo);
 		}else {
