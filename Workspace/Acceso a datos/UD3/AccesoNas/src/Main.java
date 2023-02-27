@@ -1,12 +1,10 @@
-package Actividad1x01_02;
-
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
 import entrada.Teclado;
 
-public class Actividad_1x01 {
+public class Main {
 
 
 	/**
@@ -22,9 +20,6 @@ public class Actividad_1x01 {
 				+ "5. Eliminar un departamento, por código, de la base de datos";
 	}
 
-	/**
-	 * Desde este main se ejecutara el switch con las distintas opciones que contempla el menu
-	 */
 	public static void main(String[] args) {
 		try {
 			int opcion;
@@ -36,7 +31,7 @@ public class Actividad_1x01 {
 					System.out.println("Fin del programa");
 					break;
 				case 1: 
-					insertar();
+				
 					break;
 
 				case 2:
@@ -44,14 +39,14 @@ public class Actividad_1x01 {
 					break;
 
 				case 3:
-					consultarCodigo();
+					
 					break;
 
 				case 4:
-					actualizar();
+					
 					break;
 				case 5:
-					eliminar();
+					
 					break;
 				default:
 					System.out.println("La opcion de menu debe estar comprendida entre 0 y 5.");
@@ -71,7 +66,7 @@ public class Actividad_1x01 {
 
 	}
 
-	private static void insertar() throws NumberFormatException, ClassNotFoundException, IOException, SQLException {
+	/*private static void insertar() throws NumberFormatException, ClassNotFoundException, IOException, SQLException {
 
 		String nombre = Teclado.leerCadena("Dime el nombre del Departamento");
 		String planta = Teclado.leerCadena("Dime la planta del Departamento");
@@ -79,20 +74,14 @@ public class Actividad_1x01 {
 		AccesoNas.insertar(dep);
 		System.out.println("Se ha insertado un departamento en la base de datos.");
 
-	}
+	}*/
 
 	public static void imprimirFichero() throws IOException, ClassNotFoundException, SQLException{
-		ArrayList<Departamento> lista = AccesoNas.consultarTodos();
-		if(lista!= null) {
-			for (Departamento d: lista) {
-				System.out.println(d);
-			}
-		}else {
-			System.out.println("No se ha encontrado ningún departamento en la base de datos.");
-		}
+		AccesoNas.consultarTodos();
+		
 	}
 
-	private static void consultarCodigo() throws SQLException, ClassNotFoundException, IOException {
+	/*private static void consultarCodigo() throws SQLException, ClassNotFoundException, IOException {
 		int codigo= Teclado.leerEntero("Dime el codigo del Departamento"); 
 		Departamento d = AccesoNas.comprobar(codigo);
 		if(d!=null) {
@@ -118,7 +107,7 @@ public class Actividad_1x01 {
 
 	}
 
-	private static void eliminar() throws IOException, ClassNotFoundException, SQLException {
+	/*private static void eliminar() throws IOException, ClassNotFoundException, SQLException {
 		int codigo= Teclado.leerEntero("Dime el codigo del Departamento"); 
 		Departamento d = AccesoNas.comprobar(codigo);
 		if(d!=null) {
@@ -126,7 +115,7 @@ public class Actividad_1x01 {
 		}else {
 			System.out.println("No existe");
 		}
-	}
+	}*/
 
 
 
