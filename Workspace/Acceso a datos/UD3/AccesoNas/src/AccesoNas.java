@@ -11,7 +11,7 @@ public class AccesoNas {
 	private static String NOMBRE_CONTROLADOR="com.mysql.cj.jdbc.Driver";
 	private static String URL_MYSQL_DB_PERSONAL="jdbc:mysql://192.168.0.15:3306/organizrDB";
 	private static String USUARIO="root";
-	private static String CONTRASENA="8O1^weq4*HjO";
+	private static String CONTRASENA="gas";
 
 	public static void consultarTodos() 
 			throws ClassNotFoundException, SQLException {

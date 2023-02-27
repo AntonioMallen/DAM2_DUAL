@@ -14,7 +14,7 @@ public class AccesoEmpleado {
 	private static String NOMBRE_CONTROLADOR="com.mysql.cj.jdbc.Driver";
 	private static String URL_MYSQL_DB_PERSONAL="jdbc:mysql://mysql.ssbros.es/empleados";
 	private static String USUARIO="root";
-	private static String CONTRASENA="8O1^weq4*HjO";
+	private static String CONTRASENA="asfg";
 
 	public static void insertar(Empleado emp) throws SQLException, ClassNotFoundException {
 		Class.forName(NOMBRE_CONTROLADOR);
