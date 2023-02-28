@@ -5,7 +5,7 @@ from PyQt6.QtWidgets import (
 )
 from PyQt6.QtGui import QAction
 from random import randint
-from Designer2 import Ui_MainWindow
+from Designer import Ui_MainWindow
 
 class Window(QMainWindow):
     def __init__(self, parent=None):

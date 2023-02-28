@@ -71,7 +71,7 @@ public class main {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			} catch (RuntimeException e1) {
-				System.out.println(e1.getMessage());
+				e1.printStackTrace();
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
@@ -79,66 +79,68 @@ public class main {
 	}
 
 	public static void insertar() throws ClassNotFoundException, InstantiationException, IllegalAccessException, XMLDBException{
-		int codigo = Teclado.leerEntero("¿Código? ");
 		String nombre=Teclado.leerCadena("¿Nombre? ");
 		String director=Teclado.leerCadena("¿Director? ");
-		Zona zona = new Zona(codigo,nombre,director);
-		Boolean insertar = AccesoDatos.insertar(zona);
-		if(insertar) {
-			System.out.println("Se ha insertado un producto en la base de datos.");
-		}else {
-			System.out.println("Se ha encontrado un producto con ese código en la base de datos.");
-		}
+		Zona zona = new Zona(nombre,director);
+		AccesoDatos.insertar(zona);
+		System.out.println("Se ha insertado una zona en la base de datos.");
+		
 	}
 
 
 	private static void consultar() throws ClassNotFoundException, InstantiationException, IllegalAccessException, XMLDBException {
 		ArrayList<Zona> zonas = AccesoDatos.consultar();
-		int contador=0;
 		for(Zona zona: zonas) {
 			System.out.println(zona);
-			contador+=1;
 		}
 		if(zonas.size()==0) {
 			System.out.println("No se ha encontrado ningúna zona en la base de datos.");
 		}else {
-			System.out.println("Se han consultado "+contador+" zonas de la base de datos.");
+			System.out.println("Se han consultado "+zonas.size()+" zonas de la base de datos.");
 		}
 	}
 
 	private static void consultarCodigo() throws ClassNotFoundException, InstantiationException, IllegalAccessException, XMLDBException {
 		int codigo = Teclado.leerEntero("¿Código? ");
-		Zona comProducto = AccesoDatos.consultarCodigo(codigo);
-		if (comProducto!=null) {// si existe
-			System.out.println(comProducto);
+		Zona comZona = AccesoDatos.consultarCodigo(codigo);
+		if (comZona!=null) {// si existe
+			System.out.println(comZona);
 		}else {
-			System.out.println("No se ha encontrado ningún producto con ese código en la base de datos.");
+			System.out.println("No se ha encontrado ningúna zona con ese código en la base de datos.");
 		}
 	}
 
 	private static void actualizar() throws ClassNotFoundException, InstantiationException, IllegalAccessException, XMLDBException {
 		int codigo = Teclado.leerEntero("¿Código? ");
-		Zona comProducto = AccesoDatos.consultarCodigo(codigo);
-		if (comProducto!=null) {// si existe
-			String denominacion = Teclado.leerCadena("¿Denominación? ");
-			double precio = Teclado.leerReal("¿Precio? ");
-			int stockActual = Teclado.leerEntero("¿Stock Actual? ");
-			int stockMinimo = Teclado.leerEntero("¿Stock Mínimo? ");
-			int codigoZona = Teclado.leerEntero("¿Código de Zona? ");
-			Zona producto = new Zona(codigo,denominacion,precio,stockActual,stockMinimo,codigoZona);
-			AccesoDatos.actualizar(producto);
+		Zona comZona = AccesoDatos.consultarCodigo(codigo);
+		if (comZona!=null) {// si existe
+			String nombre=Teclado.leerCadena("¿Nombre? ");
+			String director=Teclado.leerCadena("¿Director? ");
+			Zona zona = new Zona(codigo,nombre,director);
+			AccesoDatos.actualizar(zona);
+			System.out.println("Se ha actualizado una zona de la base de datos.");
 		}else {
-			System.out.println("No se ha encontrado ningún producto con ese código en la base de datos.");
+			System.out.println("No se ha encontrado ningúna zona con ese código en la base de datos.");
 		}
 	}
 
 	private static void eliminarClase() throws ClassNotFoundException, InstantiationException, IllegalAccessException, XMLDBException {
 		int codigo = Teclado.leerEntero("¿Código? ");
-		Zona comProducto = AccesoDatos.consultarCodigo(codigo);
-		if (comProducto!=null) {
-			AccesoDatos.eliminar(codigo);
+		Zona comZona = AccesoDatos.consultarCodigo(codigo);
+		if (comZona!=null) {
+			ArrayList<Producto> productos = AccesoDatos.consultarProductos(codigo);
+			if(productos.size()>0) {
+				System.out.println("Se han encontrado "+productos.size()+" productos relacionados con esa zona"
+						+ "en la base de datos:");
+				for(Producto prod: productos) {
+					System.out.println(prod);
+				}
+			}else {
+				AccesoDatos.eliminar(codigo);
+				System.out.println("Se ha eliminado una zona de la base de datos.");
+			}
 		}else {
-			System.out.println("No se ha encontrado ningún producto con ese código en la base de datos.");
+			System.out.println("No se ha encontrado ningúna zona con ese código en la base de datos.");
 		}
 	}
 

@@ -1,4 +1,4 @@
-package Actividad1x01;
+package Actividad1x02;
 
 import entrada.Teclado;
 
@@ -87,9 +87,9 @@ public class Producto {
 		this.codigo = Integer.parseInt(extraerTexto(texto,"cod_prod"));
 		this.denominacion = extraerTexto(texto,"denominacion");
 		this.precio = Double.parseDouble(extraerTexto(texto,"precio"));
-		this.stockActual = Integer.parseInt(extraerTexto(texto,"stock_actual"));
-		this.stockMinimo = Integer.parseInt(extraerTexto(texto,"stock_minimo"));
-		this.codigoZona = Integer.parseInt(extraerTexto(texto,"cod_zona"));
+		this.stockActual = Integer.parseInt(extraerTexto(texto,"stockActual"));
+		this.stockMinimo = Integer.parseInt(extraerTexto(texto,"stockMinimo"));
+		this.codigoZona = Integer.parseInt(extraerTexto(texto,"codigoZona"));
 	}
 
 
@@ -100,13 +100,12 @@ public class Producto {
 	}
 	
 	
-	public static String extraerTexto(String elemento, String etiqueta){
+	private static String extraerTexto(String elemento, String etiqueta){
         String marcaInicio = "<" + etiqueta + ">";
-        String marcaFin = "</" + etiqueta + ">";
+        String marcaFin = "<" + etiqueta + ">";
         int posicionInicio = elemento.indexOf(marcaInicio) + marcaInicio.length();
         int posicionFin = elemento.indexOf(marcaFin);
         String texto = elemento.substring(posicionInicio, posicionFin);
-        
         return texto;
     }
 	

@@ -71,7 +71,7 @@ public class main {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			} catch (RuntimeException e1) {
-				System.out.println(e1.getMessage());
+				e1.printStackTrace();
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
@@ -97,15 +97,13 @@ public class main {
 
 	private static void consultar() throws ClassNotFoundException, InstantiationException, IllegalAccessException, XMLDBException {
 		ArrayList<Producto> productos = AccesoDatos.consultar();
-		int contador=0;
 		for(Producto producto: productos) {
 			System.out.println(producto);
-			contador+=1;
 		}
 		if(productos.size()==0) {
 			System.out.println("No se ha encontrado ningún producto en la base de datos.");
 		}else {
-			System.out.println("Se han consultado "+contador+" productos de la base de datos.");
+			System.out.println("Se han consultado "+productos.size()+" productos de la base de datos.");
 		}
 	}
 
@@ -130,6 +128,7 @@ public class main {
 			int codigoZona = Teclado.leerEntero("¿Código de Zona? ");
 			Producto producto = new Producto(codigo,denominacion,precio,stockActual,stockMinimo,codigoZona);
 			AccesoDatos.actualizar(producto);
+			System.out.println("Se ha actualizado un producto de la base de datos.");
 		}else {
 			System.out.println("No se ha encontrado ningún producto con ese código en la base de datos.");
 		}
@@ -140,6 +139,7 @@ public class main {
 		Producto comProducto = AccesoDatos.consultarCodigo(codigo);
 		if (comProducto!=null) {
 			AccesoDatos.eliminar(codigo);
+			System.out.println("Se ha eliminado un producto de la base de datos.");
 		}else {
 			System.out.println("No se ha encontrado ningún producto con ese código en la base de datos.");
 		}
