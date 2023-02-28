@@ -9,7 +9,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 
 
-public class AccesoDepartamentos {
+public class AccesoNas {
 
 	private static String NOMBRE_CONTROLADOR="com.mysql.cj.jdbc.Driver";
 	private static String URL_MYSQL_DB_PERSONAL="jdbc:mysql://localhost/personal";
