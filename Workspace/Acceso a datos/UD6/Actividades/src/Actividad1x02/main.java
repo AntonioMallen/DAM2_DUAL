@@ -18,11 +18,11 @@ public class main {
 	 */
 	public static String texto() {
 		return 	  "0. Salir del programa. \n"
-				+ "1. Insertar un producto en la base de datos.\n"
-				+ "2. Consultar todos los productos de la base de datos\n"
-				+ "3. Consultar un producto, por código, de la base de datos.\n"
-				+ "4. Actualizar un producto, por código, de la base de datos.\n"
-				+ "5. Eliminar un producto, por código, de la base de datos.\n";
+				+ "1. Insertar una zona en la base de datos.\n"
+				+ "2. Consultar todos las zonas de la base de datos\n"
+				+ "3. Consultar una zona, por código, de la base de datos.\n"
+				+ "4. Actualizar una zona, por código, de la base de datos.\n"
+				+ "5. Eliminar una zona, por código, de la base de datos.\n";
 	}
 
 

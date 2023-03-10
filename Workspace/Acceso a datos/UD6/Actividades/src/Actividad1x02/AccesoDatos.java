@@ -37,22 +37,23 @@ public class AccesoDatos {
 		Collection coleccion = null;
 		try {
 			coleccion=  conectar("Coleccion2ej");
-
-			ArrayList<Zona> zonas = consultar();
-			Zona ultimo = zonas.get(zonas.size()-1);
-			int codigo = (ultimo.getCodigo()+10);
-
-			/*String sentenciaBuscarCodigo = 
-			 * "let $codigo_maximo := max(/zonas/zona/cod_zona)"+
-		   "return $codigo_maximo"
-		    ResourceSet resultados = servicio.query(sentenciaBuscarCodigo);
-		   	ResourceIterator iterador = resultados.getIterator();
-		   	Resource recurso = iterador.nextResource();
-			String zonaMal = (String) recurso.getContent();
-			 */
-
 			XPathQueryService servicio = 
 					(XPathQueryService) coleccion.getService("XPathQueryService", "1.0");
+			/*ArrayList<Zona> zonas = consultar();
+			Zona ultimo = zonas.get(zonas.size()-1);
+			int codigo = (ultimo.getCodigo()+10);*/
+
+			String sentenciaBuscarCodigo = 
+					"let $codigo_maximo := max(/zonas/zona/cod_zona)"+
+					 "return $codigo_maximo";
+		    ResourceSet maximo = servicio.query(sentenciaBuscarCodigo);
+		   	ResourceIterator iterador = maximo.getIterator();
+		   	Resource recurso = iterador.nextResource();
+			String maximoString = (String) recurso.getContent();
+			int codigo = Integer.parseInt(maximoString)+10;
+			
+
+			
 
 			String sentenciaInsertarProducto = 
 					"update insert " +
