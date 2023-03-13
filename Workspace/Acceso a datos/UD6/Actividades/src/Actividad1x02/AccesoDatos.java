@@ -2,6 +2,7 @@ package Actividad1x02;
 
 import java.util.ArrayList;
 
+
 import org.xmldb.api.DatabaseManager;
 import org.xmldb.api.base.Collection;
 import org.xmldb.api.base.Database;
