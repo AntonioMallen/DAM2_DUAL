@@ -1,0 +1,17 @@
+package Polialfabeto;
+
+public class main {
+
+
+	static String sincifrar  = "ABCDEFGHIJKLMNÑOPQRSTUVWXYZ";
+	static String cifradoPar = "aeimptxbfjnquYcgkñrvzdhlosw";
+	static String cifradoInPar="nrwbglpuzejñsXchmqvafkotydi";
+	
+	
+	public static void main(String[] args) {
+		
+
+	}
+
+	
+}

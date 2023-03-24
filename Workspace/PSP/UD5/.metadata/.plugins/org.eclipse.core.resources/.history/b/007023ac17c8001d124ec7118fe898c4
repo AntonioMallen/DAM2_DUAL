@@ -1,0 +1,21 @@
+package Cesar;
+
+public class main {
+
+	public static void main(String[] args) {
+		String palabra="gsadgdsagsdsd".toString();
+		String sincifr="ABCDEFGHIJKLMNÑOPQRSTUVWXYZ";
+		String cifrado="DEFGHIJKLMNÑOPQRSTUVWXYZABC";
+		String salida="";
+		int posicion=0;
+		for(int contador=0; contador<palabra.lenght();contador++){
+			posicion=contador+3;
+			if(posicion>=palabra.lenght()){
+				posicion=posicion-palabra.lenght()
+			}
+			char letra=palabra.charAt(contador+3);
+			
+		}
+	}
+
+}
