@@ -1,0 +1,26 @@
+package FTP;
+
+import java.io.IOException;
+import java.net.SocketException;
+
+import org.apache.commons.net.ftp.FTPClient;
+
+public class FTP {
+	public static void main(String[] args) {
+		FTPClient cliente = new FTPClient();
+		String respuestaStr = cliente.getReplyString();
+		System.out.println("Respuesta del servidor" + respuestaStr);
+		int respuestaInt = cliente.getReplyCode();
+		System.out.println("Codigo respuesta del servidor "+ respuestaInt);
+		try {
+			cliente.connect("localhost");
+		} catch (SocketException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+	}
+}

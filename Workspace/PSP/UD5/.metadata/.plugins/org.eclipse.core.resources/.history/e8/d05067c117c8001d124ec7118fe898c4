@@ -1,0 +1,28 @@
+package Cesar;
+
+public class main {
+	static String sincifr="ABCDEFGHIJKLMNÑOPQRSTUVWXYZ";
+	static String cifrado="DEFGHIJKLMNÑOPQRSTUVWXYZABC";
+	public static void main(String[] args) {
+		String palabra="gsadgdsagsdsd".toString();
+		System.out.println(palabra);
+		
+	}
+	
+	public static String cifrar(String palabra) {
+		String salida="";
+		for(int contador=0; contador<palabra.length();contador++){
+			salida+=cifrado.charAt(contador);
+		}
+		return salida;
+	}
+	
+	public static String descifrar(String palabra) {
+		String salida="";
+		for(int contador=0; contador<palabra.length();contador++){
+			salida+=sincifr.charAt(contador);
+		}
+		return salida;
+	}
+
+}
