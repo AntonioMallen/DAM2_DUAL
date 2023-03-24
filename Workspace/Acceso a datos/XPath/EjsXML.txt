@@ -1,0 +1,40 @@
+Ejercicio 1:
+a) Nombre del Instituto: /ies/nombre/text()
+b) Página web del Instituto: //web  |  /ies/web/text()
+c) Nombre de los Ciclos Formativos: //ciclo/nombre/text()
+d) Siglas por las que se conocen los Ciclos Formativos: //ciclo/@id/text()
+e) Años en los que se publicaron los decretos de título de los Ciclos Formativos: //decretoTitulo/@agno/text()
+f) Ciclos Formativos de Grado Medio (obtener el elemento <ciclo> completo): //grado[.="Medio"]/../text()
+g) Nombre de los Ciclos Formativos de Grado Superior: /ies/ciclos/ciclo/grado[.="Superior"]/../nombre/text()
+h) Nombre de los Ciclos Formativos anteriores a 2010: /ies/ciclos/ciclo/decretoTitulo[@agno < "2010"]/../nombre/text()
+i) Nombre de los Ciclos Formativos de 2009 o 2010: /ies/ciclos/ciclo/decretoTitulo[@agno = "2009"  or @agno = "2010"]/../nombre/text()
+
+Ejercicio 2:
+a) Nombre de los módulos que se imparten en el Instituto: /ies/modulos/modulo/nombre/text()
+b) Nombre de los módulos del ciclo DAM: /ies/modulos/modulo/ciclo[.="DAM"]/../nombre/text()
+c) Nombre de los módulos que se imparten en el segundo curso de cualquier ciclo: /ies/modulos/modulo/curso[.=2]/../nombre/text()
+d) Nombre de los módulos de menos de 5 horas semanales: /ies/modulos/modulo/horasSemanales[.<"5"]/../nombre/text()
+e) Nombre de los módulos que se imparten en el primer curso de DAM: /ies/modulos/modulo/ciclo[.="DAM" and ../curso[.="1"]]/../nombre/text()
+f) Horas semanales de los módulos de más de 3 horas semanales: /ies/modulos/modulo/horasSemanales[.>"3"]/text()
+
+Ejercicio 3:
+a) Nombre de los módulos del ciclo "Desarrollo de Aplicaciones Multiplataforma" (en la expresión
+final no deben aparecer las siglas DAM): 
+/ies/modulos/modulo/ciclo[.=/ies/ciclos/ciclo/nombre[.="Desarrollo de Aplicaciones Multiplataforma"]/../@id]/../nombre/text()
+
+
+b) Nombre de los ciclos que incluyen el módulo "Lenguajes de marcas y sistemas de gestión de
+información":
+/ies/ciclos/ciclo/@id[.=/ies/modulos/modulo/nombre[.="Lenguajes de marcas y sistemas de gestión de información"]/../ciclo]/../nombre/text()
+
+
+c) Nombre de los módulos de ciclos de Grado Superior: 
+/ies/modulos/modulo/ciclo[.=/ies/ciclos/ciclo/grado[.="Superior"]/../@id]/../nombre/text()
+
+
+d) Nombre de los módulos de ciclos cuyo título se aprobó en 2010:
+/ies/modulos/modulo/ciclo[.=/ies/ciclos/ciclo/decretoTitulo/@agno[.="2010"]/../../@id]/../nombre/text()
+
+
+e) Grado de los ciclos con módulos de primer curso.
+/ies/ciclos/ciclo/@id [.=/ies/modulos/modulo/curso[.="1"]/../ciclo]/../grado/text()

@@ -1,0 +1,107 @@
+package Actividad_2x01;
+
+import java.io.IOException;
+import java.sql.SQLException;
+import java.util.ArrayList;
+
+import entrada.Teclado;
+
+public class main {
+
+	/**
+	 * Metodo con el menu que queremos imprimir
+	 * @return Devuelve una string con el texto a imprimir
+	 */
+	public static String texto() {
+		return 	  "0. Salir del programa. \n"
+				+ "1. Insertar un libro en la base de datos\n"
+				+ "2. Eliminar un libro, por código, de la base de datos.\n"
+				+ "3. Consultar todos los libros de la base de datos.\n"
+				+ "4. Consultar varios libros, por escritor, de la base de datos, ordenados por puntuación decendente.\n"
+				+ "5. Consultar los libros no prestados de la base de datos\n"
+				+ "6. Consultar los libros devueltos, en una fecha, de la base de datos.";
+	}
+
+	/**
+	 * Desde este main se ejecutara el switch con las distintas opciones que contempla el menu
+	 */
+	public static void main(String[] args) {
+		try {
+			int opcion;
+			do {
+				System.out.println(texto());
+				opcion=Teclado.leerEntero("Dime una opcion \n");
+				switch (opcion) {
+				case 0:
+					System.out.println("Fin del programa");
+					break;
+				case 1: 
+					insertar();
+					break;
+
+				case 2:
+					eliminar();
+					break;
+
+				case 3:
+					consultarTodos();
+					break;
+				case 4:
+
+					break;
+				case 5:
+
+					break;
+				case 6:
+
+					break;
+				default:
+					System.out.println("La opcion de menu debe estar comprendida entre 0 y 5.");
+				}
+			}while(opcion!=0);
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+
+	public static void insertar() throws ClassNotFoundException, SQLException {
+		String isbn=Teclado.leerCadena("Dime el ISBN");
+		String titulo=Teclado.leerCadena("Dime el titulo");
+		String escritor=Teclado.leerCadena("Dime el escritor");
+		int ano_publicacion=Teclado.leerEntero("Dime el año de publicacion");
+		double puntuacion=Teclado.leerReal("Dime la puntuacion");
+		Libro libro = new Libro(isbn,titulo,escritor,ano_publicacion,puntuacion);
+		AccesoLibro.insertar(libro);
+	}
+
+	public static void eliminar() throws ClassNotFoundException, IOException, SQLException {
+		int codigo = Teclado.leerEntero("Dime el codigo del libro");
+		if(AccesoLibro.eliminar(codigo)!=0) {
+			System.out.println("Se ha eliminado");
+		}else {
+			System.out.println("No se ha eliminado");
+		}
+	}
+
+	public static void consultarTodos() throws ClassNotFoundException, SQLException {
+		ArrayList<Libro> libros = AccesoLibro.consultarTodos();
+		if(libros.size()==0) {
+			System.out.println("No se ha encontrado ningún libro en la base de datos.");
+		}else {
+			for(Libro lib: libros) {
+				System.out.println(lib);
+			}
+		}
+
+	}
+
+
+
+}

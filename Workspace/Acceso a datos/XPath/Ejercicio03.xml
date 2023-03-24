@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ies>
+  <nombre>IES Pablo Serrano</nombre>
+  <web>https://www.iespabloserrano.es/</web>
+  <ciclos>
+    <ciclo id="DAM">
+      <nombre>Desarrollo de Aplicaciones Multiplataforma</nombre>
+      <grado>Superior</grado>
+      <decretoTitulo agno="2010" />
+    </ciclo>
+    <ciclo id="DAW">
+      <nombre>Desarrollo de Aplicaciones Web</nombre>
+      <grado>Superior</grado>
+      <decretoTitulo agno="2010" />
+    </ciclo>
+    <ciclo id="ADG">
+      <nombre>Gestión Administrativa</nombre>
+      <grado>Medio</grado>
+      <decretoTitulo agno="2009" />
+    </ciclo>
+	<ciclo id="ADF">
+      <nombre>Administración y Finanzas</nombre>
+      <grado>Superior</grado>
+      <decretoTitulo agno="2011" />
+    </ciclo>
+  </ciclos>
+  <modulos>
+    <modulo id="0439">
+      <nombre>Empresa y administración</nombre>
+      <curso>2</curso>
+      <horasSemanales>5</horasSemanales>
+      <ciclo>ADG</ciclo>
+    </modulo>
+    <modulo id="0489">
+      <nombre>Programación multimedia y dispositivos móviles</nombre>
+      <curso>2</curso>
+      <horasSemanales>5</horasSemanales>
+      <ciclo>DAM</ciclo>
+    </modulo>
+    <modulo id="0373">
+      <nombre>Lenguajes de marcas y sistemas de gestión de información</nombre>
+      <curso>1</curso>
+      <horasSemanales>3</horasSemanales>
+      <ciclo>DAM</ciclo>
+      <ciclo>DAW</ciclo>
+    </modulo>
+    <modulo id="0490">
+      <nombre>Programación de servicios y procesos</nombre>
+      <curso>2</curso>
+      <horasSemanales>3</horasSemanales>
+      <ciclo>DAM</ciclo>
+    </modulo>
+  </modulos>
+</ies>
+
+

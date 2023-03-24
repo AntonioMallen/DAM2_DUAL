@@ -1,0 +1,13 @@
+<resources>
+    <string name="app_name">AntonioMallenGimenoT22</string>
+    <string-array name="spinner">
+        <item>Droid</item>
+        <item>Mandalorian</item>
+        <item>Trandoshan</item>
+    </string-array>
+    <string-array name="species">
+        <item>Human</item>
+        <item>Droid</item>
+        <item>Mandalorian</item>
+    </string-array>
+</resources>

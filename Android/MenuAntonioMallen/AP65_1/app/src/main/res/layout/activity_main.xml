@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+
+    <Button
+        android:id="@+id/mostrar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:onClick="mostrar"
+        android:text="Mostrar" />
+
+    <Button
+        android:id="@+id/ocultar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:onClick="ocultar"
+        android:text="Ocultar" />
+
+    <TextView
+        android:id="@+id/miTexto"
+        android:layout_width="match_parent"
+        android:layout_height="257dp"
+        android:gravity="bottom|center_horizontal"
+        android:text="PULSE UNA OPCIÓN DE MENÚ"
+        android:textColor="#ff0000"
+        android:textStyle="bold" />
+
+</LinearLayout>
+
+
+

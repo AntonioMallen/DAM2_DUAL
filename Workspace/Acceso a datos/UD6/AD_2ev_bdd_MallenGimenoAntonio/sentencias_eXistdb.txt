@@ -1,0 +1,24 @@
+A)
+
+for $libros in /libros/libro
+let $prestamos :=sum(/prestamos/prestamo/codigo_libro[.=$libros/codigo/text()])
+
+let $num := div($prestamos,$libro/codigo) // No me acuerdo que funcion se usa para dividir.
+
+let $salida:=<salida>{$libros/titulo/text()," ",$prestamos}</salida>
+order by $prestamos descending
+return $salida/text()
+
+
+
+
+B)
+
+update replace /socios/socio[dni="66663333D"] with
+<socio>
+	<dni>66663333D</dni>
+	<nombre>Laura Alicia Gutierrez</nombre>
+	<localidad>Calatayud</localidad>
+	<telefono>678112233</telefono>
+	<correo>lagutierrez@gmail.com</correo>
+</socio>

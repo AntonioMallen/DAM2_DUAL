@@ -1,0 +1,338 @@
+	Ejercicio 1:
+
+a) Títulos de los libros con la etiqueta "titulo".
+
+for $libro in //title
+return <titulo>{data($libro)}</titulo>
+
+
+b) Libros cuyo precio sea menor o igual a 30 incluyendo la condición en la cláusula "where".
+
+for $libro in //book
+let $c:= $libro//price
+where $c <= 30
+return $libro
+
+
+
+c) Libros cuyo precio sea menor o igual a 30 incluyendo la condición en la ruta del XPath.
+
+for $libro in //book
+where $libro/price[.<=30]
+return $libro
+
+
+d) Título de los libros cuyo precio sea menor o igual a 30.
+
+for $libro in //book
+where $libro//price[.<=30]
+return $libro//title
+
+
+e) Título sin atributos de los libros cuyo precio sea menor o igual a 30.
+
+for $libro in //book
+where $libro//price[.<=30]
+return <titulo>{data($libro//title)}</titulo>
+
+
+f) Título y autor de los libros del año 2005, y etiquetar cada uno de ellos con "lib2005".
+
+for $libro in //book
+where $libro//year="2005"
+return <lib2005>{$libro//title/text()} | {$libro//author/text()}</lib2005> 
+
+
+
+g) Años de publicación con la etiqueta publicación. Dos versiones: una con for y otra con let.
+
+for $libro in //book
+return <publicacion>{data($libro//year)}</publicacion> 
+
+let $libro:= //book
+return <publicacion>{$libro//year}</publicacion> 
+
+h) Libros ordenados primero por "category" y luego por "title" en una sola consulta.
+
+for $libro in //book
+order by $libro/@category, $libro//title
+return $libro
+
+i) Título del libro, su precio y su precio con el IVA incluido,
+ cada uno con su propia etiqueta y ordenados por precio con IVA.
+ 
+for $libro in //book
+let $Iva:= ($libro/price * 1.21)
+order by $Iva
+return 
+<libro>
+<titulo>{data($libro//title) }</titulo>
+<precio>{data($libro//price)} €</precio>
+<precio_iva>{$Iva} €</precio_iva>
+</libro> 
+
+j) Títulos en una tabla de HTML.
+
+<table>{
+for $libro in //book
+let $t:= (<tr><td>{data($libro/title)}</td></tr>)
+return $t
+}</table> 
+
+k) Cantidad de libros en una etiqueta "total".
+
+for $bookstore in //bookstore
+let $t:= count($bookstore/book)
+return <total>{$t}</total>
+
+l) Títulos de los libros y al final 
+una etiqueta con el número total de libros.
+
+
+for $bookstore in //bookstore
+let $t:= count($bookstore/book)
+let $libros:= ($bookstore//title)
+return 
+<libros>
+{$libros}
+<total>{$t}</total>
+</libros>
+
+
+m) Precio mínimo y máximo de los libros, cada uno en una etiqueta.
+
+for $libro in //bookstore
+let $min:= min($libro//price)
+let $max:= max($libro//price)
+return 
+<libros>
+	<min>{$min}</min>
+	<max>{$max}</max>
+</libros>
+
+n) Suma total de los precios de los libros con la etiqueta "total".
+
+for $libro in //bookstore
+let $sum:= sum($libro//price)
+return 
+<total>{$sum}</total>
+
+o) Precios de los libros, y al final una etiqueta 
+con la suma de los precios.
+
+
+for $libro in //bookstore
+let $sum:= sum($libro//price)
+let $libros:= ($libro//price)
+return 
+<libros>
+{$libros}
+<total>{$sum}</total>
+</libros>
+
+
+p) Título y número de autores que tiene cada título en 
+etiquetas diferentes.
+
+for $libro in //book
+return 
+<libros>
+<titulo>{data($libro/title)}</titulo>
+<num_autores>{count($libro/author)}</num_autores>
+</libros>
+
+q) En la misma etiqueta, el título y entre paréntesis el número 
+de autores que tiene ese título.
+
+for $libro in //book
+return 
+<libros>
+{data($libro/title)}({$libro/author})
+</libros>
+
+r) Libros escritos en años que terminen en "3".
+
+for $libro in //book
+where ends-with(data($libro//year),"3")
+return $libro
+
+s) Libros cuya categoría empiece por "C".
+
+for $libro in //book
+where starts-with(data($libro/@category),"C")
+return $libro
+
+t) Libros que tengan una "X" mayúscula o minúscula en el título.
+
+for $libro in //book
+where contains(data($libro/title),"X") or contains(data($libro/title),"x") 
+return $libro
+
+u) Título y número de caracteres que tiene cada título, 
+cada uno con su propia etiqueta.
+
+for $libro in //book
+return 
+<libro>
+<titulo>{data($libro/title)}</titulo>
+<cant_caracteres>{data(string-length($libro/title))}</cant_caracteres>
+</libro>
+
+v) Años en los que se ha publicado un libro 
+eliminando los repetidos y con la etiqueta “agno”.
+
+for $libro in //bookstore
+for $agno in distinct-values(data($libro/book/year))
+return
+<agno>
+{$agno}
+</agno>
+
+w) Todos los autores eliminando los que se repiten 
+y ordenados por el número de caracteres que
+tiene cada autor.
+
+for $libro in //bookstore
+for $autores in distinct-values(data($libro/book/author))
+order by data(string-length($autores)) descending
+return
+<agno>
+{$autores}
+</agno>
+
+
+	
+	Ejercicio 2:
+	
+a) Nombres de los bailes con la etiqueta "losbailes".
+
+<losbailes>{
+for $baile in //bailes/baile
+return 
+$baile}
+</losbailes>
+
+b) Nombres de los bailes seguidos con el número de 
+plazas entre paréntesis, ambos dentro de la
+misma etiqueta "losbailes".
+
+for $baile in //bailes/baile
+return 
+<losbailes>
+{$baile/nombre/text()}({$baile/plazas/text()})
+</losbailes>
+
+
+c) Nombres de los bailes cuyo precio sea mayor de 30.
+
+for $baile in //bailes/baile
+where $baile/precio>30
+return 
+$baile/nombre
+
+
+d) Nombres de los bailes cuyo precio sea mayor de 30 
+y la moneda "euro".
+
+for $baile in //bailes/baile
+where $baile/precio>30 and $baile/precio/@moneda="euro"
+return 
+$baile/nombre
+
+
+e) Nombres y fecha de comienzo de los 
+bailes que comiencen el mes de enero.
+
+for $baile in //bailes/baile
+where contains($baile/comienzo, "/1/")
+return 
+<baile>{$baile/nombre} {$baile/comienzo}</baile>
+
+
+
+f) Nombres de los profesores y la sala en la que dan clase,
+ ordenados por sala.
+ 
+ 
+for $baile in //bailes/baile
+order by $baile/sala
+return 
+<baile>{$baile/profesor} {$baile/sala}</baile>
+
+ 
+ 
+g) Nombres de los profesores eliminando los repetidos 
+y acompañando cada nombre con
+todas las salas en la que da clase, ordenados por nombre.
+
+for $profesor in distinct-values(//bailes/baile/profesor)
+let $salas := //baile[profesor=$profesor]/sala
+order by $profesor
+return 
+<baile>{$profesor} {$salas} </baile>
+
+
+h) Media de los precios de todos los bailes.
+
+for $baile in //bailes
+let $numMax := count($baile/baile)
+let $sumPrecios := sum($baile/baile/precio)
+return 
+<baile>{$sumPrecios div $numMax} </baile>
+
+
+
+i) Suma de los precios de los bailes de la sala 1.
+
+for $baile in //bailes
+let $sumPrecios := sum(//bailes/baile[sala="1"]/precio)
+return 
+<baile>{$sumPrecios} </baile>
+
+
+j) Cantidad de plazas en total oferta el profesor "Jesus Lozano".
+
+for $baile in //bailes
+let $sumPlazas := sum(//bailes/baile[profesor="Jesus Lozano"]/plazas)
+return 
+<baile>{$sumPlazas} </baile>
+
+
+k) Dinero que ganaría la profesora "Laura Mendiola" 
+si se completaran todas las plazas de su
+baile, sabiendo que sólo tiene un baile.
+
+
+for $baile in //bailes
+let $plazas := sum(//bailes/baile[profesor="Laura Mendiola"]/plazas)
+let $dinero := sum(//bailes/baile[profesor="Laura Mendiola"]/precio)
+return 
+<baile>{$plazas * $dinero} </baile>
+
+
+l) Dinero que ganaría el profesor "Jesus Lozano" si se completaran todas las plazas de su baile,
+mostrando el beneficio de cada baile por separado.
+
+
+for $baile in //bailes/baile[profesor="Jesus Lozano"]/plazas
+let $plazas := sum($baile)
+let $dinero := sum($baile/../precio)
+return 
+<baile>{$plazas * $dinero} </baile>
+
+m) Dinero que ganaría la profesora "Laura" 
+(sin indicar su apellido) si se completaran todas las
+plazas de su baile.
+
+
+for $profesor in //bailes/baile/profesor
+let $plazas := sum(//bailes/baile[profesor=contains($profesor,"Laura")]/plazas)
+return 
+<baile>{$plazas} </baile>
+
+n) Nombre del baile, su precio y el precio con un descuento del 15% para familias numerosas,
+ordenados por el nombre del baile
+o) Todos los datos de cada baile excepto la fecha de comienzo y de fin.
+p) En una tabla de HTML, los nombres de los bailes y su profesor, cada uno en una fila
+	
+	
