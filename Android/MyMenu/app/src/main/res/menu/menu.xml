@@ -1,6 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-    <menu xmlns:android="http://schemas.android.com/apk/res/android" >
-        <item android:id="@+id/MnOp1" android:title="Opción de menú A"></item>
-        <item android:id="@+id/MnOp2" android:title="Opción de menú B"></item>
-        <item android:id="@+id/MnOp3" android:title="Opción de menú C"></item>
-    </menu>

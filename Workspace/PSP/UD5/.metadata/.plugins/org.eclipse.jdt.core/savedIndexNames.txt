@@ -1,4 +1,0 @@
-INDEX VERSION 1.131+D:\Documentos\DAM2_DUAL\Workspace\PSP\UD5\.metadata\.plugins\org.eclipse.jdt.core
-2139001105.index
-1865797976.index
-1768291310.index

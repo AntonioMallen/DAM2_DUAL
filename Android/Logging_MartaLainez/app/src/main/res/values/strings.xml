@@ -1,8 +1,0 @@
-<resources>
-    <string name="app_name">Logging_MartaLainez</string>
-    <string-array name="usuarios">
-        <item>Otro</item>
-        <item>Estudiante</item>
-        <item>Profesor</item>
-    </string-array>
-</resources>

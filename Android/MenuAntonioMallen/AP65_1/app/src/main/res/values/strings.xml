@@ -1,9 +1,0 @@
-<resources>
-    <string name="app_name">AP65_1</string>
-    <string name="opcion1">Opcion1</string>
-    <string name="opcion2">Opcion2</string>
-    <string name="opcion3">Opcion3</string>
-    <string name="llamar">Llamando</string>
-    <string name="cam">Activando Camara</string>
-
-</resources>
