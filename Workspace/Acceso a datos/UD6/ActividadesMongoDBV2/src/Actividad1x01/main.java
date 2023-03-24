@@ -56,8 +56,6 @@ public class main {
 				default:
 					System.out.println("La opcion de menu debe estar comprendida entre 0 y 6.");
 				}
-			} catch (RuntimeException e1) {
-				e1.printStackTrace();
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
@@ -150,7 +148,6 @@ public class main {
 			}
 			int numPaginas = Teclado.leerEntero("Dime el numero de paginas");
 			libro=new Libro(codigo,titulo,autor,agno,genero,partes,numPaginas,personajes);
-			AccesoDatos.insertar(libro);
 			int num=AccesoDatos.actualizar(libro);
 			if(num==0) {
 				System.out.println("No se ha podido actualizar el libro de la base de datos.");

@@ -12,7 +12,8 @@ public class main {
 		
 		
 		num_columnas=5;
-		num_filas=(palabra.length()/num_columnas)+1;
+		double resultado = Math.ceil(((double)(palabra.length())/num_columnas));
+		num_filas=(int)resultado;
 		tabla=new String[num_filas][num_columnas];
 		
 		
@@ -28,25 +29,22 @@ public class main {
 		String salida="";
 		int contador=0;
 		for(int i =0;i<num_filas && contador!= palabra.length();i++) {
-			System.out.println("-");
+			
 			for(int j =0;j<num_columnas && contador!= palabra.length();j++) {
 				tabla[i][j]=palabra.charAt(contador)+"";
 				contador++;
-				System.out.println(tabla[i][j]);
 			}
 		}
 		contador=0;
 		for(int i =0;i<num_columnas && contador!= palabra.length();i++) {
-			System.out.println("-");
+			
 			for(int j =0;j<num_filas && contador!= palabra.length();j++) {
 				salida+=tabla[j][i];
-				//System.out.println(salida);
 				contador++;
 			}
 		}
-		String aux=salida.replace("null", "");
-		System.out.println(aux);
-		return aux;
+		
+		return salida;
 	}
 	
 }

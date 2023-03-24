@@ -42,7 +42,8 @@ public class AccesoDatos {
 			libros.insertOne(libro);
 			return true;
 		}finally {
-			cliente.close();
+			if(cliente!=null)
+				cliente.close();
 		}
 	}
 
@@ -65,7 +66,8 @@ public class AccesoDatos {
 			}
 
 		}finally {
-			cliente.close();
+			if(cliente!=null)
+				cliente.close();
 		}
 		return librosArray;
 	}
@@ -102,16 +104,17 @@ public class AccesoDatos {
 					set("autor", libro.getAutor()),
 					set("agno", libro.getAgno()),
 					set("genero", libro.getGenero()));
-					set("partes", libro.getPartes());
-					set("numero_paginas", libro.getNumero_paginas());
-					set("personajes", libro.getPersonajes());
-				
-			UpdateResult resultado = libros.updateOne(filtro, modificaciones);
+			set("partes", libro.getPartes());
+			set("numero_paginas", libro.getNumero_paginas());
+			set("personajes", libro.getPersonajes());
+
+			UpdateResult resultado = libros.updateMany(filtro, modificaciones);
 			long librosActualizados = resultado.getModifiedCount();
 			return (int)librosActualizados;
 
 		}finally {
-			cliente.close();
+			if(cliente!=null)
+				cliente.close();
 		}
 	}
 
@@ -120,11 +123,12 @@ public class AccesoDatos {
 		try {
 			MongoDatabase bd = cliente.getDatabase("biblioteca");
 			MongoCollection<Document> amigos = bd.getCollection("libros");
-			DeleteResult resultado = amigos.deleteOne(eq("codigo", codigo));
+			DeleteResult resultado = amigos.deleteMany(eq("codigo", codigo));
 			long librosEliminados = resultado.getDeletedCount();
 			return (int)librosEliminados;
 		}finally {
-			cliente.close();
+			if(cliente!=null)
+				cliente.close();
 		}
 
 	}

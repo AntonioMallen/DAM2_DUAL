@@ -1,5 +1,7 @@
 package transposicionColumnarClave;
 
+import java.util.Arrays;
+
 public class main {
 
 	static String[][] tabla;
@@ -9,11 +11,13 @@ public class main {
 	
 	public static void main(String[] args) {
 
-		String palabra=clave+"EJEMPLODETRANSPOSICIONCOLUMNAR".toUpperCase();
+		String palabra=clave+"EJEMPLODETRANSPOSICIONCOLUMNARd".toUpperCase();
 		
 		
 		num_columnas=clave.length();
-		num_filas=(palabra.length()/num_columnas)+1;
+		double resultado = Math.ceil(((double)(palabra.length())/num_columnas));
+	
+		num_filas=(int)resultado;
 		tabla=new String[num_filas][num_columnas];
 		
 		
@@ -27,27 +31,37 @@ public class main {
 
 	public static String cifrar(String palabra) {
 		String salida="";
+		String [] zonas = new String[num_columnas];
 		int contador=0;
 		for(int i =0;i<num_filas && contador!= palabra.length();i++) {
-			System.out.println("-");
+			
 			for(int j =0;j<num_columnas && contador!= palabra.length();j++) {
 				tabla[i][j]=palabra.charAt(contador)+"";
 				contador++;
-				System.out.println(tabla[i][j]);
+				//System.out.println(tabla[i][j]);
 			}
 		}
 		contador=0;
+		String aux="";
 		for(int i =0;i<num_columnas && contador!= palabra.length();i++) {
-			System.out.println("-");
+			
 			for(int j =0;j<num_filas && contador!= palabra.length();j++) {
-				salida+=tabla[j][i];
-				//System.out.println(salida);
+				aux+=tabla[j][i];
 				contador++;
 			}
+			zonas[i]=aux;
+			aux="";
 		}
-		String aux=salida.replace("null", "");
-		System.out.println(aux);
-		return aux;
+		
+		for(String test: zonas) {
+			System.out.println(test);
+		}
+		Arrays.sort(zonas);
+		System.out.println();
+		for(String test: zonas) {
+			System.out.println(test);
+		}
+		return salida;
 	}
 	
 }
